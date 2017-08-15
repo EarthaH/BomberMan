@@ -307,16 +307,6 @@ void Lib::specialKeys(int key, int x, int y)
         case GLUT_KEY_DOWN: // down key
             keyPressed = key;
             break;
-        case '1':
-            keyPressed = key;
-            break;
-        case '2':
-            keyPressed = key;
-            break;
-        case '3':
-            keyPressed = key;
-            break;
-            
     }
     glutPostRedisplay();
 }
@@ -327,21 +317,6 @@ void Lib::keyboard(unsigned char key, int x, int y)
     {
         case 27: // ESC key
             exit(0);
-            break;
-        case '1':
-            destroy_window();
-            std::cout << "You have selected a new library... now we just need to implement it someohow" << std::endl;
-            keyPressed = key;
-            break;
-        case '2':
-            destroy_window();
-            std::cout << "You have selected a new library... now we just need to implement it someohow" << std::endl;
-            keyPressed = key;
-            break;
-        case '3':
-            destroy_window();
-            std::cout << "You have selected a new library... now we just need to implement it someohow" << std::endl;
-            keyPressed = key;
             break;
     }
 }
