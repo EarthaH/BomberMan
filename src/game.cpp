@@ -29,11 +29,21 @@ Game::~Game()
 
 void Game::init()
 {
-    const char *libs[3] = {LIB1, LIB2, LIB3};
+    const char *libs[1] = {LIB1};
     this->_libs = libs;
+
+    map.resize(_height);
+    for (int i = 0; i < _height; ++i)
+    {
+        map[i].resize(_width);
+        map[i][0] = map[i][_width - 1] = WALL;
+    }
+    for (int i = 0; i < _width; ++i)
+        map[0][i] = map[_height - 1][i] = WALL;
 
     setLib(0);
     this->bomberman = new Bomber(1, 1);
+    this->map[1][1] = BOMBER;
 
     score = 0;
 }
@@ -49,7 +59,6 @@ void Game::start()
         if ((key = this->_library->getKey()) != ERR)
             changeDir(key);
         draw();
-        //std::this_thread::sleep_for(std::chrono::milliseconds(this->speed));
     }
 }
 
@@ -58,14 +67,7 @@ void Game::start()
 void Game::setLib(int num)
 {
     IEntity *(*lib_ptr)();
-    
-    //if (this->dl_handle)
-    //deleteLibrary();
-    //std::cout << num << " " << this->_libs[0]<< " " << 1 << " " << this->_libs[1] << " " << 2 << " " << this->_libs[2] <<std::endl;
-    std::cout << num << " Library = " << this->_libs[num] << std::endl;
-    std::cout << num << " Library = " << this->_libs[1] << std::endl;
 
-    //std::cout << num << " Library = " << this->_libs[0] << std::endl;
     this->dl_handle = dlopen(this->_libs[num], RTLD_LAZY | RTLD_LOCAL);
     if (!this->dl_handle)
         dlerror_wrapper();
@@ -74,7 +76,7 @@ void Game::setLib(int num)
         dlerror_wrapper();
         
     this->_library = lib_ptr();
-    if (!this->_library->createWindow(this->_height, this->_width))
+    if (!this->_library->createWindow(this->_height - 1, this->_width - 1))
         std::cout << "Window not created." << std::endl;
 }
 
@@ -101,7 +103,10 @@ void Game::dlerror_wrapper()
 void Game::draw()
 {
     _library->clearWindow();
-    _library->draw(bomberman->getX(), bomberman->getY(), bomberman->getCh());
+    for (int i = 0; i < _height; ++i)
+        for (int j = 0; j < _width; ++j)
+            _library->draw(j, i, map[i][j]);
+    //_library->draw(bomberman->getX(), bomberman->getY(), bomberman->getType());
         
     this->_library->refresh();
 }

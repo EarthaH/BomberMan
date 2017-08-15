@@ -10,10 +10,10 @@ class   Bomber;
 class   Game 
 {
     private:
-        int         _width;
-        int         _height;
-        IEntity     *_library;
-        const char  **_libs;
+        int                             _width;
+        int                             _height;
+        IEntity                         *_library;
+        const char                      **_libs;
 
     public:
         Game();
@@ -38,6 +38,7 @@ class   Game
         int     score;
         int     speed;
         void    *dl_handle;
+        std::vector<std::vector<int> >  map;
         
 };
 

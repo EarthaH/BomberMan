@@ -106,7 +106,7 @@ void Lib::display()
     glMatrixMode(GL_MODELVIEW);   // To operate on the model-view matrix
     glLoadIdentity();             // Reset model-view matrix
 
-    drawBorders();
+    //drawBorders();
 
     for (int i = 0; i < objectsToDraw.size(); i++)//draws whole body!!!! need one for obsticles
     {
@@ -125,34 +125,74 @@ void Lib::display()
         v3x = v0x;//1 - (1 / ((float)mapWidth / 2) * (float)(objectsToDraw.at(i).x));
         v3y = v2y;//1 - (1 / ((float)mapHeight / 2) * (float)(objectsToDraw.at(i).y));
 
-        if (objectsToDraw.at(i).c == 'b')
+        if (objectsToDraw.at(i).c == 0)
         {
             glBegin(GL_QUADS);
-	            glColor3f(0.4f, 0.4f, 0.4f);
-	            glVertex2f(v0x, v0y);
-	            glVertex2f(v1x, v1y);
-    	        glVertex2f(v2x, v2y);
-                glVertex2f(v3x, v3y);
+            glColor3f(0.0f, 0.2f, 0.0f);
+            glVertex2f(v0x, v0y);
+            glVertex2f(v1x, v1y);
+            glVertex2f(v2x, v2y);
+            glVertex2f(v3x, v3y);
 	        glEnd();
         }
-        if (objectsToDraw.at(i).c == 'o')
+        if (objectsToDraw.at(i).c == 1)
         {
             glBegin(GL_QUADS);
-	            glColor3f(0.58f, 0.58f, 0.58f);
-	            glVertex2f(v0x, v0y);
-	            glVertex2f(v1x, v1y);
-    	        glVertex2f(v2x, v2y);
-                glVertex2f(v3x, v3y);
+            glColor3f(0.4f, 0.4f, 0.4f);
+            glVertex2f(v0x, v0y);
+            glVertex2f(v1x, v1y);
+            glVertex2f(v2x, v2y);
+            glVertex2f(v3x, v3y);
+	        glEnd();
+        }
+        if (objectsToDraw.at(i).c == 2)
+        {
+            glBegin(GL_QUADS);
+            glColor3f(0.58f, 0.58f, 0.58f);
+            glVertex2f(v0x, v0y);
+            glVertex2f(v1x, v1y);
+            glVertex2f(v2x, v2y);
+            glVertex2f(v3x, v3y);
 	        glEnd();    
         }
-        if (objectsToDraw.at(i).c == '*')
+        if (objectsToDraw.at(i).c == 3)
         {
             glBegin(GL_QUADS);
-	            glColor3f(0.2f, 0.2f, 0.2f);
-	            glVertex2f(v0x, v0y);
-	            glVertex2f(v1x, v1y);
-    	        glVertex2f(v2x, v2y);
-                glVertex2f(v3x, v3y);
+            glColor3f(0.2f, 0.2f, 0.2f);
+            glVertex2f(v0x, v0y);
+            glVertex2f(v1x, v1y);
+            glVertex2f(v2x, v2y);
+            glVertex2f(v3x, v3y);
+	        glEnd();
+        }
+        if (objectsToDraw.at(i).c == 4)
+        {
+            glBegin(GL_QUADS);
+            glColor3f(0.7f, 0.0f, 0.0f);
+            glVertex2f(v0x, v0y);
+            glVertex2f(v1x, v1y);
+            glVertex2f(v2x, v2y);
+            glVertex2f(v3x, v3y);
+	        glEnd();
+        }
+        if (objectsToDraw.at(i).c == 5)
+        {
+            glBegin(GL_QUADS);
+            glColor3f(0.2f, 0.2f, 0.2f);
+            glVertex2f(v0x, v0y);
+            glVertex2f(v1x, v1y);
+            glVertex2f(v2x, v2y);
+            glVertex2f(v3x, v3y);
+	        glEnd();
+        }
+        if (objectsToDraw.at(i).c == 6)
+        {
+            glBegin(GL_QUADS);
+            glColor3f(0.2f, 0.2f, 0.2f);
+            glVertex2f(v0x, v0y);
+            glVertex2f(v1x, v1y);
+            glVertex2f(v2x, v2y);
+            glVertex2f(v3x, v3y);
 	        glEnd();
         }
     }
@@ -323,7 +363,7 @@ void Lib::keyboard(unsigned char key, int x, int y)
 
 void Lib::initGL()
 {
-    glClearColor(0.54, 0.705, 0.105, 1.0);
+    //glClearColor(0.54, 0.705, 0.105, 1.0);
 }
 
 Lib *createLibrary()

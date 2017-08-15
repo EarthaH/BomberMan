@@ -2,13 +2,14 @@
 
 Bomb::Bomb() : _time(3), _range(2), _active(true)
 {
-
+    this->_type = BOMB;
 }
 
 Bomb::Bomb(int x, int y) : _time(3), _range(2), _active(true)
 {
     this->_x = x;
     this->_y = y;
+    this->_type = BOMB;
 }
 
 Bomb::Bomb(Bomb const & copy)

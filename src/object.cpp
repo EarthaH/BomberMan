@@ -1,8 +1,8 @@
 #include "../includes/object.hpp"
 
-Object::Object() : _x(10), _y(10), _ch('*')
+Object::Object() : _x(10), _y(10), _type(OPEN)
 {
-    //std::cout << "Object '" << _ch << "' created at: " << _x << " " << _y << std::endl;
+
 }
 
 Object::Object(Object const & copy)
@@ -10,7 +10,7 @@ Object::Object(Object const & copy)
     *this = copy;
 }
 
-Object::Object(int x, int y, char ch) : _x(x), _y(y), _ch(ch)
+Object::Object(int x, int y, char type) : _x(x), _y(y), _type(type)
 {
 
 }
@@ -21,7 +21,7 @@ Object const & Object::operator=(Object const & copy)
     this->_y = copy._y;
     this->_oldX = copy._oldX;
     this->_oldY = copy._oldY;
-    this->_ch = copy._ch;
+    this->_type = copy._type;
     return (*this);
 }
 
@@ -50,9 +50,9 @@ int     Object::getOldY()
     return (this->_oldY);
 }
 
-char    Object::getCh()
+char    Object::getType()
 {
-    return (this->_ch);
+    return (this->_type);
 }
 
 void    Object::setX(int x)
@@ -73,9 +73,9 @@ void    Object::move(int x, int y)
     this->_y = y;
 }
 
-void    Object::init(int x, int y, char ch)
+void    Object::init(int x, int y, char type)
 {
     this->_x = x;
     this->_y = y;
-    this->_ch = ch;
+    this->_type = type;
 }

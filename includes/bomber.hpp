@@ -20,7 +20,9 @@ class   Bomber: public Man
         ~Bomber();
 
         int     getLife() const;
+        void    init(int, int);
         void    move(int);
+        void    move(int, std::vector<std::vector<int> > *);
         void    dropBomb();
         void    playerHit();
 };

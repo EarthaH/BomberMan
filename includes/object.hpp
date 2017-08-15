@@ -3,6 +3,14 @@
 
 #include <iostream>
 
+#define OPEN    0
+#define BOMBER  1
+#define BOMB    2
+#define ENEMY   3
+#define WALL    4
+#define BLOCK   5
+#define UPGRADE 6
+
 class Object
 {
     protected:
@@ -10,7 +18,7 @@ class Object
         int     _y;
         int     _oldX;
         int     _oldY;
-        char    _ch;
+        int     _type;
 
     public:
         Object();
@@ -22,7 +30,7 @@ class Object
         int     getY();
         int     getOldX();
         int     getOldY();
-        char    getCh();
+        char    getType();
         void    setX(int);
         void    setY(int);
         void    move(int, int);

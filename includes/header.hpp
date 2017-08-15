@@ -23,8 +23,6 @@
 #define DOWN 4
 
 #define LIB1 "lib1.so"
-#define LIB2 "lib2.so"
-#define LIB3 "lib3.so"
 
 bool    equal(Object &, Object &);
 bool    equal(Object &, int, int);
