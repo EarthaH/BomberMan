@@ -6,6 +6,7 @@
 class   Object;
 class   Man;
 class   Bomb;
+class   Map;
 
 class   Bomber: public Man
 {
@@ -21,8 +22,7 @@ class   Bomber: public Man
 
         int     getLife() const;
         void    init(int, int);
-        void    move(int);
-        void    move(int, std::vector<std::vector<int> > *);
+        void    move(int, Map *);
         void    dropBomb();
         void    playerHit();
 };

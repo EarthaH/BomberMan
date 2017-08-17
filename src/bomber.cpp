@@ -42,27 +42,14 @@ int     Bomber::getLife() const
     return (this->_life);
 }
 
-void    Bomber::move(int dir)
+void    Bomber::move(int dir, Map *map)
 {
     if (dir == RIGHT)
-        this->moveRight();
+        this->moveRight(map);
     else if (dir == LEFT)
-        this->moveLeft();
+        this->moveLeft(map);
     else if (dir == UP)
-        this->moveUp();
+        this->moveUp(map);
     else if (dir == DOWN)
-        this->moveDown();
-}
-
-void    Bomber::move(int dir, std::vector<std::vector<int> > *map)
-{
-    if (dir == RIGHT)
-        this->moveRight();
-    else if (dir == LEFT)
-        this->moveLeft();
-    else if (dir == UP)
-        this->moveUp();
-    else if (dir == DOWN)
-        this->moveDown();
-    (void)map;
+        this->moveDown(map);
 }

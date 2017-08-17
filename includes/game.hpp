@@ -6,6 +6,7 @@
 #include <thread>
 
 class   Bomber;
+class   Map;
 
 class   Game 
 {
@@ -34,11 +35,11 @@ class   Game
         void    dlerror_wrapper();
         void    deleteLibrary();
 
+        Map     *map;
         Bomber  *bomberman;
         int     score;
         int     speed;
         void    *dl_handle;
-        std::vector<std::vector<int> >  map;
         
 };
 

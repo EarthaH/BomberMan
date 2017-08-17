@@ -16,6 +16,7 @@
 #include "man.hpp"
 #include "bomb.hpp"
 #include "bomber.hpp"
+#include "map.hpp"
 
 #define RIGHT 1
 #define LEFT 2

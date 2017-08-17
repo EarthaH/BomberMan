@@ -2,12 +2,14 @@
 # define MAN_H
 
 #include "object.hpp"
+#include "map.hpp"
 
 #define PLAYER 0
 #define SIMPLE_ENEMY 1
 #define PLAYER_ENEMY 2
 
 class   Object;
+class   Map;
 
 class   Man: public Object
 {
@@ -30,12 +32,10 @@ class   Man: public Object
         bool    getAlive();
         void    changeDirection(int);
 
-        void    moveUp();
-        void    moveDown();
-        void    moveLeft();
-        void    moveRight();
-
-        //bool    checkBlock(int, int);
+        void    moveUp(Map *);
+        void    moveDown(Map *);
+        void    moveLeft(Map *);
+        void    moveRight(Map *);
 };
 
 #endif

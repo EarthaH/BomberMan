@@ -56,29 +56,26 @@ void    Man::changeDirection(int dir)
     this->_direction = dir;
 }
 
-void    Man::moveUp()
+void    Man::moveUp(Map *map)
 {
-    this->move(getX(), getY() - 1);
+    if (map->isOpen(getX(), getY() - 1))
+        this->move(getX(), getY() - 1);
 }
 
-void    Man::moveDown()
+void    Man::moveDown(Map *map)
 {
-    this->move(getX(), getY() + 1);
+    if (map->isOpen(getX(), getY() + 1))
+        this->move(getX(), getY() + 1);
 }
 
-void    Man::moveLeft()
+void    Man::moveLeft(Map *map)
 {
-    this->move(getX() - 1, getY());
+    if (map->isOpen(getX() - 1, getY()))
+        this->move(getX() - 1, getY());
 }
 
-void    Man::moveRight()
+void    Man::moveRight(Map *map)
 {
-    this->move(getX() + 1, getY());
+    if (map->isOpen(getX() + 1, getY()))
+        this->move(getX() + 1, getY());
 }
-
-// bool    Man::checkBlock(int x, int y)
-// {
-//     if (x == 200 || y == 200)
-//         return (false);
-//     return (true);
-// }

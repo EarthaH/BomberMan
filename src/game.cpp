@@ -32,18 +32,10 @@ void Game::init()
     const char *libs[1] = {LIB1};
     this->_libs = libs;
 
-    map.resize(_height);
-    for (int i = 0; i < _height; ++i)
-    {
-        map[i].resize(_width);
-        map[i][0] = map[i][_width - 1] = WALL;
-    }
-    for (int i = 0; i < _width; ++i)
-        map[0][i] = map[_height - 1][i] = WALL;
+    map = new Map(_height, _width);
 
     setLib(0);
     this->bomberman = new Bomber(1, 1);
-    this->map[1][1] = BOMBER;
 
     score = 0;
 }
@@ -105,7 +97,7 @@ void Game::draw()
     _library->clearWindow();
     for (int i = 0; i < _height; ++i)
         for (int j = 0; j < _width; ++j)
-            _library->draw(j, i, map[i][j]);
+            _library->draw(j, i, map->map[i][j]);
     //_library->draw(bomberman->getX(), bomberman->getY(), bomberman->getType());
         
     this->_library->refresh();
@@ -116,13 +108,14 @@ void Game::draw()
 void Game::changeDir(int key)
 {
     if (key == 103)
-        bomberman->move(DOWN);
+        bomberman->move(DOWN, map);
     else if (key == 101)
-        bomberman->move(UP);
+        bomberman->move(UP, map);
     else if (key == 100)
-        bomberman->move(LEFT);
+        bomberman->move(LEFT, map);
     else if (key == 102)
-        bomberman->move(RIGHT);
+        bomberman->move(RIGHT, map);
+    map->update(bomberman, bomberman->getType());
 }
 
 /* End game */
