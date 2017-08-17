@@ -38,6 +38,9 @@ void Map::init()
     }
     for (int i = 0; i < width; ++i)
         map[0][i] = map[height - 1][i] = WALL;
+    for (int i = 2; i < (width - 2); i += 2)
+        for (int j = 2; j < (height - 2); j += 2)
+            map[j][i] = WALL;
 
     map[1][1] = BOMBER;
 }

@@ -97,7 +97,7 @@ void Game::draw()
     _library->clearWindow();
     for (int i = 0; i < _height; ++i)
         for (int j = 0; j < _width; ++j)
-            _library->draw(j, i, map->map[i][j]);
+            _library->draw(i, j, map->map[j][i]);
     //_library->draw(bomberman->getX(), bomberman->getY(), bomberman->getType());
         
     this->_library->refresh();
