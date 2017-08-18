@@ -36,8 +36,16 @@ void Game::init()
 
     setLib(0);
     this->bomberman = new Bomber(1, 1);
+    this->enemy = new Enemy(this->map);
+    initMap();
 
     score = 0;
+}
+
+void Game::initMap()
+{
+    map->map[this->bomberman->getX()][this->bomberman->getY()] = bomberman->getType();
+    //map->map[this->enemy->getX()][this->enemy->getY()] = enemy->getType();
 }
 
 /* *** *** *** Main Loop *** *** *** */
@@ -45,11 +53,20 @@ void Game::init()
 void Game::start()
 {
     int key;
+    int enemy_movement = 0;
     
     for (;;)
     {
         if ((key = this->_library->getKey()) != ERR)
             changeDir(key);
+        if (enemy_movement == 5)
+        {
+            enemy->move(this->map);
+            map->update(enemy, enemy->getType());
+            enemy_movement = 0;
+        }
+        enemy_movement++;
+        
         draw();
     }
 }
@@ -98,7 +115,6 @@ void Game::draw()
     for (int i = 0; i < _height; ++i)
         for (int j = 0; j < _width; ++j)
             _library->draw(i, j, map->map[j][i]);
-    //_library->draw(bomberman->getX(), bomberman->getY(), bomberman->getType());
         
     this->_library->refresh();
 }
@@ -115,6 +131,7 @@ void Game::changeDir(int key)
         bomberman->move(LEFT, map);
     else if (key == 102)
         bomberman->move(RIGHT, map);
+
     map->update(bomberman, bomberman->getType());
 }
 

@@ -41,8 +41,6 @@ void Map::init()
     for (int i = 2; i < (width - 2); i += 2)
         for (int j = 2; j < (height - 2); j += 2)
             map[j][i] = WALL;
-
-    map[1][1] = BOMBER;
 }
 
 void Map::update(Object *obj, int type)

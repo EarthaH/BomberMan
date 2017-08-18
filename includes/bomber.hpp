@@ -20,7 +20,6 @@ class   Bomber: public Man
         Bomber const & operator=(Bomber const &);
         ~Bomber();
 
-        int     getLife() const;
         void    init(int, int);
         void    move(int, Map *);
         void    dropBomb();

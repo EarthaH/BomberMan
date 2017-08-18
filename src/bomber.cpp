@@ -37,11 +37,6 @@ Bomber::~Bomber()
     delete this->_bombs;
 }
 
-int     Bomber::getLife() const
-{
-    return (this->_life);
-}
-
 void    Bomber::move(int dir, Map *map)
 {
     if (dir == RIGHT)

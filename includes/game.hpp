@@ -7,6 +7,7 @@
 
 class   Bomber;
 class   Map;
+class   Enemy;
 
 class   Game 
 {
@@ -29,6 +30,7 @@ class   Game
         void    move();
         void    end();
         void    init();
+        void    initMap();
         void    draw();
         void    changeDir(int);
         void    setLib(int);
@@ -37,6 +39,7 @@ class   Game
 
         Map     *map;
         Bomber  *bomberman;
+        Enemy   *enemy;
         int     score;
         int     speed;
         void    *dl_handle;
