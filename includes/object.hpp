@@ -10,6 +10,7 @@
 #define WALL    4
 #define BLOCK   5
 #define UPGRADE 6
+#define FIRE    7
 
 class Object
 {

@@ -16,7 +16,9 @@ class   Map
         ~Map();
 
         void    init();
+        void    update(int, int, int);
         void    update(Object *, int);
+        void    clear();
         bool    isOpen(int, int);
         bool    isType(int, int, int);
 

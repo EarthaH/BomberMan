@@ -47,12 +47,13 @@ int     Bomb::type()
     return (OPEN);
 }
 
-void    Bomb::countDown()
+void    Bomb::countDown(Map *map)
 {
     if (this->_time == 0)
-        explode();
+        explode(map);
     else
         this->_time--;
+    map->update(this, type());
 }
 
 void    Bomb::activate(int x, int y)
@@ -63,8 +64,16 @@ void    Bomb::activate(int x, int y)
     this->_time = 50;
 }
 
-void    Bomb::explode()
+void    Bomb::explode(Map *map)
 {
+    for (int i = _x + 1, r = 0; r < _range && map->isOpen(i, _y); r++, i++)
+        map->update(i, _y, FIRE);
+    for (int i = _x - 1, r = 0; r < _range && map->isOpen(i, _y); r++, i--)
+        map->update(i, _y, FIRE);
+    for (int i = _y + 1, r = 0; r < _range && map->isOpen(_x, i); r++, i++)
+        map->update(_x, i, FIRE);
+    for (int i = _y - 1, r = 0; r < _range && map->isOpen(_x, i); r++, i--)
+        map->update(_x, i, FIRE);
     this->_active = false;
 }
 

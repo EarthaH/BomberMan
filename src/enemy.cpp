@@ -35,6 +35,7 @@ void    Enemy::init(int x, int y)
     setX(x);
     setY(y);
     this->_type = ENEMY;
+    this->_life = 1;
 }
 
 Enemy::~Enemy()

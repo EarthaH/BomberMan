@@ -5,6 +5,7 @@
 
 class   Game;
 class   Object;
+class   Map;
 
 class   Bomb: public Object
 {
@@ -22,9 +23,9 @@ class   Bomb: public Object
 
         int     getTime();
         int     type();
-        void    countDown();
+        void    countDown(Map *);
         void    activate(int, int);
-        void    explode();
+        void    explode(Map *);
         void    upRange();
         bool    isActive();
 };

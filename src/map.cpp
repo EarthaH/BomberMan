@@ -43,11 +43,24 @@ void Map::init()
             map[j][i] = WALL;
 }
 
+void Map::update(int x, int y, int type)
+{
+    map[y][x] = type;
+}
+
 void Map::update(Object *obj, int type)
 {
     if (isType(obj->getOldX(), obj->getOldY(), type))
         map[obj->getOldY()][obj->getOldX()] = OPEN;
     map[obj->getY()][obj->getX()] = type;
+}
+
+void Map::clear()
+{
+    for (int i = 1; i < (width - 1); i++)
+        for (int j = 1; j < (height - 1); j++)
+            if (map[j][i] == FIRE)
+                map[j][i] = OPEN;
 }
 
 bool Map::isOpen(int x, int y)

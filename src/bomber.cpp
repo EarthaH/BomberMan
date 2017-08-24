@@ -26,6 +26,7 @@ void    Bomber::init(int x, int y)
     setX(x);
     setY(y);
     this->_type = BOMBER;
+    this->_life = 1;
 
     Bomb    bomb(this->_x, this->_y);
 }

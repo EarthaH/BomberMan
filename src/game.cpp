@@ -65,6 +65,7 @@ void Game::start()
     
     for (;;)
     {
+        map->clear();
         if ((key = this->_library->getKey()) != ERR)
             changeDir(key);
         if (enemy_movement == 5)
@@ -75,10 +76,7 @@ void Game::start()
         }
         for (size_t i = 0; i < bombs->size(); i++)
             if (bombs->at(i).isActive())
-            {
-                bombs->at(i).countDown();
-                map->update(&bombs->at(i), bombs->at(i).type());
-            }
+                bombs->at(i).countDown(map);
         enemy_movement++;
         
         draw();

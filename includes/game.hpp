@@ -38,6 +38,7 @@ class   Game
         void    dlerror_wrapper();
         void    deleteLibrary();
         void    dropBomb(int, int);
+        void    clearMap();
         size_t  getBomb();
 
         Map     *map;

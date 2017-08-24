@@ -195,6 +195,16 @@ void Lib::display()
             glVertex2f(v3x, v3y);
 	        glEnd();
         }
+        if (objectsToDraw.at(i).c == 7)
+        {
+            glBegin(GL_QUADS);
+            glColor3f(0.6f, 0, 0);
+            glVertex2f(v0x, v0y);
+            glVertex2f(v1x, v1y);
+            glVertex2f(v2x, v2y);
+            glVertex2f(v3x, v3y);
+	        glEnd();
+        }
     }
     glutSwapBuffers();
 }
