@@ -23,8 +23,8 @@ Bomber const & Bomber::operator=(Bomber const & copy)
 
 void    Bomber::init(int x, int y)
 {
-    this->_x = x;
-    this->_y = y;
+    setX(x);
+    setY(y);
     this->_type = BOMBER;
     this->_bombs = new std::vector<Bomb>;
 
@@ -47,4 +47,14 @@ void    Bomber::move(int dir, Map *map)
         this->moveUp(map);
     else if (dir == DOWN)
         this->moveDown(map);
+}
+
+void    Bomber::dropBomb()
+{
+    this->_bombs->at(0).activate(this->_x, this->_y);
+}
+
+Bomb    *Bomber::getBomb()
+{
+    return (&this->_bombs->at(0));
 }

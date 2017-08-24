@@ -24,6 +24,8 @@
 #define UP 3
 #define DOWN 4
 
+#define SPACE 32
+
 #define LIB1 "lib1.so"
 
 bool    equal(Object &, Object &);

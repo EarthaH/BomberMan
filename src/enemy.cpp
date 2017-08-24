@@ -32,8 +32,8 @@ Enemy const & Enemy::operator=(Enemy const & copy)
 
 void    Enemy::init(int x, int y)
 {
-    this->_x = x;
-    this->_y = y;
+    setX(x);
+    setY(y);
     this->_type = ENEMY;
 }
 

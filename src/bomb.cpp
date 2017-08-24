@@ -1,14 +1,16 @@
 #include "../includes/bomb.hpp"
 
-Bomb::Bomb() : _time(3), _range(2), _active(true)
+Bomb::Bomb() : _time(3), _range(2), _active(false)
 {
     this->_type = BOMB;
 }
 
-Bomb::Bomb(int x, int y) : _time(3), _range(2), _active(true)
+Bomb::Bomb(int x, int y) : _time(3), _range(2), _active(false)
 {
     this->_x = x;
     this->_y = y;
+    this->_oldX = x;
+    this->_oldY = y;
     this->_type = BOMB;
 }
 
@@ -43,9 +45,11 @@ void    Bomb::countDown()
 
 }
 
-void    Bomb::activate()
+void    Bomb::activate(int x, int y)
 {
-
+    setX(x);
+    setY(y);
+    this->_active = true;
 }
 
 void    Bomb::explode()
@@ -56,4 +60,9 @@ void    Bomb::explode()
 void    Bomb::upRange()
 {
     this->_range++;
+}
+
+bool    Bomb::isActive()
+{
+    return (this->_active);
 }

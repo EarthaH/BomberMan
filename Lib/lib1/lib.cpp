@@ -358,6 +358,9 @@ void Lib::keyboard(unsigned char key, int x, int y)
         case 27: // ESC key
             exit(0);
             break;
+        case 32:
+            keyPressed = key;
+            break;
     }
 }
 

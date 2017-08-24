@@ -9,7 +9,10 @@
 #include <stdlib.h>
 #include "../../includes/IEntity.hpp"
 #include <vector>
+
 #define PI 3.14159265f ///migh tbe able to dlete this soon!!
+#define SPACE 32
+
 int window_valid = 1;
 
 typedef struct	s_objectsToDraw

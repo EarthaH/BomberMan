@@ -57,25 +57,27 @@ char    Object::getType()
 
 void    Object::setX(int x)
 {
+    this->_oldX = this->_x;
     this->_x = x;
 }
 
 void    Object::setY(int y)
 {
+    this->_oldY = this->_y;
     this->_y = y;
 }
 
 void    Object::move(int x, int y)
 {
-    this->_oldX = this->_x;
-    this->_oldY = this->_y;
-    this->_x = x;
-    this->_y = y;
+    setX(x);
+    setY(y);
 }
 
 void    Object::init(int x, int y, char type)
 {
     this->_x = x;
     this->_y = y;
+    setX(x);
+    setY(y);
     this->_type = type;
 }

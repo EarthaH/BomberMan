@@ -24,6 +24,7 @@ class   Bomber: public Man
         void    move(int, Map *);
         void    dropBomb();
         void    playerHit();
+        Bomb    *getBomb();
 };
 
 #endif

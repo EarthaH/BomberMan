@@ -8,6 +8,7 @@
 class   Bomber;
 class   Map;
 class   Enemy;
+class   Bomb;
 
 class   Game 
 {
@@ -40,6 +41,7 @@ class   Game
         Map     *map;
         Bomber  *bomberman;
         Enemy   *enemy;
+        Bomb    *bomb;
         int     score;
         int     speed;
         void    *dl_handle;

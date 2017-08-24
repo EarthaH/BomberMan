@@ -24,6 +24,10 @@ Game const &Game::operator=(Game const &copy)
 
 Game::~Game()
 {
+    delete this->bomberman;
+    delete this->enemy;
+    delete this->map;
+    delete this->bomb;
     dlclose(this->dl_handle);
 }
 
@@ -32,11 +36,12 @@ void Game::init()
     const char *libs[1] = {LIB1};
     this->_libs = libs;
 
-    map = new Map(_height, _width);
+    this->map = new Map(_height, _width);
 
     setLib(0);
     this->bomberman = new Bomber(1, 1);
     this->enemy = new Enemy(this->map);
+    this->bomb = new Bomb(1, 1);
     initMap();
 
     score = 0;
@@ -45,7 +50,6 @@ void Game::init()
 void Game::initMap()
 {
     map->map[this->bomberman->getX()][this->bomberman->getY()] = bomberman->getType();
-    //map->map[this->enemy->getX()][this->enemy->getY()] = enemy->getType();
 }
 
 /* *** *** *** Main Loop *** *** *** */
@@ -131,7 +135,11 @@ void Game::changeDir(int key)
         bomberman->move(LEFT, map);
     else if (key == 102)
         bomberman->move(RIGHT, map);
+    else if (key == SPACE)
+        bomb->activate(bomberman->getX(), bomberman->getY());
 
+    if (bomb->isActive())
+        map->update(bomb, bomb->getType());
     map->update(bomberman, bomberman->getType());
 }
 

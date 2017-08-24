@@ -22,9 +22,10 @@ class   Bomb: public Object
 
         int     getTime();
         void    countDown();
-        void    activate();
+        void    activate(int, int);
         void    explode();
         void    upRange();
+        bool    isActive();
 };
 
 #endif
