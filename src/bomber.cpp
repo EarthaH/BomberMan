@@ -17,7 +17,7 @@ Bomber::Bomber(Bomber const & copy)
 
 Bomber const & Bomber::operator=(Bomber const & copy)
 {
-    this->_bombs = copy._bombs;
+    this->_upgraded = copy._upgraded;
     return (*this);
 }
 
@@ -26,15 +26,13 @@ void    Bomber::init(int x, int y)
     setX(x);
     setY(y);
     this->_type = BOMBER;
-    this->_bombs = new std::vector<Bomb>;
 
     Bomb    bomb(this->_x, this->_y);
-    _bombs->push_back(bomb);
 }
 
 Bomber::~Bomber()
 {
-    delete this->_bombs;
+
 }
 
 void    Bomber::move(int dir, Map *map)
@@ -49,12 +47,7 @@ void    Bomber::move(int dir, Map *map)
         this->moveDown(map);
 }
 
-void    Bomber::dropBomb()
+bool    Bomber::isUpgraded()
 {
-    this->_bombs->at(0).activate(this->_x, this->_y);
-}
-
-Bomb    *Bomber::getBomb()
-{
-    return (&this->_bombs->at(0));
+    return (this->_upgraded);
 }

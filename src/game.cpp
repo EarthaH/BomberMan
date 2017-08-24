@@ -27,7 +27,7 @@ Game::~Game()
     delete this->bomberman;
     delete this->enemy;
     delete this->map;
-    delete this->bomb;
+    delete [] this->bombs;
     dlclose(this->dl_handle);
 }
 
@@ -41,7 +41,11 @@ void Game::init()
     setLib(0);
     this->bomberman = new Bomber(1, 1);
     this->enemy = new Enemy(this->map);
-    this->bomb = new Bomb(1, 1);
+    Bomb bomb(1, 1);
+    this->bombs = new std::vector<Bomb>;
+
+    bombs->push_back(bomb);
+
     initMap();
 
     score = 0;
@@ -69,6 +73,12 @@ void Game::start()
             map->update(enemy, enemy->getType());
             enemy_movement = 0;
         }
+        for (size_t i = 0; i < bombs->size(); i++)
+            if (bombs->at(i).isActive())
+            {
+                bombs->at(i).countDown();
+                map->update(&bombs->at(i), bombs->at(i).type());
+            }
         enemy_movement++;
         
         draw();
@@ -136,11 +146,25 @@ void Game::changeDir(int key)
     else if (key == 102)
         bomberman->move(RIGHT, map);
     else if (key == SPACE)
-        bomb->activate(bomberman->getX(), bomberman->getY());
+        dropBomb(bomberman->getX(), bomberman->getY());
 
-    if (bomb->isActive())
-        map->update(bomb, bomb->getType());
     map->update(bomberman, bomberman->getType());
+}
+
+void Game::dropBomb(int x, int y)
+{
+    int bomb_number = getBomb();
+
+    if (bomb_number != -1)
+        bombs->at(bomb_number).activate(x, y);
+}
+
+size_t Game::getBomb()
+{
+    for (size_t i = 0; i < bombs->size(); i++)
+        if (!bombs->at(i).isActive())
+            return (i);
+    return (-1);
 }
 
 /* End game */

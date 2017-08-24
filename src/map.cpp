@@ -45,13 +45,21 @@ void Map::init()
 
 void Map::update(Object *obj, int type)
 {
-    map[obj->getOldY()][obj->getOldX()] = OPEN;
+    if (isType(obj->getOldX(), obj->getOldY(), type))
+        map[obj->getOldY()][obj->getOldX()] = OPEN;
     map[obj->getY()][obj->getX()] = type;
 }
 
 bool Map::isOpen(int x, int y)
 {
     if (map[y][x] == OPEN || map[y][x] == UPGRADE)
+        return true;
+    return false;
+}
+
+bool Map::isType(int x, int y, int type)
+{
+    if (map[y][x] == type)
         return true;
     return false;
 }

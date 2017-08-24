@@ -18,6 +18,7 @@ class   Map
         void    init();
         void    update(Object *, int);
         bool    isOpen(int, int);
+        bool    isType(int, int, int);
 
         std::vector<std::vector<int> >  map;
         int                             width;

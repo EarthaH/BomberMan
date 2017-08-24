@@ -21,6 +21,7 @@ class   Bomb: public Object
         ~Bomb();
 
         int     getTime();
+        int     type();
         void    countDown();
         void    activate(int, int);
         void    explode();

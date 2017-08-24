@@ -11,7 +11,7 @@ class   Map;
 class   Bomber: public Man
 {
     private:
-        std::vector<Bomb>   *_bombs;
+        bool    _upgraded;
 
     public:
         Bomber();
@@ -22,9 +22,8 @@ class   Bomber: public Man
 
         void    init(int, int);
         void    move(int, Map *);
-        void    dropBomb();
         void    playerHit();
-        Bomb    *getBomb();
+        bool    isUpgraded();
 };
 
 #endif

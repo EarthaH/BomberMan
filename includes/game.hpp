@@ -37,11 +37,13 @@ class   Game
         void    setLib(int);
         void    dlerror_wrapper();
         void    deleteLibrary();
+        void    dropBomb(int, int);
+        size_t  getBomb();
 
         Map     *map;
         Bomber  *bomberman;
         Enemy   *enemy;
-        Bomb    *bomb;
+        std::vector<Bomb>   *bombs;
         int     score;
         int     speed;
         void    *dl_handle;

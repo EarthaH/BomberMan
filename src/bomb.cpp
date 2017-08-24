@@ -40,9 +40,19 @@ int     Bomb::getTime()
     return (this->_time);
 }
 
+int     Bomb::type()
+{
+    if (isActive())
+        return (BOMB);
+    return (OPEN);
+}
+
 void    Bomb::countDown()
 {
-
+    if (this->_time == 0)
+        explode();
+    else
+        this->_time--;
 }
 
 void    Bomb::activate(int x, int y)
@@ -50,11 +60,12 @@ void    Bomb::activate(int x, int y)
     setX(x);
     setY(y);
     this->_active = true;
+    this->_time = 50;
 }
 
 void    Bomb::explode()
 {
-
+    this->_active = false;
 }
 
 void    Bomb::upRange()
