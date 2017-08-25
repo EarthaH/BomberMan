@@ -58,24 +58,30 @@ void    Man::changeDirection(int dir)
 
 void    Man::moveUp(Map *map)
 {
-    if (map->isOpen(getX(), getY() - 1))
-        this->move(getX(), getY() - 1);
+    moveToBlock(map, getX(), getY() - 1);
 }
 
 void    Man::moveDown(Map *map)
 {
-    if (map->isOpen(getX(), getY() + 1))
-        this->move(getX(), getY() + 1);
+    moveToBlock(map, getX(), getY() + 1);
 }
 
 void    Man::moveLeft(Map *map)
 {
-    if (map->isOpen(getX() - 1, getY()))
-        this->move(getX() - 1, getY());
+    moveToBlock(map, getX() - 1, getY());
 }
 
 void    Man::moveRight(Map *map)
 {
-    if (map->isOpen(getX() + 1, getY()))
-        this->move(getX() + 1, getY());
+    moveToBlock(map, getX() + 1, getY());
+}
+
+void    Man::moveToBlock(Map *map, int x, int y)
+{
+    if (map->isType(x, y, WALL) || map->isType(x, y, BOMB))
+        return;
+    if ((map->isType(x, y, ENEMY) && this->_type == BOMBER) || map->isType(x, y, FIRE))
+        this->_life--;
+
+    this->move(x, y);
 }

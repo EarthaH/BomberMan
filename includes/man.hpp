@@ -36,6 +36,8 @@ class   Man: public Object
         void    moveDown(Map *);
         void    moveLeft(Map *);
         void    moveRight(Map *);
+
+        void    moveToBlock(Map *, int, int);
 };
 
 #endif

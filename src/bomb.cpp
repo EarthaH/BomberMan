@@ -44,7 +44,7 @@ int     Bomb::type()
 {
     if (isActive())
         return (BOMB);
-    return (OPEN);
+    return (FIRE);
 }
 
 void    Bomb::countDown(Map *map)

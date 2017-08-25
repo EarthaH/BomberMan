@@ -146,6 +146,8 @@ void Game::changeDir(int key)
     else if (key == SPACE)
         dropBomb(bomberman->getX(), bomberman->getY());
 
+    if (bomberman->getLife() == 0)
+        end();
     map->update(bomberman, bomberman->getType());
 }
 
@@ -169,7 +171,6 @@ size_t Game::getBomb()
 
 void Game::end()
 {
-    delete this->bomberman;
     std::cout << "Game over! Score: " << this->score << std::endl;
     exit(0);
 }
