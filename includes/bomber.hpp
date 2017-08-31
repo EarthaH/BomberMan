@@ -21,7 +21,6 @@ class   Bomber: public Man
         ~Bomber();
 
         void    init(int, int);
-        void    move(int, Map *);
         void    playerHit();
         bool    isUpgraded();
 };

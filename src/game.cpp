@@ -24,36 +24,18 @@ Game const &Game::operator=(Game const &copy)
 
 Game::~Game()
 {
-    delete this->bomberman;
-    delete this->enemy;
-    delete this->map;
-    delete [] this->bombs;
+    delete  handle;
     dlclose(this->dl_handle);
 }
 
 void Game::init()
 {
-    const char *libs[1] = {LIB1};
-    this->_libs = libs;
+    this->_lib = LIB1;
+    this->handle = new Handle(_height, _width);
 
-    this->map = new Map(_height, _width);
-
-    setLib(0);
-    this->bomberman = new Bomber(1, 1);
-    this->enemy = new Enemy(this->map);
-    Bomb bomb(1, 1);
-    this->bombs = new std::vector<Bomb>;
-
-    bombs->push_back(bomb);
-
-    initMap();
+    setLib();
 
     score = 0;
-}
-
-void Game::initMap()
-{
-    map->map[this->bomberman->getX()][this->bomberman->getY()] = bomberman->getType();
 }
 
 /* *** *** *** Main Loop *** *** *** */
@@ -65,18 +47,11 @@ void Game::start()
     
     for (;;)
     {
-        map->clear();
         if ((key = this->_library->getKey()) != ERR)
-            changeDir(key);
+            handle->checkKey(key);
         if (enemy_movement == 5)
-        {
-            enemy->move(this->map);
-            map->update(enemy, enemy->getType());
-            enemy_movement = 0;
-        }
-        for (size_t i = 0; i < bombs->size(); i++)
-            if (bombs->at(i).isActive())
-                bombs->at(i).countDown(map);
+            enemy_movement = handle->moveEnemy();
+        handle->checkBombs();
         enemy_movement++;
         
         draw();
@@ -85,11 +60,11 @@ void Game::start()
 
 /* Library handling */
 
-void Game::setLib(int num)
+void Game::setLib()
 {
     IEntity *(*lib_ptr)();
 
-    this->dl_handle = dlopen(this->_libs[num], RTLD_LAZY | RTLD_LOCAL);
+    this->dl_handle = dlopen(this->_lib, RTLD_LAZY | RTLD_LOCAL);
     if (!this->dl_handle)
         dlerror_wrapper();
     lib_ptr = (IEntity * (*)()) dlsym(dl_handle, "createLibrary");
@@ -126,45 +101,9 @@ void Game::draw()
     _library->clearWindow();
     for (int i = 0; i < _height; ++i)
         for (int j = 0; j < _width; ++j)
-            _library->draw(i, j, map->map[j][i]);
+            _library->draw(i, j, handle->map->map[j][i]);
         
     this->_library->refresh();
-}
-
-/* Move bommberman in set direction */
-
-void Game::changeDir(int key)
-{
-    if (key == 103)
-        bomberman->move(DOWN, map);
-    else if (key == 101)
-        bomberman->move(UP, map);
-    else if (key == 100)
-        bomberman->move(LEFT, map);
-    else if (key == 102)
-        bomberman->move(RIGHT, map);
-    else if (key == SPACE)
-        dropBomb(bomberman->getX(), bomberman->getY());
-
-    if (bomberman->getLife() == 0)
-        end();
-    map->update(bomberman, bomberman->getType());
-}
-
-void Game::dropBomb(int x, int y)
-{
-    int bomb_number = getBomb();
-
-    if (bomb_number != -1)
-        bombs->at(bomb_number).activate(x, y);
-}
-
-size_t Game::getBomb()
-{
-    for (size_t i = 0; i < bombs->size(); i++)
-        if (!bombs->at(i).isActive())
-            return (i);
-    return (-1);
 }
 
 /* End game */

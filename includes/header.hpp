@@ -18,6 +18,7 @@
 #include "bomber.hpp"
 #include "map.hpp"
 #include "enemy.hpp"
+#include "handle.hpp"
 
 #define RIGHT 1
 #define LEFT 2

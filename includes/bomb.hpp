@@ -23,11 +23,14 @@ class   Bomb: public Object
 
         int     getTime();
         int     type();
+        int     getRange();
         void    countDown(Map *);
         void    activate(int, int);
         void    explode(Map *);
         void    upRange();
+        void    exploded();
         bool    isActive();
+        bool    explode();
 };
 
 #endif

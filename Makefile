@@ -1,5 +1,5 @@
 FILE = src/bomber.cpp src/man.cpp src/bomb.cpp src/game.cpp src/main.cpp \
- src/object.cpp src/overflow.cpp src/map.cpp src/enemy.cpp
+ src/object.cpp src/overflow.cpp src/map.cpp src/enemy.cpp src/handle.cpp
 NAME = bomberman
 CC = g++
 CFLAGS = -Wall -Werror -Wextra

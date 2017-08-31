@@ -36,18 +36,6 @@ Bomber::~Bomber()
 
 }
 
-void    Bomber::move(int dir, Map *map)
-{
-    if (dir == RIGHT)
-        this->moveRight(map);
-    else if (dir == LEFT)
-        this->moveLeft(map);
-    else if (dir == UP)
-        this->moveUp(map);
-    else if (dir == DOWN)
-        this->moveDown(map);
-}
-
 bool    Bomber::isUpgraded()
 {
     return (this->_upgraded);

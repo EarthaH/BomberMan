@@ -47,6 +47,11 @@ int     Bomb::type()
     return (FIRE);
 }
 
+int     Bomb::getRange()
+{
+    return (this->_range);
+}
+
 void    Bomb::countDown(Map *map)
 {
     if (this->_time == 0)
@@ -75,6 +80,20 @@ void    Bomb::explode(Map *map)
     for (int i = _y - 1, r = 0; r < _range && map->isOpen(_x, i); r++, i--)
         map->update(_x, i, FIRE);
     this->_active = false;
+}
+
+void    Bomb::exploded()
+{
+    this->_active = false;
+}
+
+bool    Bomb::explode()
+{
+    if (this->_time == 0)
+        return (true);
+    this->_time--;
+
+    return (false);
 }
 
 void    Bomb::upRange()
