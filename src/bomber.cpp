@@ -36,6 +36,14 @@ Bomber::~Bomber()
 
 }
 
+void    Bomber::playerHit()
+{
+    this->_life--;
+    
+    if (this->_life == 0)
+        exit(0);
+}
+
 bool    Bomber::isUpgraded()
 {
     return (this->_upgraded);

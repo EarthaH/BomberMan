@@ -108,17 +108,26 @@ void    Handle::checkBombs()
 
 void    Handle::activeBomb(Bomb *bomb)
 {
-    for (int i = bomb->getX() + 1, r = 0; r < bomb->getRange() && map->isOpen(i, bomb->getY() ); r++, i++)
+    for (int i = bomb->getX() + 1, r = 0; r < bomb->getRange() && checkMapFire(i, bomb->getY() ); r++, i++)
         map->update(i, bomb->getY(), FIRE);
-    for (int i = bomb->getX()  - 1, r = 0; r < bomb->getRange() && map->isOpen(i, bomb->getY()); r++, i--)
+    for (int i = bomb->getX()  - 1, r = 0; r < bomb->getRange() && checkMapFire(i, bomb->getY()); r++, i--)
         map->update(i, bomb->getY(), FIRE);
-    for (int i = bomb->getY() + 1, r = 0; r < bomb->getRange() && map->isOpen(bomb->getX() , i); r++, i++)
+    for (int i = bomb->getY() + 1, r = 0; r < bomb->getRange() && checkMapFire(bomb->getX() , i); r++, i++)
         map->update(bomb->getX() , i, FIRE);
-    for (int i = bomb->getY() - 1, r = 0; r < bomb->getRange() && map->isOpen(bomb->getX() , i); r++, i--)
+    for (int i = bomb->getY() - 1, r = 0; r < bomb->getRange() && checkMapFire(bomb->getX() , i); r++, i--)
         map->update(bomb->getX() , i, FIRE);
 
     bomb->exploded();
     map->update(bomb, bomb->type());
+}
+
+bool    Handle::checkMapFire(int x, int y)
+{
+    if (map->isOpen(x, y))
+        return (true);
+    else if (map->isType(x, y, BOMBER))
+        this->bomberman->playerHit();
+    return (false);
 }
 
 bool    Handle::updateBomb(Bomb *bomb)

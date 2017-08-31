@@ -35,6 +35,7 @@ class   Handle
         void    dropBomb(int, int);
         void    activeBomb(Bomb *);
         bool    updateBomb(Bomb *);
+        bool    checkMapFire(int, int);
         size_t  getBomb();
 };
 
