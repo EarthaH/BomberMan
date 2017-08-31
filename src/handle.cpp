@@ -96,6 +96,8 @@ int     Handle::moveEnemy()
     for (size_t i = 0; i < enemies->size(); i++)
     {
         enemies->at(i).move(this->map);
+        if (map->isType(enemies->at(i).getX(), enemies->at(i).getY(), BOMBER))
+            bomberman->playerHit();
         map->update(&enemies->at(i), ENEMY);
     }
     
