@@ -7,14 +7,17 @@ Handle::Handle()
 
 Handle::Handle(int h, int w)
 {
-    Bomb    bomb(1, 1);
-
     this->map = new Map(h, w);
+
+    Bomb    bomb(1, 1);
+    Enemy   enemy(map, 0);
+
     this->bomberman = new Bomber(1, 1);
-    this->enemy = new Enemy(this->map);
+    this->enemies = new std::vector<Enemy>;
     this->bombs = new std::vector<Bomb>;
 
     bombs->push_back(bomb);
+    enemies->push_back(enemy);
 
     initMap();
 }
@@ -28,7 +31,7 @@ Handle const &Handle::operator=(Handle const &copy)
 {
     this->map = copy.map;
     this->bomberman = copy.bomberman;
-    this->enemy = copy.enemy;
+    this->enemies = copy.enemies;
     this->bombs = copy.bombs;
 
     return (*this);
@@ -37,8 +40,8 @@ Handle const &Handle::operator=(Handle const &copy)
 Handle::~Handle()
 {
     delete this->bomberman;
-    delete this->enemy;
     delete this->map;
+    delete [] this->enemies;
     delete [] this->bombs;
 }
 
@@ -90,10 +93,24 @@ size_t  Handle::getBomb()
 
 int     Handle::moveEnemy()
 {
-    enemy->move(this->map);
-    map->update(enemy, enemy->getType());
-
+    for (size_t i = 0; i < enemies->size(); i++)
+    {
+        enemies->at(i).move(this->map);
+        map->update(&enemies->at(i), ENEMY);
+    }
+    
     return (0);
+}
+
+void    Handle::killEnemy(int x, int y)
+{
+    size_t  num;
+
+    for (num = 0; num < enemies->size(); num++)
+        if (enemies->at(num).getX() == x && enemies->at(num).getY() == y)
+            break;
+    enemies->erase(enemies->begin() + num);
+    map->update(x, y, OPEN);
 }
 
 void    Handle::checkBombs()
@@ -127,6 +144,8 @@ bool    Handle::checkMapFire(int x, int y)
         return (true);
     else if (map->isType(x, y, BOMBER))
         this->bomberman->playerHit();
+    else if (map->isType(x, y, ENEMY))
+        killEnemy(x, y);
     return (false);
 }
 

@@ -23,7 +23,7 @@ class   Handle
 
         Map                 *map;
         Bomber              *bomberman;
-        Enemy               *enemy;
+        std::vector<Enemy>  *enemies;
         std::vector<Bomb>   *bombs;
 
         int     moveEnemy();
@@ -34,6 +34,7 @@ class   Handle
         void    checkBombs();
         void    dropBomb(int, int);
         void    activeBomb(Bomb *);
+        void    killEnemy(int, int);
         bool    updateBomb(Bomb *);
         bool    checkMapFire(int, int);
         size_t  getBomb();

@@ -5,7 +5,7 @@ Enemy::Enemy() : _iq(10)
 
 }
 
-Enemy::Enemy(Map *map) : _iq(10)
+Enemy::Enemy(Map *map, int num) : _iq(10), _number(num)
 {
     int     x = rand() % (map->width - 1) + 1;
     int     y = rand() % (map->height - 1) + 1;
@@ -55,4 +55,9 @@ void    Enemy::move(Map *map)
         this->moveUp(map);
     else if (this->_direction == DOWN)
         this->moveDown(map);
+}
+
+int     Enemy::getNumber()
+{
+    return (this->_number);
 }
