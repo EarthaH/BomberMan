@@ -1,8 +1,9 @@
 #include "../includes/object.hpp"
 
-Object::Object() : _x(10), _y(10), _type(OPEN)
+Object::Object() : _type(OPEN)
 {
-
+    _position.x = 10;
+    _position.y = 10;
 }
 
 Object::Object(Object const & copy)
@@ -10,17 +11,15 @@ Object::Object(Object const & copy)
     *this = copy;
 }
 
-Object::Object(int x, int y, char type) : _x(x), _y(y), _type(type)
+Object::Object(int x, int y, char type) : _type(type)
 {
-
+    _position.x = x;
+    _position.y = y;
 }
 
 Object const & Object::operator=(Object const & copy)
 {
-    this->_x = copy._x;
-    this->_y = copy._y;
-    this->_oldX = copy._oldX;
-    this->_oldY = copy._oldY;
+    this->_position = copy._position;
     this->_type = copy._type;
     return (*this);
 }
@@ -32,22 +31,22 @@ Object::~Object()
 
 int     Object::getX()
 {
-    return (this->_x);
+    return (this->_position.x);
 }
 
 int     Object::getY()
 {
-    return (this->_y);
+    return (this->_position.y);
 }
 
 int     Object::getOldX()
 {
-    return (this->_oldX);
+    return (this->_position.oldX);
 }
 
 int     Object::getOldY()
 {
-    return (this->_oldY);
+    return (this->_position.oldY);
 }
 
 char    Object::getType()
@@ -57,14 +56,14 @@ char    Object::getType()
 
 void    Object::setX(int x)
 {
-    this->_oldX = this->_x;
-    this->_x = x;
+    this->_position.oldX = this->_position.x;
+    this->_position.x = x;
 }
 
 void    Object::setY(int y)
 {
-    this->_oldY = this->_y;
-    this->_y = y;
+    this->_position.oldY = this->_position.y;
+    this->_position.y = y;
 }
 
 void    Object::move(int x, int y)
@@ -75,8 +74,8 @@ void    Object::move(int x, int y)
 
 void    Object::init(int x, int y, char type)
 {
-    this->_x = x;
-    this->_y = y;
+    this->_position.x = x;
+    this->_position.y = y;
     setX(x);
     setY(y);
     this->_type = type;

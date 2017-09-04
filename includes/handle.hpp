@@ -26,17 +26,19 @@ class   Handle
         std::vector<Enemy>  *enemies;
         std::vector<Bomb>   *bombs;
 
-        int     moveEnemy();
-        void    initMap();
-        void    checkKey(int);
-        void    moveBomber(int);
-        void    endGame();
-        void    checkBombs();
-        void    dropBomb(int, int);
-        void    activeBomb(Bomb *);
-        void    killEnemy(int, int);
-        bool    updateBomb(Bomb *);
-        bool    checkMapFire(int, int);
+        int         moveEnemy();
+        void        initMap();
+        void        checkKey(int);
+        void        moveBomber(int);
+        void        endGame();
+        void        checkBombs();
+        void        dropBomb(int, int);
+        void        activeBomb(Bomb *);
+        void        killEnemy(int, int);
+        void        placeWalls(int);
+        bool        updateBomb(Bomb *);
+        bool        checkMapFire(int, int);
+        t_position  randomPosition();
         size_t  getBomb();
 };
 

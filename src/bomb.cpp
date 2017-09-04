@@ -7,10 +7,10 @@ Bomb::Bomb() : _time(3), _range(2), _active(false)
 
 Bomb::Bomb(int x, int y) : _time(3), _range(2), _active(false)
 {
-    this->_x = x;
-    this->_y = y;
-    this->_oldX = x;
-    this->_oldY = y;
+    this->_position.x = x;
+    this->_position.y = y;
+    this->_position.oldX = x;
+    this->_position.y = y;
     this->_type = BOMB;
 }
 

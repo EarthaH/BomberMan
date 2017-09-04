@@ -17,6 +17,7 @@ class   Map
 
         void    init();
         void    update(int, int, int);
+        void    update(t_position, int);
         void    update(Object *, int);
         void    clear();
         bool    isOpen(int, int);

@@ -16,13 +16,12 @@ class   Enemy: public Man
 
     public:
         Enemy();
-        Enemy(Map *, int);
+        Enemy(t_position, int);
         Enemy(Enemy const &);
         Enemy const & operator=(Enemy const &);
         ~Enemy();
 
         int     getNumber();
-        void    init(int, int);
         void    move(Map *);
 };
 

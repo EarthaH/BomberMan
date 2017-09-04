@@ -28,7 +28,7 @@ void    Bomber::init(int x, int y)
     this->_type = BOMBER;
     this->_life = 1;
 
-    Bomb    bomb(this->_x, this->_y);
+    Bomb    bomb(this->_position.x, this->_position.y);
 }
 
 Bomber::~Bomber()

@@ -5,18 +5,12 @@ Enemy::Enemy() : _iq(10)
 
 }
 
-Enemy::Enemy(Map *map, int num) : _iq(10), _number(num)
+Enemy::Enemy(t_position pos, int num) : _iq(10), _number(num)
 {
-    int     x = rand() % (map->width - 1) + 1;
-    int     y = rand() % (map->height - 1) + 1;
-
-    while (!map->isOpen(x, y))
-    {
-        x = rand() % (map->width - 1) + 1;
-        y = rand() % (map->height - 1) + 1;
-    }
-
-    init(x, y);
+    setX(pos.x);
+    setY(pos.y);
+    this->_type = ENEMY;
+    this->_life = 1;
 }
 
 Enemy::Enemy(Enemy const & copy)
@@ -28,14 +22,6 @@ Enemy const & Enemy::operator=(Enemy const & copy)
 {
     this->_iq = copy._iq;
     return (*this);
-}
-
-void    Enemy::init(int x, int y)
-{
-    setX(x);
-    setY(y);
-    this->_type = ENEMY;
-    this->_life = 1;
 }
 
 Enemy::~Enemy()

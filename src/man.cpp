@@ -8,8 +8,8 @@ Man::Man() : _type(SIMPLE_ENEMY), _life(1), _direction(1), _alive(true)
 Man::Man(int x, int y, int type) : _life(1), _direction(1), _alive(true)
 {
     _type = type;
-    this->_x = x;
-    this->_y = y;
+    this->_position.x = x;
+    this->_position.y = y;
 }
 
 Man::Man(Man const & copy)

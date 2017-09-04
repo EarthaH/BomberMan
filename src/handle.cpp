@@ -10,7 +10,7 @@ Handle::Handle(int h, int w)
     this->map = new Map(h, w);
 
     Bomb    bomb(1, 1);
-    Enemy   enemy(map, 0);
+    Enemy   enemy(randomPosition(), 0);
 
     this->bomberman = new Bomber(1, 1);
     this->enemies = new std::vector<Enemy>;
@@ -48,6 +48,7 @@ Handle::~Handle()
 void    Handle::initMap()
 {
     map->map[this->bomberman->getX()][this->bomberman->getY()] = bomberman->getType();
+    placeWalls(20);
 }
 
 void    Handle::checkKey(int key)
@@ -140,6 +141,12 @@ void    Handle::activeBomb(Bomb *bomb)
     map->update(bomb, bomb->type());
 }
 
+void    Handle::placeWalls(int num)
+{
+    for (int i = 0; i < num; i++)
+        map->update(randomPosition(), BLOCK);
+}
+
 bool    Handle::checkMapFire(int x, int y)
 {
     if (map->isOpen(x, y))
@@ -163,4 +170,21 @@ bool    Handle::updateBomb(Bomb *bomb)
 void    Handle::endGame()
 {
     exit(0);
+}
+
+t_position  Handle::randomPosition()
+{
+    t_position  pos;
+    int     x = rand() % (map->width - 1) + 1;
+    int     y = rand() % (map->height - 1) + 1;
+
+    while (!map->isOpen(x, y) && (x > 2 || y > 2))
+    {
+        x = rand() % (map->width - 1) + 1;
+        y = rand() % (map->height - 1) + 1;
+    }
+    pos.x = x;
+    pos.y = y;
+
+    return (pos);
 }

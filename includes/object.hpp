@@ -12,14 +12,19 @@
 #define UPGRADE 6
 #define FIRE    7
 
+typedef struct  s_position
+{
+    int     x;
+    int     y;
+    int     oldX;
+    int     oldY;
+}       t_position;
+
 class Object
 {
     protected:
-        int     _x;
-        int     _y;
-        int     _oldX;
-        int     _oldY;
-        int     _type;
+        t_position  _position;
+        int         _type;
 
     public:
         Object();

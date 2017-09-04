@@ -48,6 +48,11 @@ void Map::update(int x, int y, int type)
     map[y][x] = type;
 }
 
+void Map::update(t_position pos, int type)
+{
+    map[pos.y][pos.x] = type;
+}
+
 void Map::update(Object *obj, int type)
 {
     if (isType(obj->getOldX(), obj->getOldY(), type))
