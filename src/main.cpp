@@ -5,8 +5,8 @@ int     y;
 
 int     main()
 {
-    x = 21;
-    y = 21;
+    x = 11;
+    y = 11;
     
     srand((unsigned)time(0));
 

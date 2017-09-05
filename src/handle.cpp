@@ -51,7 +51,7 @@ Handle::~Handle()
 void    Handle::initMap()
 {
     map->map[this->bomberman->getX()][this->bomberman->getY()] = bomberman->getType();
-    placeWalls(150);
+    placeWalls(30);
 }
 
 void    Handle::createEnemy(int num)
