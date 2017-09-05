@@ -7,10 +7,7 @@ Enemy::Enemy() : _iq(10)
 
 Enemy::Enemy(t_position pos, int num) : _iq(10), _number(num)
 {
-    setX(pos.x);
-    setY(pos.y);
-    this->_type = ENEMY;
-    this->_life = 1;
+    init(pos);
 }
 
 Enemy::Enemy(Enemy const & copy)
@@ -27,6 +24,16 @@ Enemy const & Enemy::operator=(Enemy const & copy)
 Enemy::~Enemy()
 {
 
+}
+
+void    Enemy::init(t_position pos)
+{
+    this->_position.x= pos.x;
+    this->_position.y= pos.y;
+    this->_position.oldX = pos.x;
+    this->_position.oldY = pos.y;
+    this->_type = ENEMY;
+    this->_life = 1;
 }
 
 void    Enemy::move(Map *map)

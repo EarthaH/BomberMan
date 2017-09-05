@@ -178,7 +178,7 @@ void Lib::display()
         if (objectsToDraw.at(i).c == 5)
         {
             glBegin(GL_QUADS);
-            glColor3f(0.2f, 0.2f, 0.2f);
+            glColor3f(0.2f, 0.6f, 0.2f);
             glVertex2f(v0x, v0y);
             glVertex2f(v1x, v1y);
             glVertex2f(v2x, v2y);

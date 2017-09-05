@@ -7,17 +7,18 @@ Handle::Handle()
 
 Handle::Handle(int h, int w)
 {
+    
     this->map = new Map(h, w);
 
     Bomb    bomb(1, 1);
-    Enemy   enemy(randomPosition(), 0);
 
     this->bomberman = new Bomber(1, 1);
-    this->enemies = new std::vector<Enemy>;
+    this->enemies = new std::vector<Enemy *>;
     this->bombs = new std::vector<Bomb>;
 
     bombs->push_back(bomb);
-    enemies->push_back(enemy);
+    for (int i = 0; i < 5; i++)
+        createEnemy(i);
 
     initMap();
 }
@@ -39,6 +40,8 @@ Handle const &Handle::operator=(Handle const &copy)
 
 Handle::~Handle()
 {
+    for (size_t i = 0; i < enemies->size(); i++)
+        delete enemies->at(i);
     delete this->bomberman;
     delete this->map;
     delete [] this->enemies;
@@ -48,7 +51,14 @@ Handle::~Handle()
 void    Handle::initMap()
 {
     map->map[this->bomberman->getX()][this->bomberman->getY()] = bomberman->getType();
-    placeWalls(20);
+    placeWalls(150);
+}
+
+void    Handle::createEnemy(int num)
+{
+    Enemy   *enemy = new Enemy(randomPosition(), num);
+
+    enemies->push_back(enemy);
 }
 
 void    Handle::checkKey(int key)
@@ -96,10 +106,10 @@ int     Handle::moveEnemy()
 {
     for (size_t i = 0; i < enemies->size(); i++)
     {
-        enemies->at(i).move(this->map);
-        if (map->isType(enemies->at(i).getX(), enemies->at(i).getY(), BOMBER))
+        enemies->at(i)->move(this->map);
+        if (map->isType(enemies->at(i)->getX(), enemies->at(i)->getY(), BOMBER))
             bomberman->playerHit();
-        map->update(&enemies->at(i), ENEMY);
+        map->update(enemies->at(i), ENEMY);
     }
     
     return (0);
@@ -110,7 +120,7 @@ void    Handle::killEnemy(int x, int y)
     size_t  num;
 
     for (num = 0; num < enemies->size(); num++)
-        if (enemies->at(num).getX() == x && enemies->at(num).getY() == y)
+        if (enemies->at(num)->getX() == x && enemies->at(num)->getY() == y)
             break;
     enemies->erase(enemies->begin() + num);
     map->update(x, y, OPEN);
@@ -155,6 +165,8 @@ bool    Handle::checkMapFire(int x, int y)
         this->bomberman->playerHit();
     else if (map->isType(x, y, ENEMY))
         killEnemy(x, y);
+    else if (map->isType(x, y, BLOCK))
+        map->update(x, y, OPEN);
     return (false);
 }
 
@@ -175,13 +187,13 @@ void    Handle::endGame()
 t_position  Handle::randomPosition()
 {
     t_position  pos;
-    int     x = rand() % (map->width - 1) + 1;
-    int     y = rand() % (map->height - 1) + 1;
+    int     x = 0;
+    int     y = 0;
 
-    while (!map->isOpen(x, y) && (x > 2 || y > 2))
+    while (!map->blockStart(x, y))
     {
-        x = rand() % (map->width - 1) + 1;
-        y = rand() % (map->height - 1) + 1;
+        x = rand() % (map->width - 2) + 1;
+        y = rand() % (map->height - 2) + 1;
     }
     pos.x = x;
     pos.y = y;

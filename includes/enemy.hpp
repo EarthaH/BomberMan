@@ -22,6 +22,7 @@ class   Enemy: public Man
         ~Enemy();
 
         int     getNumber();
+        void    init(t_position);
         void    move(Map *);
 };
 

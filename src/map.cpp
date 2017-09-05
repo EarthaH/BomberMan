@@ -81,3 +81,10 @@ bool Map::isType(int x, int y, int type)
         return true;
     return false;
 }
+
+bool Map::blockStart(int x, int y)
+{
+    if ((x == 2 && y == 1) || (x == 1 && y == 2) || (x == 0 && y == 0))
+        return (false);
+    return (isOpen(x, y));
+}

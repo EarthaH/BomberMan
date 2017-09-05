@@ -21,10 +21,10 @@ class   Handle
         Handle const & operator=(Handle const &);
         ~Handle();
 
-        Map                 *map;
-        Bomber              *bomberman;
-        std::vector<Enemy>  *enemies;
-        std::vector<Bomb>   *bombs;
+        Map                     *map;
+        Bomber                  *bomberman;
+        std::vector<Enemy *>    *enemies;
+        std::vector<Bomb>       *bombs;
 
         int         moveEnemy();
         void        initMap();
@@ -34,6 +34,7 @@ class   Handle
         void        checkBombs();
         void        dropBomb(int, int);
         void        activeBomb(Bomb *);
+        void        createEnemy(int);
         void        killEnemy(int, int);
         void        placeWalls(int);
         bool        updateBomb(Bomb *);

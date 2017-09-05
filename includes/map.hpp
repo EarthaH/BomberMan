@@ -22,6 +22,7 @@ class   Map
         void    clear();
         bool    isOpen(int, int);
         bool    isType(int, int, int);
+        bool    blockStart(int, int);
 
         std::vector<std::vector<int> >  map;
         int                             width;

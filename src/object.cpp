@@ -2,8 +2,8 @@
 
 Object::Object() : _type(OPEN)
 {
-    _position.x = 10;
-    _position.y = 10;
+    //_position.x = 10;
+    //_position.y = 10;
 }
 
 Object::Object(Object const & copy)

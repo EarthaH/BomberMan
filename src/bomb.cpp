@@ -10,7 +10,7 @@ Bomb::Bomb(int x, int y) : _time(3), _range(2), _active(false)
     this->_position.x = x;
     this->_position.y = y;
     this->_position.oldX = x;
-    this->_position.y = y;
+    this->_position.oldY = y;
     this->_type = BOMB;
 }
 
@@ -57,7 +57,7 @@ void    Bomb::activate(int x, int y)
     setX(x);
     setY(y);
     this->_active = true;
-    this->_time = 50;
+    this->_time = 30;
 }
 
 void    Bomb::exploded()
