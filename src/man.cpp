@@ -78,7 +78,7 @@ void    Man::moveRight(Map *map)
 
 void    Man::moveToBlock(Map *map, int x, int y)
 {
-    if (map->isType(x, y, WALL) || map->isType(x, y, BOMB) || map->isType(x, y, BLOCK))
+    if (map->isType(x, y, WALL) || map->isType(x, y, BOMB) || map->isType(x, y, BLOCK) || map->getType(x, y) > 9)
         return;
     if ((map->isType(x, y, ENEMY) && this->_type == BOMBER) || map->isType(x, y, FIRE))
         this->_life--;

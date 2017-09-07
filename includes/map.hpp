@@ -15,6 +15,7 @@ class   Map
         Map const & operator=(Map const &);
         ~Map();
 
+        int     getType(int, int);
         void    init();
         void    update(int, int, int);
         void    update(t_position, int);

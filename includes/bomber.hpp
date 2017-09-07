@@ -11,6 +11,7 @@ class   Map;
 class   Bomber: public Man
 {
     private:
+        int     _range;
         bool    _upgraded;
 
     public:
@@ -20,8 +21,11 @@ class   Bomber: public Man
         Bomber const & operator=(Bomber const &);
         ~Bomber();
 
+        int     getRange();
+        void    upgradeRange();
         void    init(int, int);
         void    playerHit();
+        void    upgradeLife();
         bool    isUpgraded();
 };
 

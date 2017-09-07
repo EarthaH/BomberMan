@@ -1,11 +1,11 @@
 #include "../includes/bomb.hpp"
 
-Bomb::Bomb() : _time(3), _range(2), _active(false)
+Bomb::Bomb() : _time(3), _active(false)
 {
     this->_type = BOMB;
 }
 
-Bomb::Bomb(int x, int y) : _time(3), _range(2), _active(false)
+Bomb::Bomb(int x, int y) : _time(3), _active(false)
 {
     this->_position.x = x;
     this->_position.y = y;
@@ -17,14 +17,12 @@ Bomb::Bomb(int x, int y) : _time(3), _range(2), _active(false)
 Bomb::Bomb(Bomb const & copy)
 {
     this->_time = copy._time;
-    this->_range = copy._range;
     this->_active = copy._active;
 }
 
 Bomb const & Bomb::operator=(Bomb const & copy)
 {
     this->_time = copy._time;
-    this->_range = copy._range;
     this->_active = copy._active;
 
     return (copy);
@@ -47,11 +45,6 @@ int     Bomb::type()
     return (FIRE);
 }
 
-int     Bomb::getRange()
-{
-    return (this->_range);
-}
-
 void    Bomb::activate(int x, int y)
 {
     setX(x);
@@ -72,11 +65,6 @@ bool    Bomb::explode()
     this->_time--;
 
     return (false);
-}
-
-void    Bomb::upRange()
-{
-    this->_range++;
 }
 
 bool    Bomb::isActive()

@@ -28,6 +28,11 @@ Map::~Map()
 
 }
 
+int  Map::getType(int x, int y)
+{
+    return (map[y][x]);
+}
+
 void Map::init()
 {
     map.resize(height);
@@ -70,7 +75,7 @@ void Map::clear()
 
 bool Map::isOpen(int x, int y)
 {
-    if (map[y][x] == OPEN || map[y][x] == UPGRADE)
+    if (map[y][x] == OPEN)
         return true;
     return false;
 }

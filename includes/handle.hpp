@@ -24,7 +24,7 @@ class   Handle
         Map                     *map;
         Bomber                  *bomberman;
         std::vector<Enemy *>    *enemies;
-        std::vector<Bomb>       *bombs;
+        std::vector<Bomb *>     *bombs;
 
         int         moveEnemy();
         void        initMap();
@@ -32,11 +32,13 @@ class   Handle
         void        moveBomber(int);
         void        endGame();
         void        checkBombs();
+        void        checkUpgrades();
         void        dropBomb(int, int);
         void        activeBomb(Bomb *);
         void        createEnemy(int);
         void        killEnemy(int, int);
         void        placeWalls(int);
+        void        placeUpgrades(int);
         bool        updateBomb(Bomb *);
         bool        checkMapFire(int, int);
         t_position  randomPosition();

@@ -11,7 +11,6 @@ class   Bomb: public Object
 {
     private:
         int     _time;
-        int     _range;
         bool    _active;
 
     public:
@@ -23,9 +22,7 @@ class   Bomb: public Object
 
         int     getTime();
         int     type();
-        int     getRange();
         void    activate(int, int);
-        void    upRange();
         void    exploded();
         bool    isActive();
         bool    explode();

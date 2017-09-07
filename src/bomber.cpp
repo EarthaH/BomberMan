@@ -1,11 +1,11 @@
 #include "../includes/bomber.hpp"
 
-Bomber::Bomber()
+Bomber::Bomber() : _range(2)
 {
     init(1, 1);
 }
 
-Bomber::Bomber(int x, int y)
+Bomber::Bomber(int x, int y) : _range(2)
 {
     init(x, y);
 }
@@ -18,7 +18,18 @@ Bomber::Bomber(Bomber const & copy)
 Bomber const & Bomber::operator=(Bomber const & copy)
 {
     this->_upgraded = copy._upgraded;
+    this->_range = copy._range;
     return (*this);
+}
+
+int     Bomber::getRange()
+{
+    return (this->_range);
+}
+
+void    Bomber::upgradeRange()
+{
+    this->_range++;
 }
 
 void    Bomber::init(int x, int y)
@@ -42,6 +53,11 @@ void    Bomber::playerHit()
     
     if (this->_life == 0)
         exit(0);
+}
+
+void    Bomber::upgradeLife()
+{
+    this->_life++;
 }
 
 bool    Bomber::isUpgraded()

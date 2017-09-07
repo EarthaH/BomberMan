@@ -10,11 +10,11 @@ Handle::Handle(int h, int w)
     
     this->map = new Map(h, w);
 
-    Bomb    bomb(1, 1);
+    Bomb    *bomb = new Bomb(1, 1);
 
     this->bomberman = new Bomber(1, 1);
     this->enemies = new std::vector<Enemy *>;
-    this->bombs = new std::vector<Bomb>;
+    this->bombs = new std::vector<Bomb *>;
 
     bombs->push_back(bomb);
     for (int i = 0; i < 5; i++)
@@ -42,6 +42,8 @@ Handle::~Handle()
 {
     for (size_t i = 0; i < enemies->size(); i++)
         delete enemies->at(i);
+    for (size_t i = 0; i < bombs->size(); i++)
+        delete bombs->at(i);
     delete this->bomberman;
     delete this->map;
     delete [] this->enemies;
@@ -51,7 +53,8 @@ Handle::~Handle()
 void    Handle::initMap()
 {
     map->map[this->bomberman->getX()][this->bomberman->getY()] = bomberman->getType();
-    placeWalls(30);
+    placeUpgrades(5);
+    placeWalls(15);
 }
 
 void    Handle::createEnemy(int num)
@@ -83,21 +86,22 @@ void    Handle::moveBomber(int key)
     if (bomberman->getLife() == 0)
         endGame();
     
+    checkUpgrades();
     map->update(bomberman, bomberman->getType());
 }
 
 void    Handle::dropBomb(int x, int y)
 {
     int bomb_number = getBomb();
-
+    
     if (bomb_number != -1)
-        bombs->at(bomb_number).activate(x, y);
+        bombs->at(bomb_number)->activate(x, y);
 }
 
 size_t  Handle::getBomb()
 {
     for (size_t i = 0; i < bombs->size(); i++)
-        if (!bombs->at(i).isActive())
+        if (!bombs->at(i)->isActive())
             return (i);
     return (-1);
 }
@@ -127,24 +131,39 @@ void    Handle::killEnemy(int x, int y)
 }
 
 void    Handle::checkBombs()
-{
+{    
     map->clear();
 
     for (size_t i = 0; i < bombs->size(); i++)
-        if (updateBomb(&bombs->at(i)))
-            if (bombs->at(i).explode())
-                activeBomb(&bombs->at(i));
+        if (updateBomb(bombs->at(i)))
+            if (bombs->at(i)->explode())
+                activeBomb(bombs->at(i));
+}
+
+void    Handle::checkUpgrades()
+{
+    int     block = map->getType(bomberman->getX(), bomberman->getY());
+
+    if (block == BOMB_UPGRADE)
+    {
+        Bomb    *bomb = new Bomb(1, 1);
+        bombs->push_back(bomb);
+    }
+    else if (block == FIRE_UPGRADE)
+        bomberman->upgradeRange();
+    else if (block == LIFE_UPGRADE)
+        bomberman->upgradeLife();
 }
 
 void    Handle::activeBomb(Bomb *bomb)
 {
-    for (int i = bomb->getX() + 1, r = 0; r < bomb->getRange() && checkMapFire(i, bomb->getY() ); r++, i++)
+    for (int i = bomb->getX() + 1, r = 0; r < bomberman->getRange() && checkMapFire(i, bomb->getY() ); r++, i++)
         map->update(i, bomb->getY(), FIRE);
-    for (int i = bomb->getX()  - 1, r = 0; r < bomb->getRange() && checkMapFire(i, bomb->getY()); r++, i--)
+    for (int i = bomb->getX()  - 1, r = 0; r < bomberman->getRange() && checkMapFire(i, bomb->getY()); r++, i--)
         map->update(i, bomb->getY(), FIRE);
-    for (int i = bomb->getY() + 1, r = 0; r < bomb->getRange() && checkMapFire(bomb->getX() , i); r++, i++)
+    for (int i = bomb->getY() + 1, r = 0; r < bomberman->getRange() && checkMapFire(bomb->getX() , i); r++, i++)
         map->update(bomb->getX() , i, FIRE);
-    for (int i = bomb->getY() - 1, r = 0; r < bomb->getRange() && checkMapFire(bomb->getX() , i); r++, i--)
+    for (int i = bomb->getY() - 1, r = 0; r < bomberman->getRange() && checkMapFire(bomb->getX() , i); r++, i--)
         map->update(bomb->getX() , i, FIRE);
 
     bomb->exploded();
@@ -157,6 +176,16 @@ void    Handle::placeWalls(int num)
         map->update(randomPosition(), BLOCK);
 }
 
+void    Handle::placeUpgrades(int num)
+{
+    for (int i = 0; i < num; i++)
+    {
+        map->update(randomPosition(), LIFE_UPGRADE + BLOCK);
+        map->update(randomPosition(), BOMB_UPGRADE + BLOCK);
+        map->update(randomPosition(), FIRE_UPGRADE + BLOCK);
+    }
+}
+
 bool    Handle::checkMapFire(int x, int y)
 {
     if (map->isOpen(x, y))
@@ -167,6 +196,8 @@ bool    Handle::checkMapFire(int x, int y)
         killEnemy(x, y);
     else if (map->isType(x, y, BLOCK))
         map->update(x, y, OPEN);
+    else if (map->getType(x, y) > 9)
+        map->update(x, y, map->getType(x, y) - BLOCK);
     return (false);
 }
 
