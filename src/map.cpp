@@ -93,3 +93,10 @@ bool Map::blockStart(int x, int y)
         return (false);
     return (isOpen(x, y));
 }
+
+bool Map::isUpgrade(int x, int y)
+{
+    if (map[y][x] == FIRE_UPGRADE || map[y][x] == BOMB_UPGRADE || map[y][x] == LIFE_UPGRADE)
+        return (true);
+    return (false);
+}

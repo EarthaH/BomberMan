@@ -53,8 +53,8 @@ Handle::~Handle()
 void    Handle::initMap()
 {
     map->map[this->bomberman->getX()][this->bomberman->getY()] = bomberman->getType();
-    placeUpgrades(5);
-    placeWalls(15);
+    placeUpgrades(4);
+    placeWalls(18);
 }
 
 void    Handle::createEnemy(int num)
@@ -194,7 +194,7 @@ bool    Handle::checkMapFire(int x, int y)
         this->bomberman->playerHit();
     else if (map->isType(x, y, ENEMY))
         killEnemy(x, y);
-    else if (map->isType(x, y, BLOCK))
+    else if (map->isType(x, y, BLOCK) || map->isUpgrade(x, y))
         map->update(x, y, OPEN);
     else if (map->getType(x, y) > 9)
         map->update(x, y, map->getType(x, y) - BLOCK);
