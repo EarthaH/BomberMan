@@ -5,10 +5,10 @@ Handle::Handle()
 
 }
 
-Handle::Handle(int h, int w)
+Handle::Handle(Level *level)
 {
     
-    this->map = new Map(h, w);
+    this->map = new Map(level->getHeight(), level->getWidth());
 
     Bomb    *bomb = new Bomb(1, 1);
 
@@ -17,10 +17,10 @@ Handle::Handle(int h, int w)
     this->bombs = new std::vector<Bomb *>;
 
     bombs->push_back(bomb);
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < level->num_of_enemies; i++)
         createEnemy(i);
 
-    initMap();
+    initMap(level);
 }
 
 Handle::Handle(Handle const &copy)
@@ -46,15 +46,15 @@ Handle::~Handle()
         delete bombs->at(i);
     delete this->bomberman;
     delete this->map;
-    delete [] this->enemies;
-    delete [] this->bombs;
+    delete this->enemies;
+    delete this->bombs;
 }
 
-void    Handle::initMap()
+void    Handle::initMap(Level *level)
 {
     map->map[this->bomberman->getX()][this->bomberman->getY()] = bomberman->getType();
-    placeUpgrades(4);
-    placeWalls(18);
+    placeUpgrades(level->num_of_upgrades);
+    placeWalls(level->num_of_blocks);
 }
 
 void    Handle::createEnemy(int num)
@@ -82,9 +82,6 @@ void    Handle::moveBomber(int key)
         bomberman->moveLeft(map);
     else if (key == 102)
         bomberman->moveRight(map);
-
-    if (bomberman->getLife() == 0)
-        endGame();
     
     checkUpgrades();
     map->update(bomberman, bomberman->getType());
@@ -210,10 +207,10 @@ bool    Handle::updateBomb(Bomb *bomb)
     return (true);
 }
 
-void    Handle::endGame()
-{
-    exit(0);
-}
+// void    Handle::endGame()
+// {
+//     exit(0);
+// }
 
 t_position  Handle::randomPosition()
 {

@@ -19,6 +19,7 @@
 #include "map.hpp"
 #include "enemy.hpp"
 #include "handle.hpp"
+#include "level.hpp"
 
 #define RIGHT 1
 #define LEFT 2

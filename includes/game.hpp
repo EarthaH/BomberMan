@@ -6,24 +6,22 @@
 #include <thread>
 
 class   Handle;
+class   Level;
 
 class   Game 
 {
     private:
-        int                             _width;
-        int                             _height;
+        // int                             _width;
+        // int                             _height;
         IEntity                         *_library;
         const char                      *_lib;
 
     public:
         Game();
-        Game(int w, int h);
         Game(Game const &);
         Game const & operator=(Game const &);
         ~Game();
-        int     getWidth();
-        int     getHeight();
-        bool    blockClear();
+
         void    start();
         void    move();
         void    end();
@@ -33,12 +31,14 @@ class   Game
         void    dlerror_wrapper();
         void    deleteLibrary();
         void    clearMap();
+        bool    blockClear();
+        bool    loop();
 
         int     score;
         int     speed;
         void    *dl_handle;
         Handle  *handle;
-        
+        Level   *level;
 };
 
 #endif

@@ -5,12 +5,9 @@ int     y;
 
 int     main()
 {
-    x = 11;
-    y = 11;
-    
     srand((unsigned)time(0));
 
-    Game    *game = new Game(x, y);
+    Game    *game = new Game();
     game->start();
     delete  game;
 

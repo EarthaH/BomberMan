@@ -23,12 +23,12 @@ typedef struct	s_objectsToDraw
 }				t_objectsToDraw;
 /* *** *** *** Might need to make these in .cpp file *** *** *** */
 
-char title[] = "Bomberman Lib 1";  // Windowed mode's title
-int windowWidth  = 480;     // Windowed mode's width
-int windowHeight = 480;     // Windowed mode's height
-int windowPosX   = 0;      // Windowed mode's top-left corner x
-int windowPosY   = 0;      // Windowed mode's top-left corner y //change these depending on user input in earthas input
-int keyPressed = -1;
+char title[]        = "Bomberman Lib 1";  // Windowed mode's title
+int windowWidth     = 500;     // Windowed mode's width
+int windowHeight    = 500;     // Windowed mode's height
+int windowPosX      = 0;      // Windowed mode's top-left corner x
+int windowPosY      = 0;      // Windowed mode's top-left corner y //change these depending on user input in earthas input
+int keyPressed      = -1;
 
 int mapWidth;
 int mapHeight;
@@ -56,7 +56,7 @@ class   Lib : public IEntity
         int         getKey();
         bool        createWindow(int, int);
         void        refresh();
-        void        draw(int, int, char);
+        void        draw(int, int, int, int, char);
         void        clearWindow();
 
         static void Timer(int value);

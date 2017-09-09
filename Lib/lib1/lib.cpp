@@ -38,8 +38,7 @@ int Lib::getKey()
 bool Lib::createWindow(int height, int width)
 {
     try
-    { //might need to change all to `this->...`
-        //myInit();
+    {
         char *myargv[1];
         int myargc = 1;
         myargv[0] = strdup("./lib1");
@@ -51,13 +50,12 @@ bool Lib::createWindow(int height, int width)
         glutInitDisplayMode(GLUT_DOUBLE);               // Enable double buffered mode
         glutInitWindowSize(windowWidth, windowHeight);  // Initial window width and height
         glutInitWindowPosition(windowPosX, windowPosY); // Initial window top-left corner (x, y)
-        glutCreateWindow("Bomberman");                      // Create window with given title
+        glutCreateWindow("Bomberman");                  // Create window with given title
         glutDisplayFunc(display);                       // Register callback handler for window re-paint
         glutReshapeFunc(reshape);                       // Register callback handler for window re-shape
-                                                        // glutTimerFunc(0, Timer, 0);                     // First timer call immediately
+                                                        // glutTimerFunc(0, Timer, 0);
         glutSpecialFunc(specialKeys);                   // Register callback handler for special-key event
         glutKeyboardFunc(keyboard);                     // Register callback handler for special-key event
-        //glutFullScreen();                               // Put into full screen
         glutTimerFunc(refreshMillis, Timer, 0);
         initGL();                                       // Our own OpenGL initialization
     }
@@ -79,13 +77,15 @@ void Lib::refresh() //may be unescary
     display();
 }
 
-void Lib::draw(int x, int y, char ch) //again might not be needed
+void Lib::draw(int nheight, int nwidth, int x, int y, char ch) //again might not be needed
 {
     s_objectsToDraw     tempObject;
     tempObject.x = x;
     tempObject.y = y;
     tempObject.c = ch;
     objectsToDraw.push_back(tempObject);
+    mapWidth = nwidth;
+    mapHeight = nheight;
 }
 
 void Lib::clearWindow() //might not be needed

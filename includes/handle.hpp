@@ -9,6 +9,7 @@ class   Bomber;
 class   Map;
 class   Enemy;
 class   Bomb;
+class   Level;
 
 class   Handle 
 {
@@ -16,7 +17,7 @@ class   Handle
 
     public:
         Handle();
-        Handle(int, int);
+        Handle(Level *);
         Handle(Handle const &);
         Handle const & operator=(Handle const &);
         ~Handle();
@@ -27,10 +28,9 @@ class   Handle
         std::vector<Bomb *>     *bombs;
 
         int         moveEnemy();
-        void        initMap();
+        void        initMap(Level *);
         void        checkKey(int);
         void        moveBomber(int);
-        void        endGame();
         void        checkBombs();
         void        checkUpgrades();
         void        dropBomb(int, int);
@@ -42,7 +42,7 @@ class   Handle
         bool        updateBomb(Bomb *);
         bool        checkMapFire(int, int);
         t_position  randomPosition();
-        size_t  getBomb();
+        size_t      getBomb();
 };
 
 #endif

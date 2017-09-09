@@ -9,7 +9,7 @@ class   IEntity
         virtual int     getKey() = 0;//
         virtual bool    createWindow(int, int) = 0;//check used only once/////////done
         virtual void    refresh() = 0;//may be used to doign the loop?
-        virtual void    draw(int, int, char) = 0;//
+        virtual void    draw(int, int, int, int, char) = 0;//
         virtual void    clearWindow() = 0;//mightnot be needed
 
         //virtual void    gameLoop() = 0;
