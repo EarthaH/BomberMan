@@ -164,6 +164,8 @@ void    Handle::activeBomb(Bomb *bomb)
         map->update(bomb->getX() , i, FIRE);
 
     bomb->exploded();
+    if (bomb->getX() == bomberman->getX() && bomb->getY() == bomberman->getY())
+        bomberman->playerHit();
     map->update(bomb, bomb->type());
 }
 

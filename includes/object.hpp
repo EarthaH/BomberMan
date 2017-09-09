@@ -22,14 +22,6 @@ typedef struct  s_position
     int     oldY;
 }       t_position;
 
-// typedef struct  s_level
-// {
-//     int     level;
-//     int     num_of_enemies;
-//     int     num_of_blocks;
-//     int     num_of_upgrades;
-// }               t_level;
-
 class Object
 {
     protected:
