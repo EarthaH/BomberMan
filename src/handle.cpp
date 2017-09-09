@@ -169,6 +169,16 @@ void    Handle::activeBomb(Bomb *bomb)
     map->update(bomb, bomb->type());
 }
 
+void    Handle::findBomb(int x, int y)
+{
+    size_t  num;
+
+    for (num = 0; num < bombs->size(); num++)
+        if (bombs->at(num)->getX() == x && bombs->at(num)->getY() == y)
+            break;
+    activeBomb(bombs->at(num));
+}
+
 void    Handle::placeWalls(int num)
 {
     for (int i = 0; i < num; i++)
@@ -197,6 +207,9 @@ bool    Handle::checkMapFire(int x, int y)
         map->update(x, y, OPEN);
     else if (map->getType(x, y) > 9)
         map->update(x, y, map->getType(x, y) - BLOCK);
+    else if (map->isType(x, y, BOMB))
+        findBomb(x, y);
+
     return (false);
 }
 
@@ -208,11 +221,6 @@ bool    Handle::updateBomb(Bomb *bomb)
         return (false);
     return (true);
 }
-
-// void    Handle::endGame()
-// {
-//     exit(0);
-// }
 
 t_position  Handle::randomPosition()
 {

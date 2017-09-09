@@ -39,6 +39,7 @@ class   Handle
         void        killEnemy(int, int);
         void        placeWalls(int);
         void        placeUpgrades(int);
+        void        findBomb(int, int);
         bool        updateBomb(Bomb *);
         bool        checkMapFire(int, int);
         t_position  randomPosition();
