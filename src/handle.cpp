@@ -17,10 +17,9 @@ Handle::Handle(Level *level)
     this->bombs = new std::vector<Bomb *>;
 
     bombs->push_back(bomb);
+    initMap(level);
     for (int i = 0; i < level->num_of_enemies; i++)
         createEnemy(i);
-
-    initMap(level);
 }
 
 Handle::Handle(Handle const &copy)
@@ -181,6 +180,9 @@ void    Handle::findBomb(int x, int y)
 
 void    Handle::placeWalls(int num)
 {
+    map->update(1, 3, BLOCK);
+    map->update(3, 1, BLOCK);
+
     for (int i = 0; i < num; i++)
         map->update(randomPosition(), BLOCK);
 }
