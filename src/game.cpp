@@ -97,13 +97,11 @@ bool	Game::endLevel()
 void	Game::levelUp()
 {
 	int		current_level = level->getLevel();
-	std::cout << current_level << std::endl;
 
 	delete level;
 	delete handle;
 
 	level = new Level(current_level + 1);
-	std::cout << current_level << std::endl;	
 	handle = new Handle(level);
 }
 
