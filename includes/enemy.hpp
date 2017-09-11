@@ -3,27 +3,27 @@
 
 #include "header.hpp"
 
-class   Object;
-class   Man;
-class   Bomb;
-class   Map;
+class	Object;
+class	Man;
+class	Bomb;
+class	Map;
 
-class   Enemy: public Man
+class	Enemy: public Man
 {
-    private:
-        int     _iq;
-        int     _number;
+	private:
+		int		_iq;
+		int		_number;
 
-    public:
-        Enemy();
-        Enemy(t_position, int);
-        Enemy(Enemy const &);
-        Enemy const & operator=(Enemy const &);
-        ~Enemy();
+	public:
+		Enemy();
+		Enemy(t_position, int);
+		Enemy(Enemy const &);
+		Enemy const & operator=(Enemy const &);
+		~Enemy();
 
-        int     getNumber();
-        void    init(t_position);
-        void    move(Map *);
+		int	 getNumber();
+		void	init(t_position);
+		void	move(Map *);
 };
 
 #endif

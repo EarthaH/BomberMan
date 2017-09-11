@@ -7,23 +7,23 @@ Man::Man() : _type(SIMPLE_ENEMY), _life(1), _direction(1), _alive(true)
 
 Man::Man(int x, int y, int type) : _life(1), _direction(1), _alive(true)
 {
-    _type = type;
-    this->_position.x = x;
-    this->_position.y = y;
+	_type = type;
+	this->_position.x = x;
+	this->_position.y = y;
 }
 
 Man::Man(Man const & copy)
 {
-    *this = copy;
+	*this = copy;
 }
 
 Man const & Man::operator=(Man const & copy)
 {
-    this->_type = copy._type;
-    this->_life = copy._life;
-    this->_direction = copy._direction;
-    this->_alive = copy._alive;
-    return (*this);
+	this->_type = copy._type;
+	this->_life = copy._life;
+	this->_direction = copy._direction;
+	this->_alive = copy._alive;
+	return (*this);
 }
 
 Man::~Man()
@@ -31,57 +31,57 @@ Man::~Man()
 
 }
 
-int     Man::getType()
+int	 Man::getType()
 {
-    return (this->_type);
+	return (this->_type);
 }
 
-int     Man::getLife()
+int	 Man::getLife()
 {
-    return (this->_life);
+	return (this->_life);
 }
 
-int     Man::getDirection()
+int	 Man::getDirection()
 {
-    return (this->_direction);
+	return (this->_direction);
 }
 
-bool    Man::getAlive()
+bool	Man::getAlive()
 {
-    return (this->_alive);
+	return (this->_alive);
 }
 
-void    Man::changeDirection(int dir)
+void	Man::changeDirection(int dir)
 {
-    this->_direction = dir;
+	this->_direction = dir;
 }
 
-void    Man::moveUp(Map *map)
+void	Man::moveUp(Map *map)
 {
-    moveToBlock(map, getX(), getY() - 1);
+	moveToBlock(map, getX(), getY() - 1);
 }
 
-void    Man::moveDown(Map *map)
+void	Man::moveDown(Map *map)
 {
-    moveToBlock(map, getX(), getY() + 1);
+	moveToBlock(map, getX(), getY() + 1);
 }
 
-void    Man::moveLeft(Map *map)
+void	Man::moveLeft(Map *map)
 {
-    moveToBlock(map, getX() - 1, getY());
+	moveToBlock(map, getX() - 1, getY());
 }
 
-void    Man::moveRight(Map *map)
+void	Man::moveRight(Map *map)
 {
-    moveToBlock(map, getX() + 1, getY());
+	moveToBlock(map, getX() + 1, getY());
 }
 
-void    Man::moveToBlock(Map *map, int x, int y)
+void	Man::moveToBlock(Map *map, int x, int y)
 {
-    if (map->isType(x, y, WALL) || map->isType(x, y, BOMB) || map->isType(x, y, BLOCK) || map->getType(x, y) > 9)
-        return;
-    if ((map->isType(x, y, ENEMY) && this->_type == BOMBER) || map->isType(x, y, FIRE))
-        this->_life--;
+	if (map->isType(x, y, WALL) || map->isType(x, y, BOMB) || map->isType(x, y, BLOCK) || map->getType(x, y) > 11)
+		return;
+	if ((map->isType(x, y, ENEMY) && this->_type == BOMBER) || map->isType(x, y, FIRE))
+		this->_life--;
 
-    this->move(x, y);
+	this->move(x, y);
 }

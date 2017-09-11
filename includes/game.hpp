@@ -10,35 +10,39 @@ class   Level;
 
 class   Game 
 {
-    private:
-        // int                             _width;
-        // int                             _height;
-        IEntity                         *_library;
-        const char                      *_lib;
+	private:
+		// int							 _width;
+		// int							 _height;
+		IEntity			*_library;
+		const char		*_lib;
 
-    public:
-        Game();
-        Game(Game const &);
-        Game const & operator=(Game const &);
-        ~Game();
+	public:
+		Game();
+		Game(Game const &);
+		Game const & operator=(Game const &);
+		~Game();
 
-        void    start();
-        void    move();
-        void    end();
-        void    init();
-        void    draw();
-        void    setLib();
-        void    dlerror_wrapper();
-        void    deleteLibrary();
-        void    clearMap();
-        bool    blockClear();
-        bool    loop();
-
-        int     score;
-        int     speed;
-        void    *dl_handle;
-        Handle  *handle;
-        Level   *level;
+		int		loop();
+		void	start();
+		void	move();
+		void	end();
+		void	init();
+		void	draw();
+		void	setLib();
+		void	dlerror_wrapper();
+		void	deleteLibrary();
+		void	clearMap();
+		void	levelUp();
+		void	levelDown();
+		
+		bool	blockClear();
+		bool	endLevel();
+		
+		int		score;
+		int		speed;
+		void	*dl_handle;
+		Handle  *handle;
+		Level   *level;
 };
 
 #endif

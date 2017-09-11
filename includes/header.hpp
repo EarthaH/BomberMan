@@ -30,7 +30,7 @@
 
 #define LIB1 "lib1.so"
 
-bool    equal(Object &, Object &);
-bool    equal(Object &, int, int);
+bool	equal(Object &, Object &);
+bool	equal(Object &, int, int);
 
 #endif

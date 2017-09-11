@@ -5,7 +5,7 @@
 #include <GLUT/glut.h>
 
 #include <iostream>
-#include <Math.h>     // Needed for sin, cos.. so could possibly delete
+#include <Math.h>	 // Needed for sin, cos.. so could possibly delete
 #include <stdlib.h>
 #include "../../includes/IEntity.hpp"
 #include <vector>
@@ -17,18 +17,18 @@ int window_valid = 1;
 
 typedef struct	s_objectsToDraw
 {
-	int         x;
-    int         y;
-    char        c;
+	int		 x;
+	int		 y;
+	char		c;
 }				t_objectsToDraw;
 /* *** *** *** Might need to make these in .cpp file *** *** *** */
 
-char title[]        = "Bomberman Lib 1";  // Windowed mode's title
-int windowWidth     = 500;     // Windowed mode's width
-int windowHeight    = 500;     // Windowed mode's height
-int windowPosX      = 0;      // Windowed mode's top-left corner x
-int windowPosY      = 0;      // Windowed mode's top-left corner y //change these depending on user input in earthas input
-int keyPressed      = -1;
+char title[]		= "Bomberman Lib 1";  // Windowed mode's title
+int windowWidth	 = 500;	 // Windowed mode's width
+int windowHeight	= 500;	 // Windowed mode's height
+int windowPosX	  = 0;	  // Windowed mode's top-left corner x
+int windowPosY	  = 0;	  // Windowed mode's top-left corner y //change these depending on user input in earthas input
+int keyPressed	  = -1;
 
 int mapWidth;
 int mapHeight;
@@ -44,36 +44,36 @@ bool fullScreenMode = false;
 
 class   Lib : public IEntity
 {
-    private:
-        int             _number;
-        
-    public:
-        Lib();
-        Lib(Lib const &);
-        Lib const & operator=(Lib const &);
-        ~Lib();
-        int         getNumber();
-        int         getKey();
-        bool        createWindow(int, int);
-        void        refresh();
-        void        draw(int, int, int, int, char);
-        void        clearWindow();
+	private:
+		int			 _number;
+		
+	public:
+		Lib();
+		Lib(Lib const &);
+		Lib const & operator=(Lib const &);
+		~Lib();
+		int		 getNumber();
+		int		 getKey();
+		bool		createWindow(int, int);
+		void		refresh();
+		void		draw(int, int, int, int, char);
+		void		clearWindow();
 
-        static void Timer(int value);
+		static void Timer(int value);
 
-        static void			display();
-        static void			reshape(GLsizei width, GLsizei height);
-        static void			specialKeys(int key, int x, int y);
-        static void			keyboard(unsigned char key, int x, int y);
-        void				initGL();
-        static void         drawBorders();
-        
+		static void			display();
+		static void			reshape(GLsizei width, GLsizei height);
+		static void			specialKeys(int key, int x, int y);
+		static void			keyboard(unsigned char key, int x, int y);
+		void				initGL();
+		static void		 drawBorders();
+		
 };
 
 extern  "C"
 {
-    Lib    *createLibrary();
-    void    deleteLibrary(Lib *library);
+	Lib	*createLibrary();
+	void	deleteLibrary(Lib *library);
 };
 
 void destroy_window();

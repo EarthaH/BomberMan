@@ -13,31 +13,31 @@ class   Map;
 
 class   Man: public Object
 {
-    protected:
-        int     _type;
-        int     _life;
-        int     _direction;
-        bool    _alive;
+	protected:
+		int		_type;
+		int		_life;
+		int		_direction;
+		bool	_alive;
 
-    public:
-        Man();
-        Man(int, int, int);
-        Man(Man const &);
-        Man const & operator=(Man const &);
-        ~Man();
+	public:
+		Man();
+		Man(int, int, int);
+		Man(Man const &);
+		Man const & operator=(Man const &);
+		~Man();
 
-        int     getType();
-        int     getLife();
-        int     getDirection();
-        bool    getAlive();
-        void    changeDirection(int);
+		int		getType();
+		int		getLife();
+		int		getDirection();
+		bool	getAlive();
+		void	changeDirection(int);
 
-        void    moveUp(Map *);
-        void    moveDown(Map *);
-        void    moveLeft(Map *);
-        void    moveRight(Map *);
+		void	moveUp(Map *);
+		void	moveDown(Map *);
+		void	moveLeft(Map *);
+		void	moveRight(Map *);
 
-        void    moveToBlock(Map *, int, int);
+		void	moveToBlock(Map *, int, int);
 };
 
 #endif

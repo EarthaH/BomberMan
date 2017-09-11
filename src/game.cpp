@@ -30,7 +30,7 @@ Game::~Game()
 	dlclose(this->dl_handle);
 }
 
-void Game::init()
+void	Game::init()
 {
 	this->_lib = LIB1;
 	this->level = new Level();
@@ -43,31 +43,32 @@ void Game::init()
 
 /* *** *** *** Main Loop *** *** *** */
 
-void Game::start()
+void	Game::start()
 {
-	for (int i = 2; loop() && i < 5; i++)
-	{
-		delete level;
-		delete handle;
+	int		change;
 
-		std::cout << "Creating new level!\n";
-		level = new Level(i);
-		std::cout << "Creating new Handle!\n";
-		handle = new Handle(level);
-		std::cout << "Level: " << level->getLevel() << std::endl;
+	while ((change = loop()) != 0) 
+	{
+		if (change == LEVEL_UP)
+			levelUp();
+		else if (change == LEVEL_DOWN)
+			levelDown();
 	}
+
 	end();
 }
 
-bool Game::loop()
+int		Game::loop()
 {
-	int key;
-	int enemy_movement = 0;
+	int		key;
+	int		change_level = 0;
+	int		enemy_movement = 0;
+	bool	complete = false;
 
 	for (;;)
 	{
 		if ((key = this->_library->getKey()) != ERR)
-			handle->checkKey(key);
+			change_level = handle->checkKey(key);
 		if (enemy_movement == 5)
 			enemy_movement = handle->moveEnemy();
 		handle->checkBombs();
@@ -75,15 +76,51 @@ bool Game::loop()
 		draw();
 
 		if (handle->bomberman->getLife() == 0)
-			return (false);
-		else if (handle->enemies->size() == 0)
-			return (true);
+			return (0);
+		else if (handle->enemies->size() == 0 && !complete)
+			complete = endLevel();
+		if (change_level != 0)
+			return (change_level);
 	}
+}
+
+bool	Game::endLevel()
+{
+	if (level->getLevel() < 4)
+		handle->map->update(handle->randomPosition(), LEVEL_UP);
+	if (level->getLevel() > 1)
+		handle->map->update(handle->randomPosition(), LEVEL_DOWN);
+
+	return (true);
+}
+
+void	Game::levelUp()
+{
+	int		current_level = level->getLevel();
+	std::cout << current_level << std::endl;
+
+	delete level;
+	delete handle;
+
+	level = new Level(current_level + 1);
+	std::cout << current_level << std::endl;	
+	handle = new Handle(level);
+}
+
+void	Game::levelDown()
+{
+	int		current_level = level->getLevel();
+
+	delete level;
+	delete handle;
+
+	level = new Level(current_level - 1);
+	handle = new Handle(level);
 }
 
 /* Library handling */
 
-void Game::setLib()
+void	Game::setLib()
 {
 	IEntity *(*lib_ptr)();
 
@@ -99,11 +136,11 @@ void Game::setLib()
 		std::cout << "Window not created." << std::endl;
 }
 
-void Game::deleteLibrary()
+void	Game::deleteLibrary()
 {
-	void    (*lib_del)(IEntity *);
+	void	   (*lib_del)(IEntity *);
 
-	lib_del = (void (*)(IEntity*)) dlsym(dl_handle, "deleteLibrary");
+	lib_del = (void	(*)(IEntity*)) dlsym(dl_handle, "deleteLibrary");
 
 	if (!lib_del)
 		dlerror_wrapper();
@@ -112,14 +149,14 @@ void Game::deleteLibrary()
 	dlclose(dl_handle);
 }
 
-void Game::dlerror_wrapper()
+void	Game::dlerror_wrapper()
 {
 	std::cerr << "Error: " << dlerror() << std::endl;
 	exit(EXIT_FAILURE);
 }
 /* Draw game */
 
-void Game::draw()
+void	Game::draw()
 {
 	_library->clearWindow();
 	for (int i = 0; i < level->getHeight(); ++i)
@@ -131,7 +168,7 @@ void Game::draw()
 
 /* End game */
 
-void Game::end()
+void	Game::end()
 {
 	std::cout << "Game over! Score: " << this->score << std::endl;
 	exit(0);

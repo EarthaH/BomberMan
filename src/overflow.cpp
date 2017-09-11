@@ -1,15 +1,15 @@
 #include "../includes/header.hpp"
 
-bool    equal(Object & a, Object & b)
+bool	equal(Object & a, Object & b)
 {
-    if (a.getX() == b.getX() && a.getY() == b.getY())
-        return (true);
-    return (false);
+	if (a.getX() == b.getX() && a.getY() == b.getY())
+		return (true);
+	return (false);
 }
 
-bool    equal(Object & obj, int x, int y)
+bool	equal(Object & obj, int x, int y)
 {
-    if (obj.getX() == x && obj.getY() == y)
-        return (true);
-    return (false);
+	if (obj.getX() == x && obj.getY() == y)
+		return (true);
+	return (false);
 }

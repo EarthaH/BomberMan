@@ -13,37 +13,38 @@ class   Level;
 
 class   Handle 
 {
-    private:
+	private:
 
-    public:
-        Handle();
-        Handle(Level *);
-        Handle(Handle const &);
-        Handle const & operator=(Handle const &);
-        ~Handle();
+	public:
+		Handle();
+		Handle(Level *);
+		Handle(Handle const &);
+		Handle const & operator=(Handle const &);
+		~Handle();
 
-        Map                     *map;
-        Bomber                  *bomberman;
-        std::vector<Enemy *>    *enemies;
-        std::vector<Bomb *>     *bombs;
+		Map					 	*map;
+		Bomber				  	*bomberman;
+		std::vector<Enemy *>	*enemies;
+		std::vector<Bomb *>	 	*bombs;
 
-        int         moveEnemy();
-        void        initMap(Level *);
-        void        checkKey(int);
-        void        moveBomber(int);
-        void        checkBombs();
-        void        checkUpgrades();
-        void        dropBomb(int, int);
-        void        activeBomb(Bomb *);
-        void        createEnemy(int);
-        void        killEnemy(int, int);
-        void        placeWalls(int);
-        void        placeUpgrades(int);
-        void        findBomb(int, int);
-        bool        updateBomb(Bomb *);
-        bool        checkMapFire(int, int);
-        t_position  randomPosition();
-        size_t      getBomb();
+		int		 	moveEnemy();
+		int		 	checkKey(int);
+		int			moveBomber(int);
+		int			checkUpgrades();
+		void		initMap(Level *);
+		void		checkBombs();
+		
+		void		dropBomb(int, int);
+		void		activeBomb(Bomb *);
+		void		createEnemy(int);
+		void		killEnemy(int, int);
+		void		placeWalls(int);
+		void		placeUpgrades(int);
+		void		findBomb(int, int);
+		bool		updateBomb(Bomb *);
+		bool		checkMapFire(int, int);
+		t_position  randomPosition();
+		size_t	  getBomb();
 };
 
 #endif

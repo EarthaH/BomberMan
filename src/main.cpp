@@ -1,15 +1,15 @@
 #include "../includes/header.hpp"
 
-int     x;
-int     y;
+int		x;
+int		y;
 
-int     main()
+int		main()
 {
-    srand((unsigned)time(0));
+	srand((unsigned)time(0));
 
-    Game    *game = new Game();
-    game->start();
-    delete  game;
+	Game	*game = new Game();
+	game->start();
+	delete  game;
 
-    return (0);
+	return (0);
 }
