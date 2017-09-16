@@ -11,8 +11,6 @@ class   Level;
 class   Game 
 {
 	private:
-		// int							 _width;
-		// int							 _height;
 		IEntity			*_library;
 		const char		*_lib;
 
@@ -34,9 +32,13 @@ class   Game
 		void	clearMap();
 		void	levelUp();
 		void	levelDown();
+		void	save();
+		void	load(std::string);
 		
 		bool	blockClear();
 		bool	endLevel();
+
+		std::vector<std::string>	split(char *, char c[]);
 		
 		int		score;
 		int		speed;

@@ -100,3 +100,17 @@ bool	Map::isUpgrade(int x, int y)
 		return (true);
 	return (false);
 }
+
+std::string	Map::getMapRow(int num)
+{
+	std::string			res;
+	std::stringstream	ss;
+
+	for (size_t i = 0; i < static_cast<size_t>(width); i++)
+	{
+		ss << map[num][i] << (i == static_cast<size_t>(width) - 1 ? "" : ":");
+		res = ss.str();
+	}
+	
+	return (res);
+}

@@ -69,7 +69,7 @@ void	Level::setLevel(int l)
 
 void	Level::one()
 {
-	num_of_enemies = 4;
+	num_of_enemies = 1;
 	num_of_blocks = 20;
 	num_of_upgrades = 4;
 	_height = 11;
@@ -78,7 +78,7 @@ void	Level::one()
 
 void	Level::two()
 {
-	num_of_enemies = 5;
+	num_of_enemies = 1;
 	num_of_blocks = 50;
 	num_of_upgrades = 6;
 	_height = 15;

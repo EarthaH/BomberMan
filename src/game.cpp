@@ -49,10 +49,12 @@ void	Game::start()
 
 	while ((change = loop()) != 0) 
 	{
+		save();
 		if (change == LEVEL_UP)
 			levelUp();
 		else if (change == LEVEL_DOWN)
 			levelDown();
+		load("Test.txt");
 	}
 
 	end();
@@ -170,4 +172,52 @@ void	Game::end()
 {
 	std::cout << "Game over! Score: " << this->score << std::endl;
 	exit(0);
+}
+
+/* Saving and Loading */
+
+void	Game::save()
+{
+	std::ofstream	ofs;
+	time_t	_tm = time(NULL);
+	struct tm * curtime = localtime(&_tm);
+	std::string file = strcat(asctime(curtime), ".txt");
+
+	ofs.open ("Test.txt", std::ofstream::out | std::ofstream::app);
+	ofs << handle->map->height << std::endl;
+	for (size_t i = 0; i < static_cast<size_t>(handle->map->height); i++)
+		ofs << handle->map->getMapRow(i) << std::endl;
+	ofs << level->getLevel() << " " << score << " ";
+	ofs << handle->bomberman->getRange() << " " << handle->bomberman->getLife();
+	ofs << " " << handle->bombs->size() << std::endl;
+}
+
+void	Game::load(std::string file)
+{
+	std::ifstream		ifs(file);
+	std::stringstream	buffer;
+
+	buffer << ifs.rdbuf();
+	std::string	buf = buffer.str();
+	char	str[buf.length()];
+	char	c[] = " \n";
+
+	for (int i = 0; i < static_cast<int>(buf.length()); i++)
+		str[i] = buf[i];
+	split(str, c);
+}
+
+std::vector<std::string>	Game::split(char *str, char *c)
+{
+	char						*pch;
+	std::vector<std::string>	res;
+
+	pch = std::strtok(str, c);
+	while (pch != NULL)
+	{
+		//std::cout << pch << std::endl;
+		res.push_back(static_cast<std::string>(pch));
+		pch = std::strtok(NULL, c);
+	}
+	return (res);
 }
