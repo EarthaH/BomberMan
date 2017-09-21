@@ -7,6 +7,7 @@
 
 class   Handle;
 class   Level;
+class	Load;
 
 class   Game 
 {
@@ -33,18 +34,17 @@ class   Game
 		void	levelUp();
 		void	levelDown();
 		void	save();
-		void	load(std::string);
+		void	load(char *);
 		
 		bool	blockClear();
 		bool	endLevel();
-
-		std::vector<std::string>	split(char *, char c[]);
 		
 		int		score;
 		int		speed;
 		void	*dl_handle;
 		Handle  *handle;
 		Level   *level;
+		Load	*load_handle;
 };
 
 #endif

@@ -56,6 +56,11 @@ void	Man::changeDirection(int dir)
 	this->_direction = dir;
 }
 
+void	Man::setLife(int life)
+{
+	this->_life = life;
+}
+
 void	Man::moveUp(Map *map)
 {
 	moveToBlock(map, getX(), getY() - 1);

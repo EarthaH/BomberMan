@@ -27,6 +27,7 @@ Game::~Game()
 {
 	delete  handle;
 	delete  level;
+	delete	load_handle;
 	dlclose(this->dl_handle);
 }
 
@@ -35,6 +36,7 @@ void	Game::init()
 	this->_lib = LIB1;
 	this->level = new Level();
 	this->handle = new Handle(level);
+	this->load_handle = new Load();
 
 	setLib();
 
@@ -46,15 +48,15 @@ void	Game::init()
 void	Game::start()
 {
 	int		change;
+	//char	file[] = "Test.txt";
 
 	while ((change = loop()) != 0) 
 	{
-		save();
 		if (change == LEVEL_UP)
 			levelUp();
 		else if (change == LEVEL_DOWN)
 			levelDown();
-		load("Test.txt");
+		//load(file);
 	}
 
 	end();
@@ -192,32 +194,15 @@ void	Game::save()
 	ofs << " " << handle->bombs->size() << std::endl;
 }
 
-void	Game::load(std::string file)
+void	Game::load(char *file)
 {
-	std::ifstream		ifs(file);
-	std::stringstream	buffer;
+	load_handle->load(file);
 
-	buffer << ifs.rdbuf();
-	std::string	buf = buffer.str();
-	char	str[buf.length()];
-	char	c[] = " \n";
-
-	for (int i = 0; i < static_cast<int>(buf.length()); i++)
-		str[i] = buf[i];
-	split(str, c);
-}
-
-std::vector<std::string>	Game::split(char *str, char *c)
-{
-	char						*pch;
-	std::vector<std::string>	res;
-
-	pch = std::strtok(str, c);
-	while (pch != NULL)
-	{
-		//std::cout << pch << std::endl;
-		res.push_back(static_cast<std::string>(pch));
-		pch = std::strtok(NULL, c);
-	}
-	return (res);
+	handle->map->map = load_handle->map;
+	level->setLevel(load_handle->level);
+	score = load_handle->score;
+	handle->bomberman->setRange(load_handle->range);
+	handle->bomberman->setLife(load_handle->life);
+	for (size_t i = 1; i < static_cast<size_t>(load_handle->bomb_size); i++)
+		handle->createBomb();
 }

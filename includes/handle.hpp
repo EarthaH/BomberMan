@@ -33,6 +33,7 @@ class   Handle
 		int			checkUpgrades();
 		void		initMap(Level *);
 		void		checkBombs();
+		void		createBomb();
 		
 		void		dropBomb(int, int);
 		void		activeBomb(Bomb *);
@@ -44,7 +45,7 @@ class   Handle
 		bool		updateBomb(Bomb *);
 		bool		checkMapFire(int, int);
 		t_position  randomPosition();
-		size_t	  getBomb();
+		size_t		getBomb();
 };
 
 #endif

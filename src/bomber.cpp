@@ -60,6 +60,11 @@ void	Bomber::upgradeLife()
 	this->_life++;
 }
 
+void	Bomber::setRange(int r)
+{
+	this->_range = r;
+}
+
 bool	Bomber::isUpgraded()
 {
 	return (this->_upgraded);

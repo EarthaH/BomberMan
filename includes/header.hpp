@@ -22,6 +22,7 @@
 #include "enemy.hpp"
 #include "handle.hpp"
 #include "level.hpp"
+#include "load.hpp"
 
 #define RIGHT 1
 #define LEFT 2

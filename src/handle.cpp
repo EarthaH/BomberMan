@@ -146,10 +146,7 @@ int     Handle::checkUpgrades()
 	int	 block = map->getType(bomberman->getX(), bomberman->getY());
 
 	if (block == BOMB_UPGRADE)
-	{
-		Bomb	*bomb = new Bomb(1, 1);
-		bombs->push_back(bomb);
-	}
+		createBomb();
 	else if (block == FIRE_UPGRADE)
 		bomberman->upgradeRange();
 	else if (block == LIFE_UPGRADE)
@@ -159,6 +156,12 @@ int     Handle::checkUpgrades()
     else if (block == LEVEL_DOWN)
         return (LEVEL_DOWN);
     return (0);
+}
+
+void	Handle::createBomb()
+{
+	Bomb	*bomb = new Bomb(1, 1);
+	bombs->push_back(bomb);
 }
 
 void	Handle::activeBomb(Bomb *bomb)

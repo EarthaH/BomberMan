@@ -26,6 +26,7 @@ class	Bomber: public Man
 		void	init(int, int);
 		void	playerHit();
 		void	upgradeLife();
+		void	setRange(int);
 		bool	isUpgraded();
 };
 

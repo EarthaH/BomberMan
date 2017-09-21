@@ -31,6 +31,7 @@ class   Man: public Object
 		int		getDirection();
 		bool	getAlive();
 		void	changeDirection(int);
+		void	setLife(int);
 
 		void	moveUp(Map *);
 		void	moveDown(Map *);
