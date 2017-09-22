@@ -12,13 +12,11 @@ Game::Game(Game const &copy)
 
 Game const &Game::operator=(Game const &copy)
 {
-	this->_library = copy._library;
-	this->_lib = copy._lib;
 	this->score = copy.score;
 	this->speed = copy.speed;
-	this->dl_handle = copy.dl_handle;
 	this->handle = copy.handle;
 	this->level = copy.level;
+	this->library = copy.library;
 
 	return (*this);
 }
@@ -28,17 +26,17 @@ Game::~Game()
 	delete  handle;
 	delete  level;
 	delete	load_handle;
-	dlclose(this->dl_handle);
+	delete	library;
 }
 
 void	Game::init()
 {
-	this->_lib = LIB1;
 	this->level = new Level();
 	this->handle = new Handle(level);
+	this->library = new Lib();
 	this->load_handle = new Load();
 
-	setLib();
+	library->createWindow(level->getHeight(), level->getWidth());
 
 	score = 0;
 }
@@ -52,6 +50,7 @@ void	Game::start()
 
 	while ((change = loop()) != 0) 
 	{
+		//save();
 		if (change == LEVEL_UP)
 			levelUp();
 		else if (change == LEVEL_DOWN)
@@ -71,7 +70,7 @@ int		Game::loop()
 
 	for (;;)
 	{
-		if ((key = this->_library->getKey()) != ERR)
+		if ((key = this->library->getKey()) != ERR)
 			change_level = handle->checkKey(key);
 		if (enemy_movement == 5)
 			enemy_movement = handle->moveEnemy();
@@ -120,52 +119,16 @@ void	Game::levelDown()
 	handle = new Handle(level);
 }
 
-/* Library handling */
-
-void	Game::setLib()
-{
-	IEntity *(*lib_ptr)();
-
-	this->dl_handle = dlopen(this->_lib, RTLD_LAZY | RTLD_LOCAL);
-	if (!this->dl_handle)
-		dlerror_wrapper();
-	lib_ptr = (IEntity * (*)()) dlsym(dl_handle, "createLibrary");
-	if (!lib_ptr)
-		dlerror_wrapper();
-		
-	this->_library = lib_ptr();
-	if (!this->_library->createWindow(level->getHeight(), level->getWidth()))
-		std::cout << "Window not created." << std::endl;
-}
-
-void	Game::deleteLibrary()
-{
-	void	   (*lib_del)(IEntity *);
-
-	lib_del = (void	(*)(IEntity*)) dlsym(dl_handle, "deleteLibrary");
-
-	if (!lib_del)
-		dlerror_wrapper();
-
-	lib_del(this->_library);
-	dlclose(dl_handle);
-}
-
-void	Game::dlerror_wrapper()
-{
-	std::cerr << "Error: " << dlerror() << std::endl;
-	exit(EXIT_FAILURE);
-}
 /* Draw game */
 
 void	Game::draw()
 {
-	_library->clearWindow();
+	library->clearWindow();
 	for (int i = 0; i < level->getHeight(); ++i)
 		for (int j = 0; j < level->getWidth(); ++j)
-			_library->draw(level->getHeight(), level->getWidth(), i, j, handle->map->map[j][i]);///!!!!!
+			library->draw(level->getHeight(), level->getWidth(), i, j, handle->map->map[j][i]);
 		
-	this->_library->refresh();
+	this->library->refresh();
 }
 
 /* End game */

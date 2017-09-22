@@ -2,19 +2,15 @@
 # define GAME_H
 
 #include "header.hpp"
-#include "IEntity.hpp"
 #include <thread>
 
 class   Handle;
 class   Level;
 class	Load;
+class	Lib;
 
 class   Game 
 {
-	private:
-		IEntity			*_library;
-		const char		*_lib;
-
 	public:
 		Game();
 		Game(Game const &);
@@ -41,8 +37,8 @@ class   Game
 		
 		int		score;
 		int		speed;
-		void	*dl_handle;
 		Handle  *handle;
+		Lib		*library;
 		Level   *level;
 		Load	*load_handle;
 };

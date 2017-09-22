@@ -1,4 +1,30 @@
-#include "lib.hpp"
+#include "../includes/lib.hpp"
+
+int window_valid = 1;
+
+typedef struct	s_objectsToDraw
+{
+	int			x;
+	int			y;
+	char		c;
+}				t_objectsToDraw;
+
+char title[]		= "Bomberman Lib 1";
+int windowWidth	 = 500;
+int windowHeight	= 500;
+int windowPosX	  = 0;
+int windowPosY	  = 0;
+int keyPressed	  = -1;
+
+int mapWidth;
+int mapHeight;
+
+std::vector<s_objectsToDraw> objectsToDraw;
+int refreshMillis = 1;
+
+GLdouble clipAreaXLeft, clipAreaXRight, clipAreaYBottom, clipAreaYTop;
+
+bool fullScreenMode = false;
 
 Lib::Lib()
 {
@@ -19,7 +45,6 @@ Lib const &Lib::operator=(Lib const &copy)
 
 Lib::~Lib()
 {
-	//glutDestroyWindow(win);
 	std::cout << "deleting library..." << std::endl;
 }
 
@@ -46,18 +71,18 @@ bool Lib::createWindow(int height, int width)
 		mapWidth = width;
 		mapHeight = height;
 
-		glutInit(&myargc, myargv);					  // Initialize GLUT
-		glutInitDisplayMode(GLUT_DOUBLE);			   // Enable double buffered mode
-		glutInitWindowSize(windowWidth, windowHeight);  // Initial window width and height
-		glutInitWindowPosition(windowPosX, windowPosY); // Initial window top-left corner (x, y)
-		glutCreateWindow("Bomberman");				  // Create window with given title
-		glutDisplayFunc(display);					   // Register callback handler for window re-paint
-		glutReshapeFunc(reshape);					   // Register callback handler for window re-shape
-														// glutTimerFunc(0, Timer, 0);
-		glutSpecialFunc(specialKeys);				   // Register callback handler for special-key event
-		glutKeyboardFunc(keyboard);					 // Register callback handler for special-key event
+		glutInit(&myargc, myargv);
+		glutInitDisplayMode(GLUT_DOUBLE);
+		glutInitWindowSize(windowWidth, windowHeight);
+		glutInitWindowPosition(windowPosX, windowPosY);
+		glutCreateWindow("Bomberman");
+		glutDisplayFunc(display);
+		glutReshapeFunc(reshape);
+
+		glutSpecialFunc(specialKeys);
+		glutKeyboardFunc(keyboard);
 		glutTimerFunc(refreshMillis, Timer, 0);
-		initGL();									   // Our own OpenGL initialization
+		initGL();
 	}
 	catch (...)
 	{
@@ -67,17 +92,18 @@ bool Lib::createWindow(int height, int width)
 }
 
 void Lib::Timer(int value) {
-   glutPostRedisplay();
-   glutTimerFunc(refreshMillis, Timer, 0);
+	(void)value;
+	glutPostRedisplay();
+	glutTimerFunc(refreshMillis, Timer, 0);
 }
 
-void Lib::refresh() //may be unescary
+void Lib::refresh()
 {
 	glutCheckLoop();
 	display();
 }
 
-void Lib::draw(int nheight, int nwidth, int x, int y, char ch) //again might not be needed
+void Lib::draw(int nheight, int nwidth, int x, int y, char ch)
 {
 	s_objectsToDraw	 tempObject;
 	tempObject.x = x;
@@ -88,7 +114,7 @@ void Lib::draw(int nheight, int nwidth, int x, int y, char ch) //again might not
 	mapHeight = nheight;
 }
 
-void Lib::clearWindow() //might not be needed
+void Lib::clearWindow()
 {
 	objectsToDraw.clear();
 }
@@ -102,28 +128,26 @@ void Lib::display()
 	 
 	if(window_valid == -1)
 		return;
-	glClear(GL_COLOR_BUFFER_BIT); // Clear the color buffer
-	glMatrixMode(GL_MODELVIEW);   // To operate on the model-view matrix
-	glLoadIdentity();			 // Reset model-view matrix
+	glClear(GL_COLOR_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 
-	//drawBorders();
-
-	for (int i = 0; i < objectsToDraw.size(); i++)//draws whole body!!!! need one for obsticles
+	for (int i = 0; i < static_cast<int>(objectsToDraw.size()); i++)
 	{
 		float	 v0x, v1x, v2x, v3x;
 		float	 v0y, v1y, v2y, v3y;
 
-		v0x = -(1 - (1 / (((float)mapWidth + 1) / 2) * (float)(objectsToDraw.at(i).x + 0)));//this needs a turnary operator to determine negative or plus.. maybe simplified
+		v0x = -(1 - (1 / (((float)mapWidth + 1) / 2) * (float)(objectsToDraw.at(i).x + 0)));
 		v0y = 1 - (1 / (((float)mapHeight + 1) / 2) * (float)(objectsToDraw.at(i).y + 1));
 
 		v1x = -(1 - (1 / (((float)mapWidth + 1) / 2) * (float)(objectsToDraw.at(i).x + 1)));
-		v1y = v0y;//1 - (1 / ((float)mapHeight / 2) * (float)(objectsToDraw.at(i).y + 1));
+		v1y = v0y;
 
-		v2x = v1x;//1 - (1 / ((float)mapWidth / 2) * (float)(objectsToDraw.at(i).x));
+		v2x = v1x;
 		v2y = 1 - (1 / (((float)mapHeight + 1) / 2) * (float)(objectsToDraw.at(i).y + 0));
 
-		v3x = v0x;//1 - (1 / ((float)mapWidth / 2) * (float)(objectsToDraw.at(i).x));
-		v3y = v2y;//1 - (1 / ((float)mapHeight / 2) * (float)(objectsToDraw.at(i).y));
+		v3x = v0x;
+		v3y = v2y;
 
 		if (objectsToDraw.at(i).c == 0)
 		{
@@ -259,7 +283,7 @@ void Lib::display()
 	glutSwapBuffers();
 }
 
-void Lib::drawBorders()//TIDY!!!!!!!
+void Lib::drawBorders()
 {
 	float	 v0x, v1x, v2x, v3x;
 	float	 v0y, v1y, v2y, v3y;
@@ -351,13 +375,13 @@ void Lib::drawBorders()//TIDY!!!!!!!
 void Lib::reshape(GLsizei width, GLsizei height)
 {
 	if (height == 0)
-		height = 1; // To prevent divide by 0
+		height = 1;
 	GLfloat aspect = (GLfloat)width / (GLfloat)height;
 
 	glViewport(0, 0, width, height);
 
-	glMatrixMode(GL_PROJECTION); // To operate on the Projection matrix
-	glLoadIdentity();			// Reset the projection matrix
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
 	if (width >= height)
 	{
 		clipAreaXLeft = -1.0 * aspect;
@@ -377,34 +401,36 @@ void Lib::reshape(GLsizei width, GLsizei height)
 
 void Lib::specialKeys(int key, int x, int y)
 {
+	(void)x;
+	(void)y;
 	switch (key)
 	{
 		case GLUT_KEY_F1:
-			fullScreenMode = !fullScreenMode; // Toggle state
+			fullScreenMode = !fullScreenMode;
 			if (fullScreenMode)
-			{										// Full-screen mode
-				windowPosX = glutGet(GLUT_WINDOW_X); // Save parameters for restoring later
+			{
+				windowPosX = glutGet(GLUT_WINDOW_X);
 				windowPosY = glutGet(GLUT_WINDOW_Y);
 				windowWidth = glutGet(GLUT_WINDOW_WIDTH);
 				windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
-				glutFullScreen(); // Switch into full screen
+				glutFullScreen();
 			}
 			else
-			{												 // Windowed mode
-				glutReshapeWindow(windowWidth, windowHeight); // Switch into windowed mode
-				glutPositionWindow(windowPosX, windowPosX);   // Position top-left corner
+			{
+				glutReshapeWindow(windowWidth, windowHeight);
+				glutPositionWindow(windowPosX, windowPosX);
 			}
 			break;
-		case GLUT_KEY_LEFT: // left key
+		case GLUT_KEY_LEFT:
 			keyPressed = key;
 			break;
-		case GLUT_KEY_UP: // up key
+		case GLUT_KEY_UP:
 			keyPressed = key;
 			break;
-		case GLUT_KEY_RIGHT: // right key
+		case GLUT_KEY_RIGHT:
 			keyPressed = key;
 			break;
-		case GLUT_KEY_DOWN: // down key
+		case GLUT_KEY_DOWN:
 			keyPressed = key;
 			break;
 	}
@@ -413,9 +439,11 @@ void Lib::specialKeys(int key, int x, int y)
 
 void Lib::keyboard(unsigned char key, int x, int y)
 {
+	(void)x;
+	(void)y;
 	switch (key)
 	{
-		case 27: // ESC key
+		case 27:
 			exit(0);
 			break;
 		case 32:
@@ -426,15 +454,5 @@ void Lib::keyboard(unsigned char key, int x, int y)
 
 void Lib::initGL()
 {
-	//glClearColor(0.54, 0.705, 0.105, 1.0);
-}
-
-Lib *createLibrary()
-{
-	return (new Lib());
-}
-
-void deleteLibrary(Lib *library)
-{
-	delete library;
+	
 }

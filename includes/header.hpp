@@ -23,6 +23,7 @@
 #include "handle.hpp"
 #include "level.hpp"
 #include "load.hpp"
+#include "lib.hpp"
 
 #define RIGHT 1
 #define LEFT 2

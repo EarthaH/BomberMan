@@ -8,7 +8,7 @@ Handle::Handle()
 Handle::Handle(Level *level)
 {
 	
-	this->map = new Map(level->getHeight(), level->getWidth());
+	this->map = new Map(level->getWidth(), level->getHeight());
 
 	Bomb	*bomb = new Bomb(1, 1);
 
