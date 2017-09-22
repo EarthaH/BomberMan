@@ -131,8 +131,7 @@ void	Handle::killEnemy(int x, int y)
 			break;
 	if (enemies->at(num)->getX() != x && enemies->at(num)->getY() != y)
 		return ;
-	if (static_cast<int>(num) != -1)
-		enemies->erase(enemies->begin() + num);
+	enemies->erase(enemies->begin() + num);
 	map->update(x, y, OPEN);
 }
 
