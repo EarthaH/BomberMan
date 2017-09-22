@@ -124,10 +124,15 @@ void	Handle::killEnemy(int x, int y)
 {
 	size_t  num;
 
+	if (enemies->size() == 0)
+		return ;
 	for (num = 0; num < enemies->size(); num++)
 		if (enemies->at(num)->getX() == x && enemies->at(num)->getY() == y)
 			break;
-	enemies->erase(enemies->begin() + num);
+	if (enemies->at(num)->getX() != x && enemies->at(num)->getY() != y)
+		return ;
+	if (static_cast<int>(num) != -1)
+		enemies->erase(enemies->begin() + num);
 	map->update(x, y, OPEN);
 }
 
