@@ -9,6 +9,7 @@ Bomberman is a strategic, maze-based video game.
 - Reach exit to progress through levels
 
 # Play
-Strategically place down timed bombs to:
-- Destroy obstacles
-- Kill enemies 
+Kill enemies and destroy obstacles by strategically placing down timed bombs.
+
+- Use arrow keys to move Bomberman around map
+- Hit Spacebar to place bomb on location
