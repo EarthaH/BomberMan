@@ -10,6 +10,11 @@ Map::Map(int w, int h) : width(w), height(h)
 	init();
 }
 
+Map::Map(int w, int h, std::vector<std::vector<int> > loaded_map) : width(w), height(h)
+{
+	map = loaded_map;
+}
+
 Map::Map(Map const &copy)
 {
 	*this = copy;
@@ -33,19 +38,36 @@ int		Map::getType(int x, int y)
 	return (map[y][x]);
 }
 
+int		Map::countType(int type)
+{
+	int		count = 0;
+
+	for (int i = 0; i < (width - 1); i++)
+		for (int j = 0; j < (height - 1); j++)
+			if (map[j][i] == type)
+				count++;
+
+	return (count);
+}
+
 void	Map::init()
 {
+	//std::cout << "Height: " << height << " Width: " << width << std::endl;
 	map.resize(height);
+	//std::cout << "Map height resized.\n";
 	for (int i = 0; i < height; ++i)
 	{
 		map[i].resize(width);
 		map[i][0] = map[i][width - 1] = WALL;
 	}
+	//std::cout << std::endl << "Map width resized.\n";
 	for (int i = 0; i < width; ++i)
 		map[0][i] = map[height - 1][i] = WALL;
+	//std::cout << "Border walls added.\n";
 	for (int i = 2; i < (width - 2); i += 2)
 		for (int j = 2; j < (height - 2); j += 2)
 			map[j][i] = WALL;
+	//std::cout << "Maze walls added.\n";
 }
 
 void	Map::update(int x, int y, int type)
@@ -113,4 +135,37 @@ std::string	Map::getMapRow(int num)
 	}
 	
 	return (res);
+}
+
+t_position	Map::getPosition(int Type)
+{
+	t_position	pos;
+	pos.x = pos.y = 1;
+
+	for (int i = 0; i < (width - 1); i++)
+		for (int j = 0; j < (height - 1); j++)
+			if (map[j][i] == Type)
+			{
+				pos.x = i;
+				pos.y = j;
+				return (pos);
+			}
+	return (pos);
+}
+
+t_position	Map::getPosition(int x, int y, int Type)
+{
+	t_position	pos;
+	int		j = y + 1;
+
+	for (int i = x; i < (width - 1); i++, j = 0)
+		for (; j < (height - 1); j++)
+			if (map[j][i] == Type)
+			{
+				pos.x = i;
+				pos.y = j;
+				return (pos);
+			}
+	pos.x = pos.y = 1;
+	return (pos);
 }

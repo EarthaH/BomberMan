@@ -159,13 +159,17 @@ void	Game::save()
 
 void	Game::load(char *file)
 {
+	t_position	pos;
 	load_handle->load(file);
 
 	handle->map->map = load_handle->map;
 	level->setLevel(load_handle->level);
 	score = load_handle->score;
+	pos = handle->map->getPosition(BOMBER);
+	handle->bomberman->init(pos.x, pos.y);
 	handle->bomberman->setRange(load_handle->range);
 	handle->bomberman->setLife(load_handle->life);
+	handle->initEnemy();
 	for (size_t i = 1; i < static_cast<size_t>(load_handle->bomb_size); i++)
 		handle->createBomb();
 }

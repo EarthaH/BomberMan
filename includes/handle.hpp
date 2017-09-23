@@ -34,10 +34,12 @@ class   Handle
 		void		initMap(Level *);
 		void		checkBombs();
 		void		createBomb();
+		void		initEnemy();
 		
 		void		dropBomb(int, int);
 		void		activeBomb(Bomb *);
 		void		createEnemy(int);
+		void		createEnemy(int, t_position);
 		void		killEnemy(int, int);
 		void		placeWalls(int);
 		void		placeUpgrades(int);

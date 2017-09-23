@@ -28,8 +28,8 @@ Enemy::~Enemy()
 
 void	Enemy::init(t_position pos)
 {
-	this->_position.x= pos.x;
-	this->_position.y= pos.y;
+	this->_position.x = pos.x;
+	this->_position.y = pos.y;
 	this->_position.oldX = pos.x;
 	this->_position.oldY = pos.y;
 	this->_type = ENEMY;
