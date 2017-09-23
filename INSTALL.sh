@@ -15,8 +15,8 @@ LIB_SMFL="$HOME/.brew/Cellar/sfml"
 LIB_EIGEN="$HOME/.brew/Cellar/eigen"
 LIB_ALUT="$HOME/.brew/Cellar/alut"
 
-LIB_NANOGUI="external/nanogui"
-LIB_SOIL="external/soil"
+LIB_NANOGUI="../external/nanogui"
+LIB_SOIL="../SOIL2"
 
 if [ ! -d "$HOMEBREW" ]; then
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/Tolsadus/42homebrewfix/master/install.sh)"
@@ -76,7 +76,7 @@ if [ ! -d "$LIB_NANOGUI" ]; then
 	git submodule update --init --recursive
 fi
 
-if [ -d "$LIB_SOIL" ]; then
+if [ ! -d "$LIB_SOIL" ]; then
 	hg clone https://bitbucket.org/SpartanJ/soil2 ../SOIL2
 
 	cd ../SOIL2

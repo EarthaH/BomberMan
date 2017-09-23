@@ -19,6 +19,7 @@ execute_process(COMMAND ${BASH_CMD} ${BASH_ARG})
 execute_process(COMMAND	${GIT_CMD} ${GIT_ARG} ${GIT_FLAG})
 
 set(NANOGUI_DIR "external/nanogui")
+set(SOIL_DIR "SOIL2")
 
 # Adding dependencies
 pkg_search_module(GLEW REQUIRED glew)
