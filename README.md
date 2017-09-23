@@ -15,8 +15,8 @@ Kill enemies and destroy obstacles by strategically placing down timed bombs.
 - Hit Spacebar to place bomb on location
 
 # Build
-- mkdir build
-- cd build
-- cmake ../
-- make
-- ./bomberman
+- $>make installBrew
+- $>exit
+- Open new terminal
+- $>./build
+- $>./bomberman
