@@ -1,59 +1,68 @@
 #include "../includes/lib.hpp"
 
-
 GLfloat vertices[] =
-{
-	// Positions            // Normals              // Texture Coords
-	-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
-	0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f,
-	0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
-	0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
-	-0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f,
-	-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+	{
+		// Positions            // Normals              // Texture Coords
+		-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+		0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f,
+		0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
+		0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
+		-0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
 
-	-0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-	0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
-	0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
-	0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
-	-0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-	-0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+		-0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+		0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
+		0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+		0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+		-0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+		-0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
 
-	-0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-	-0.5f, 0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-	-0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-	-0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-	-0.5f, -0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-	-0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+		-0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+		-0.5f, 0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		-0.5f, -0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		-0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
 
-	0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-	0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-	0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-	0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-	0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-	0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+		0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+		0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+		0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
 
-	-0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
-	0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f,
-	0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-	0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-	-0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-	-0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
+		0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f,
+		0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+		0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+		-0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
 
-	-0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-	0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-	0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
-	0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
-	-0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-	-0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f};
+		-0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+		0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+		0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+		0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+		-0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+		-0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f};
 
 //!!!!!!!!!!!!!!!!many cubes
-
-
+glm::vec3 cubePositions[] = //array of vectors that are the cube positions becuase we have more than one cube
+{
+	glm::vec3(1.0f, 0.0f, 1.0f), //!!!!!!!after running guse which of these cubes applies for which
+	glm::vec3(3.0f, 0.0f, 1.0f),
+	glm::vec3(5.0f, 0.0f, 1.0f),
+	glm::vec3(1.0f, 0.0f, 3.0f),
+	glm::vec3(3.0f, 0.0f, 3.0f),
+	glm::vec3(5.0f, 0.0f, 3.0f),
+	glm::vec3(1.0f, 0.0f, 5.0f),
+	glm::vec3(3.0f, 0.0f, 5.0f),
+	glm::vec3(5.0f, 0.0f, 5.0f),
+	glm::vec3(7.0f, 0.0f, 7.0f)};
 // Function prototypes
 void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode);
 void MouseCallback(GLFWwindow *window, double xPos, double yPos);
 void DoMovement();
-void DrawBlock(glm::mat4 model, glm::vec3 cubePositions, GLint modelLoc );
+void DrawBlock(glm::mat4 model, glm::vec3 cubePositions, GLint modelLoc);
 
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
@@ -96,9 +105,9 @@ Lib::Lib()
 {
 	createWindow(0, 0);
 	_number = 1;
-	lightingShader = new Shader("res/graphics/shaders/lighting.vs", "res/graphics/shaders/lighting.frag");//ask eartah if this is ok
+	lightingShader = new Shader("res/graphics/shaders/lighting.vs", "res/graphics/shaders/lighting.frag"); //ask eartah if this is ok
 	lampShader = new Shader("res/graphics/shaders/lamp.vs", "res/graphics/shaders/lamp.frag");
-	
+
 	std::cout << "Library created." << std::endl;
 }
 
@@ -167,7 +176,7 @@ bool Lib::createWindow(int height, int width)
 	glfwGetFramebufferSize(this->window, &SCREEN_WIDTH, &SCREEN_HEIGHT);
 
 	// Set the required callback functions
-	glfwSetKeyCallback(this->window, KeyCallback);//!!!!!@@@@may need to make keycallabck this
+	glfwSetKeyCallback(this->window, KeyCallback); //!!!!!@@@@may need to make keycallabck this
 	glfwSetCursorPosCallback(this->window, MouseCallback);
 
 	// GLFW Options
@@ -187,119 +196,104 @@ bool Lib::createWindow(int height, int width)
 	// Define the viewport dimensions
 	glViewport(0, 0, this->screenWidth, this->screenHeight);
 
-    // OpenGL options
-    glEnable(GL_DEPTH_TEST);
+	// OpenGL options
+	glEnable(GL_DEPTH_TEST);
 
 	std::cout << "created window" << std::endl;
 	return 1;
 }
 
-void		Lib::buildShaders()
+void Lib::buildShaders()
 {
 	// Build and compile our shader program
- //   Shader lightingShader("res/graphics/shaders/lighting.vs", "res/graphics/shaders/lighting.frag");
- //   Shader lampShader("res/graphics/shaders/lamp.vs", "res/graphics/shaders/lamp.frag");
+	//   Shader lightingShader("res/graphics/shaders/lighting.vs", "res/graphics/shaders/lighting.frag");
+	//   Shader lampShader("res/graphics/shaders/lamp.vs", "res/graphics/shaders/lamp.frag");
 
-    // Set up vertex data (and buffer(s)) and attribute pointers
+	// Set up vertex data (and buffer(s)) and attribute pointers
+
+	//the fucking arrays
 	
-	
-//the fucking arrays
-glm::vec3 cubePositions[] = //array of vectors that are the cube positions becuase we have more than one cube
-{
-	glm::vec3(1.0f, 0.0f, 1.0f), //!!!!!!!after running guse which of these cubes applies for which
-	glm::vec3(3.0f, 0.0f, 1.0f),
-	glm::vec3(5.0f, 0.0f, 1.0f),
-	glm::vec3(1.0f, 0.0f, 3.0f),
-	glm::vec3(3.0f, 0.0f, 3.0f),
-	glm::vec3(5.0f, 0.0f, 3.0f),
-	glm::vec3(1.0f, 0.0f, 5.0f),
-	glm::vec3(3.0f, 0.0f, 5.0f),
-	glm::vec3(5.0f, 0.0f, 5.0f),
-	glm::vec3(7.0f, 0.0f, 7.0f)};
 
+	//!!!!!!!!!!!!!!!!many cubes end
+	std::cout << (sizeof(cubePositions) / sizeof(*cubePositions)) << std::endl;
 
+	// First, set the container's VAO (and VBO)
+	//GLuint VBO, containerVAO;
+	glGenVertexArrays(1, &containerVAO); //&
+	glGenBuffers(1, &VBO);				 //&
 
-    //!!!!!!!!!!!!!!!!many cubes end
-    std::cout << (sizeof(cubePositions) / sizeof(*cubePositions)) << std::endl;
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    // First, set the container's VAO (and VBO)
-    //GLuint VBO, containerVAO;
-    glGenVertexArrays(1, &containerVAO);//&
-    glGenBuffers(1, &VBO);//&
+	glBindVertexArray(containerVAO);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)0);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(6 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(2);
+	glBindVertexArray(0);
 
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	// Then, we set the light's VAO (VBO stays the same. After all, the vertices are the same for the light object (also a 3D cube))
+	//GLuint lightVAO;
+	glGenVertexArrays(1, &lightVAO);
+	glBindVertexArray(lightVAO);
+	// We only need to bind to the VBO (to link it with glVertexAttribPointer), no need to fill it; the VBO's data already contains all we need.
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	// Set the vertex attributes (only position data for the lamp))
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)0); // Note that we skip over the other data in our buffer object (we don't need the normals/textures, only positions).
+	glEnableVertexAttribArray(0);
+	glBindVertexArray(0);
 
-    glBindVertexArray(containerVAO);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(6 * sizeof(GLfloat)));
-    glEnableVertexAttribArray(2);
-    glBindVertexArray(0);
+	// Load textures
+	//GLuint diffuseMapWooden, specularMapWooden, mapStone;
+	glGenTextures(1, &diffuseMapWooden);
+	glGenTextures(1, &specularMapWooden);
+	glGenTextures(1, &mapStone);
 
-    // Then, we set the light's VAO (VBO stays the same. After all, the vertices are the same for the light object (also a 3D cube))
-    //GLuint lightVAO;
-    glGenVertexArrays(1, &lightVAO);
-    glBindVertexArray(lightVAO);
-    // We only need to bind to the VBO (to link it with glVertexAttribPointer), no need to fill it; the VBO's data already contains all we need.
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    // Set the vertex attributes (only position data for the lamp))
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)0); // Note that we skip over the other data in our buffer object (we don't need the normals/textures, only positions).
-    glEnableVertexAttribArray(0);
-    glBindVertexArray(0);
+	//int textureWidth, textureHeight;
+	//unsigned char *image;
 
-    // Load textures
-    //GLuint diffuseMapWooden, specularMapWooden, mapStone;
-    glGenTextures(1, &diffuseMapWooden);
-    glGenTextures(1, &specularMapWooden);
-    glGenTextures(1, &mapStone);
+	// Diffuse map
+	image = SOIL_load_image("res/graphics/images/container2.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	glBindTexture(GL_TEXTURE_2D, diffuseMapWooden);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 
-    //int textureWidth, textureHeight;
-    //unsigned char *image;
+	// Specular map
+	image = SOIL_load_image("res/graphics/images/container2_specular.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	glBindTexture(GL_TEXTURE_2D, specularMapWooden);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 
-    // Diffuse map
-    image = SOIL_load_image("res/graphics/images/container2.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
-    glBindTexture(GL_TEXTURE_2D, diffuseMapWooden);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-    glGenerateMipmap(GL_TEXTURE_2D);
-    SOIL_free_image_data(image);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+	// Wooden Map
+	image = SOIL_load_image("res/graphics/images/stoneWall.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	glBindTexture(GL_TEXTURE_2D, mapStone);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+	glBindTexture(GL_TEXTURE_2D, 0);
 
-    // Specular map
-    image = SOIL_load_image("res/graphics/images/container2_specular.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
-    glBindTexture(GL_TEXTURE_2D, specularMapWooden);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-    glGenerateMipmap(GL_TEXTURE_2D);
-    SOIL_free_image_data(image);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+	// Set texture units
+	lightingShader->Use();
+	glUniform1i(glGetUniformLocation(lightingShader->Program, "material.diffuse"), 0);
+	glUniform1i(glGetUniformLocation(lightingShader->Program, "material.specular"), 1);
 
-    // Wooden Map 
-    image = SOIL_load_image("res/graphics/images/stoneWall.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
-    glBindTexture(GL_TEXTURE_2D, mapStone);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-    glGenerateMipmap(GL_TEXTURE_2D);
-    SOIL_free_image_data(image);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    // Set texture units
-    lightingShader->Use();
-    glUniform1i(glGetUniformLocation(lightingShader->Program, "material.diffuse"), 0);
-    glUniform1i(glGetUniformLocation(lightingShader->Program, "material.specular"), 1);
-
-    this->projection = glm::perspective(camera.GetZoom(), (GLfloat)SCREEN_WIDTH / (GLfloat)SCREEN_HEIGHT, 0.1f, 100.0f);
-
+	this->projection = glm::perspective(camera.GetZoom(), (GLfloat)SCREEN_WIDTH / (GLfloat)SCREEN_HEIGHT, 0.1f, 100.0f);
 }
 
 void Lib::Timer(int value)
@@ -310,20 +304,8 @@ void Lib::Timer(int value)
 
 void Lib::draw(int nheight, int nwidth, int x, int y, char ch)
 {
-	glm::vec3 cubePositions[] = //array of vectors that are the cube positions becuase we have more than one cube
-	{
-		glm::vec3(1.0f, 0.0f, 1.0f), //!!!!!!!after running guse which of these cubes applies for which
-		glm::vec3(3.0f, 0.0f, 1.0f),
-		glm::vec3(5.0f, 0.0f, 1.0f),
-		glm::vec3(1.0f, 0.0f, 3.0f),
-		glm::vec3(3.0f, 0.0f, 3.0f),
-		glm::vec3(5.0f, 0.0f, 3.0f),
-		glm::vec3(1.0f, 0.0f, 5.0f),
-		glm::vec3(3.0f, 0.0f, 5.0f),
-		glm::vec3(5.0f, 0.0f, 5.0f),
-		glm::vec3(7.0f, 0.0f, 7.0f)};
 	
-	
+
 	(void)nheight;
 	(void)nwidth;
 	(void)x;
@@ -400,7 +382,6 @@ void Lib::draw(int nheight, int nwidth, int x, int y, char ch)
 			glBindTexture(GL_TEXTURE_2D, mapStone);
 
 			DrawBlock(model, cubePositions[i], modelLoc);
-			
 		}
 	}
 
@@ -430,8 +411,6 @@ void Lib::draw(int nheight, int nwidth, int x, int y, char ch)
 	// Swap the screen buffers
 	glfwSwapBuffers(window);
 
-
-	
 	//std::cout << "draw" << std::endl;
 	/*s_objectsToDraw	 tempObject;
 	tempObject.x = x;
@@ -446,11 +425,11 @@ void Lib::destroy_window()
 {
 	//window_valid = -1;
 	glDeleteVertexArrays(1, &containerVAO);
-    glDeleteVertexArrays(1, &lightVAO);
-    glDeleteBuffers(1, &VBO);
+	glDeleteVertexArrays(1, &lightVAO);
+	glDeleteBuffers(1, &VBO);
 
-    // Terminate GLFW, clearing any resources allocated by GLFW.
-    glfwTerminate();
+	// Terminate GLFW, clearing any resources allocated by GLFW.
+	glfwTerminate();
 	std::cout << "destroy window" << std::endl;
 }
 
@@ -625,11 +604,11 @@ void DoMovement()
 
 void DrawBlock(glm::mat4 model, glm::vec3 cubePositions, GLint modelLoc)
 {
-    model = glm::mat4();
-    model = glm::translate(model, cubePositions);
-    //GLfloat angle = 20.0f * i;
-    //model = glm::rotate( model, angle, glm::vec3( 1.0f, 0.3f, 0.5f ) );
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	model = glm::mat4();
+	model = glm::translate(model, cubePositions);
+	//GLfloat angle = 20.0f * i;
+	//model = glm::rotate( model, angle, glm::vec3( 1.0f, 0.3f, 0.5f ) );
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
