@@ -6,3 +6,4 @@ mkdir build
 cd build
 cmake ../
 make
+mv bomberman ../
