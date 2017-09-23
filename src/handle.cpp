@@ -63,6 +63,13 @@ void	Handle::createEnemy(int num)
 	enemies->push_back(enemy);
 }
 
+void	Handle::createEnemy(int num, t_position pos)
+{
+	Enemy   *enemy = new Enemy(pos, num);
+
+	enemies->push_back(enemy);
+}
+
 int 	Handle::checkKey(int key)
 {
 	if (key == 103 || key == 101 || key == 100 || key == 102)
@@ -212,6 +219,21 @@ void	Handle::placeUpgrades(int num)
 		map->update(randomPosition(), BOMB_UPGRADE + BLOCK);
 		map->update(randomPosition(), FIRE_UPGRADE + BLOCK);
 	}
+}
+
+void	Handle::initEnemy()
+{
+	int		count = map->countType(ENEMY);
+
+	if (count > 0)
+		createEnemy(0, map->getPosition(ENEMY));
+
+	for (int i = 1; i < count; i++)
+	{
+		createEnemy(i);
+		enemies->at(i)->init(map->getPosition(enemies->at(i - 1)->getX(), enemies->at(i - 1)->getY(), ENEMY));
+	}
+		
 }
 
 bool	Handle::checkMapFire(int x, int y)
