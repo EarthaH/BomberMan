@@ -29,6 +29,7 @@ class   Game
 		void	clearMap();
 		void	levelUp();
 		void	levelDown();
+		void	changeLevel(int);
 		void	save();
 		void	load(char *);
 		

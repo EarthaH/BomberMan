@@ -119,6 +119,16 @@ void	Game::levelDown()
 	handle = new Handle(level);
 }
 
+void	Game::changeLevel(int l)
+{
+	delete level;
+	delete handle;
+
+	level = new Level(l);
+	level->num_of_enemies = 0;
+	handle = new Handle(level);
+}
+
 /* Draw game */
 
 void	Game::draw()
@@ -148,7 +158,7 @@ void	Game::save()
 	struct tm * curtime = localtime(&_tm);
 	std::string file = strcat(asctime(curtime), ".txt");
 
-	ofs.open ("Test.txt", std::ofstream::out | std::ofstream::app);
+	ofs.open (file, std::ofstream::out | std::ofstream::app);
 	ofs << handle->map->height << std::endl;
 	for (size_t i = 0; i < static_cast<size_t>(handle->map->height); i++)
 		ofs << handle->map->getMapRow(i) << std::endl;
@@ -162,8 +172,9 @@ void	Game::load(char *file)
 	t_position	pos;
 	load_handle->load(file);
 
+	changeLevel(load_handle->level);
 	handle->map->map = load_handle->map;
-	level->setLevel(load_handle->level);
+	level->num_of_enemies = handle->map->countType(ENEMY);
 	score = load_handle->score;
 	pos = handle->map->getPosition(BOMBER);
 	handle->bomberman->init(pos.x, pos.y);
