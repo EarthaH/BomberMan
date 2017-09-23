@@ -20,6 +20,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
 #include "camera.hpp"
+#include "shader.hpp"
+
 
 
 
@@ -35,13 +37,18 @@ class   Lib
 		Lib const & operator=(Lib const &);
 		~Lib();
 		int			getNumber();
-		int			getKey();
+		int			getKey();//
 		bool		createWindow(int, int);
-		void		refresh();
 		void		draw(int, int, int, int, char);
-		void		clearWindow();
+		void		buildShaders();
+
+
 
 		GLFWwindow *window;
+		int screenWidth, screenHeight;
+    	//GLfloat *vertices;
+		glm::mat4 projection;
+		//GLuint VBO, containerVAO;
 
 		static void Timer(int value);
 
@@ -50,10 +57,11 @@ class   Lib
 		//static void	specialKeys(int key, int x, int y);
 		//static void	keyboard(unsigned char key, int x, int y);
 		void		initGL();
+
+		void destroy_window();
 		static void	drawBorders();
 		
 };
 
-void destroy_window();
 
 #endif
