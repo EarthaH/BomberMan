@@ -76,11 +76,10 @@ if [ ! -d "$LIB_NANOGUI" ]; then
 	git submodule update --init --recursive
 fi
 
-if [ ! -d "$LIB_SOIL" ]; then
-	git submodule add https://github.com/papagiannakis/soil2.git ../external/soil
+if [ -d "$LIB_SOIL" ]; then
+	hg clone https://bitbucket.org/SpartanJ/soil2 ../SOIL2
 
-	mkdir ../external/soil/build
-	cmake -B../external/soil/build -H../external/soil
-	make -C ../external/soil/build
+	cd ../SOIL2
+	premake4 gmake
 
 fi

@@ -19,7 +19,6 @@ execute_process(COMMAND ${BASH_CMD} ${BASH_ARG})
 execute_process(COMMAND	${GIT_CMD} ${GIT_ARG} ${GIT_FLAG})
 
 set(NANOGUI_DIR "external/nanogui")
-set(SOIL_DIR "external/soil")
 
 # Adding dependencies
 pkg_search_module(GLEW REQUIRED glew)
@@ -35,14 +34,18 @@ include_directories(${NANOGUI_DIR}/include)
 include_directories(${NANOGUI_EXTRA_INCS})
 add_definitions(${NANOGUI_EXTRA_DEFS})
 
-add_subdirectory(${SOIL_DIR})
-#include_directories(${SOIL_DIR}/src)
-include_directories(${SOIL_EXTRA_INCS})
-add_definitions(${SOIL_EXTRA_DEFS})
-
-
 # These directories get symlinked into the build directory after compilation
 set(RESOURCE_DIRS
+    res/graphics/images/container2_specular.png
+    res/graphics/images/container2.png
+    res/graphics/images/image1.jpg
+    res/graphics/images/image2.png
+    res/graphics/images/image3.png
+    res/graphics/images/stoneWall.png
+    res/graphics/shaders/lamp.frag
+    res/graphics/shaders/lamp.vs
+    res/graphics/shaders/lighting.frag
+    res/graphics/shaders/lighting.vs
 )
 
 set(SOURCE_FILES
@@ -86,7 +89,6 @@ include_directories(
 		~/.brew/include/eigen3
 		${OPENAL_INCLUDE_DIR}
 		~/.brew/opt/alut/include
-        ${SOIL_DIR}/src
 )
 
 # Directories to find the libraries
@@ -103,7 +105,6 @@ add_executable(bomberman ${SOURCE_FILES})
 
 add_library(soil STATIC IMPORTED)
 set_target_properties(soil PROPERTIES IMPORTED_LOCATION ../external/soil/build/libsoil2.a)
-target_link_libraries(${PROJECT_NAME} soil)
 
 # Link executable with libraries
 target_link_libraries(${PROJECT_NAME}
@@ -113,6 +114,7 @@ target_link_libraries(${PROJECT_NAME}
         ${GLM_LIBRARIES}
         #${GLFW_LIBRARIES}
         ${FT_LIBRARIES}
+        soil
         alut
 		freetype
 		png
