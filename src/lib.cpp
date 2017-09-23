@@ -1,6 +1,36 @@
 #include "../includes/lib.hpp"
 
+
+// Function prototypes
+void KeyCallback( GLFWwindow *window, int key, int scancode, int action, int mode );
+void MouseCallback( GLFWwindow *window, double xPos, double yPos );
+void DoMovement( );
+
+// Window dimensions
+const GLuint WIDTH = 800, HEIGHT = 600;
+int SCREEN_WIDTH, SCREEN_HEIGHT;
+
+// Camera
+Camera  camera( glm::vec3( 0.0f, 0.0f, 3.0f ) );
+GLfloat lastX = WIDTH / 2.0;
+GLfloat lastY = HEIGHT / 2.0;
+bool keys[1024];
+bool firstMouse = true;
+
+// Light attributes
+glm::vec3 lightPos( 10.0f, 10.0f, 10.0f );
+
+// Deltatime
+GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
+GLfloat lastFrame = 0.0f;  	// Time of last frame
+
+//void DrawBlock(glm::mat4 model, glm::vec3 cubePositions, GLint modelLoc, int i );
+
+
 int window_valid = 1;
+
+
+//const GLint WIDTH = 800, HEIGHT = 600;
 
 typedef struct	s_objectsToDraw
 {
@@ -20,7 +50,7 @@ int mapWidth;
 int mapHeight;
 
 std::vector<s_objectsToDraw> objectsToDraw;
-int refreshMillis = 1;
+//int refreshMillis = 1;
 
 GLdouble clipAreaXLeft, clipAreaXRight, clipAreaYBottom, clipAreaYTop;
 
@@ -62,319 +92,116 @@ int Lib::getKey()
 
 bool Lib::createWindow(int height, int width)
 {
-	try
-	{
-		char *myargv[1];
-		int myargc = 1;
-		myargv[0] = strdup("./lib1");
+	(void)height;
+	(void)width;
+	 // Init GLFW
+	 glfwInit( );
+	 
+	 // Set all the required options for GLFW
+	 glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3 );
+	 glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 3 );
+	 glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );
+	 glfwWindowHint( GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE );
+	 glfwWindowHint( GLFW_RESIZABLE, GL_FALSE );
+	 
+	 // Create a GLFWwindow object that we can use for GLFW's functions
+	 this->window = glfwCreateWindow( WIDTH, HEIGHT, "LearnOpenGL", nullptr, nullptr );
+	 
+	 int screenWidth, screenHeight;
+	 glfwGetFramebufferSize( window, &screenWidth, &screenHeight );
+	 
+	 if ( nullptr == window )
+	 {
+		 std::cout << "Failed to create GLFW window" << std::endl;
+		 glfwTerminate( );
+		 
+		 return EXIT_FAILURE;
+	 }
+	 
+	 glfwMakeContextCurrent( window );
+	 
+	 // Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
+	 glewExperimental = GL_TRUE;
+	 // Initialize GLEW to setup the OpenGL Function pointers
+	 if ( GLEW_OK != glewInit( ) )
+	 {
+		 std::cout << "Failed to initialize GLEW" << std::endl;
+		 return EXIT_FAILURE;
+	 }
+	 
+	 // Define the viewport dimensions
+	 glViewport( 0, 0, screenWidth, screenHeight );
+	 
 
-		mapWidth = width;
-		mapHeight = height;
-
-		glutInit(&myargc, myargv);
-		glutInitDisplayMode(GLUT_DOUBLE);
-		glutInitWindowSize(windowWidth, windowHeight);
-		glutInitWindowPosition(windowPosX, windowPosY);
-		glutCreateWindow("Bomberman");
-		glutDisplayFunc(display);
-		glutReshapeFunc(reshape);
-
-		glutSpecialFunc(specialKeys);
-		glutKeyboardFunc(keyboard);
-		glutTimerFunc(refreshMillis, Timer, 0);
-		initGL();
-	}
-	catch (...)
-	{
-		return (false);
-	}
-	return (true);
+	 std::cout << "created window" << std::endl;
+	 return 1;
 }
 
 void Lib::Timer(int value) {
 	(void)value;
-	glutPostRedisplay();
-	glutTimerFunc(refreshMillis, Timer, 0);
+	std::cout << "Timer" << std::endl;
 }
 
 void Lib::refresh()
 {
-	glutCheckLoop();
-	display();
+	std::cout << "refresh" << std::endl;
 }
 
 void Lib::draw(int nheight, int nwidth, int x, int y, char ch)
 {
-	s_objectsToDraw	 tempObject;
+	(void)nheight;
+	(void)nwidth;
+	(void)x;
+	(void)y;
+	(void)ch;
+	// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
+	glfwPollEvents( );
+	
+	// Render
+	// Clear the colorbuffer
+	glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
+	glClear( GL_COLOR_BUFFER_BIT );
+	
+	// Swap the screen buffers
+	glfwSwapBuffers( window );
+	//std::cout << "draw" << std::endl;
+	/*s_objectsToDraw	 tempObject;
 	tempObject.x = x;
 	tempObject.y = y;
 	tempObject.c = ch;
 	objectsToDraw.push_back(tempObject);
 	mapWidth = nwidth;
-	mapHeight = nheight;
+	mapHeight = nheight;*/
 }
 
 void Lib::clearWindow()
 {
-	objectsToDraw.clear();
+	std::cout << "clearWindow" << std::endl;
+	//objectsToDraw.clear();
 }
 
 void destroy_window() { 
- window_valid = -1;
+	 //window_valid = -1;
+	 std::cout << "destroy window" << std::endl;
 }
 
-void Lib::display()
+void Lib::display() //maybe dlete this
 {
-	 
-	if(window_valid == -1)
-		return;
-	glClear(GL_COLOR_BUFFER_BIT);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
-	for (int i = 0; i < static_cast<int>(objectsToDraw.size()); i++)
-	{
-		float	 v0x, v1x, v2x, v3x;
-		float	 v0y, v1y, v2y, v3y;
-
-		v0x = -(1 - (1 / (((float)mapWidth + 1) / 2) * (float)(objectsToDraw.at(i).x + 0)));
-		v0y = 1 - (1 / (((float)mapHeight + 1) / 2) * (float)(objectsToDraw.at(i).y + 1));
-
-		v1x = -(1 - (1 / (((float)mapWidth + 1) / 2) * (float)(objectsToDraw.at(i).x + 1)));
-		v1y = v0y;
-
-		v2x = v1x;
-		v2y = 1 - (1 / (((float)mapHeight + 1) / 2) * (float)(objectsToDraw.at(i).y + 0));
-
-		v3x = v0x;
-		v3y = v2y;
-
-		if (objectsToDraw.at(i).c == 0)
-		{
-			glBegin(GL_QUADS);
-			glColor3f(0.0f, 0.2f, 0.0f);
-			glVertex2f(v0x, v0y);
-			glVertex2f(v1x, v1y);
-			glVertex2f(v2x, v2y);
-			glVertex2f(v3x, v3y);
-			glEnd();
-		}
-		if (objectsToDraw.at(i).c == 1)
-		{
-			glBegin(GL_QUADS);
-			glColor3f(0.4f, 0.4f, 0.4f);
-			glVertex2f(v0x, v0y);
-			glVertex2f(v1x, v1y);
-			glVertex2f(v2x, v2y);
-			glVertex2f(v3x, v3y);
-			glEnd();
-		}
-		if (objectsToDraw.at(i).c == 2)
-		{
-			glBegin(GL_QUADS);
-			glColor3f(0, 0, 0);
-			glVertex2f(v0x, v0y);
-			glVertex2f(v1x, v1y);
-			glVertex2f(v2x, v2y);
-			glVertex2f(v3x, v3y);
-			glEnd();	
-		}
-		if (objectsToDraw.at(i).c == 3)
-		{
-			glBegin(GL_QUADS);
-			glColor3f(0.2f, 0.2f, 0.2f);
-			glVertex2f(v0x, v0y);
-			glVertex2f(v1x, v1y);
-			glVertex2f(v2x, v2y);
-			glVertex2f(v3x, v3y);
-			glEnd();
-		}
-		if (objectsToDraw.at(i).c == 4)
-		{
-			glBegin(GL_QUADS);
-			glColor3f(0.0f, 0.9f, 0.0f);
-			glVertex2f(v0x, v0y);
-			glVertex2f(v1x, v1y);
-			glVertex2f(v2x, v2y);
-			glVertex2f(v3x, v3y);
-			glEnd();
-		}
-		if (objectsToDraw.at(i).c == 5)
-		{
-			glBegin(GL_QUADS);
-			glColor3f(0.2f, 0.6f, 0.2f);
-			glVertex2f(v0x, v0y);
-			glVertex2f(v1x, v1y);
-			glVertex2f(v2x, v2y);
-			glVertex2f(v3x, v3y);
-			glEnd();
-		}
-		if (objectsToDraw.at(i).c == 6)
-		{
-			glBegin(GL_QUADS);
-			glColor3f(0.6f, 0, 0);
-			glVertex2f(v0x, v0y);
-			glVertex2f(v1x, v1y);
-			glVertex2f(v2x, v2y);
-			glVertex2f(v3x, v3y);
-			glEnd();
-		}
-		if (objectsToDraw.at(i).c == 7)
-		{
-			glBegin(GL_QUADS);
-			glColor3f(0, 1, 0);
-			glVertex2f(v0x, v0y);
-			glVertex2f(v1x, v1y);
-			glVertex2f(v2x, v2y);
-			glVertex2f(v3x, v3y);
-			glEnd();
-		}
-		if (objectsToDraw.at(i).c == 8)
-		{
-			glBegin(GL_QUADS);
-			glColor3f(0, 0, 1);
-			glVertex2f(v0x, v0y);
-			glVertex2f(v1x, v1y);
-			glVertex2f(v2x, v2y);
-			glVertex2f(v3x, v3y);
-			glEnd();
-		}
-		if (objectsToDraw.at(i).c == 9)
-		{
-			glBegin(GL_QUADS);
-			glColor3f(0, 0.6f, 0.6f);
-			glVertex2f(v0x, v0y);
-			glVertex2f(v1x, v1y);
-			glVertex2f(v2x, v2y);
-			glVertex2f(v3x, v3y);
-			glEnd();
-		}
-		if (objectsToDraw.at(i).c == 10)
-		{
-			glBegin(GL_QUADS);
-			glColor3f(0, 0, 0.3f);
-			glVertex2f(v0x, v0y);
-			glVertex2f(v1x, v1y);
-			glVertex2f(v2x, v2y);
-			glVertex2f(v3x, v3y);
-			glEnd();
-		}
-		if (objectsToDraw.at(i).c == 11)
-		{
-			glBegin(GL_QUADS);
-			glColor3f(0.2, 0, 0.7f);
-			glVertex2f(v0x, v0y);
-			glVertex2f(v1x, v1y);
-			glVertex2f(v2x, v2y);
-			glVertex2f(v3x, v3y);
-			glEnd();
-		}
-		if (objectsToDraw.at(i).c > 11)
-		{
-			glBegin(GL_QUADS);
-			glColor3f(0.2f, 0.6f, 0.2f);
-			glVertex2f(v0x, v0y);
-			glVertex2f(v1x, v1y);
-			glVertex2f(v2x, v2y);
-			glVertex2f(v3x, v3y);
-			glEnd();
-		}
-	}
-	glutSwapBuffers();
+	std::cout << "display" << std::endl;
+	
 }
 
 void Lib::drawBorders()
 {
-	float	 v0x, v1x, v2x, v3x;
-	float	 v0y, v1y, v2y, v3y;
-
-	v0x = -1.0;
-	v0y = 1 - (1 / (((float)mapHeight + 2) / 2));
-
-	v1x = 1.0;
-	v1y = 1 - (1 / (((float)mapHeight + 2) / 2));
-
-	v2x = 1.0;
-	v2y = 1.0;
-
-	v3x = -1.0;
-	v3y = 1.0;
-
-
-	glBegin(GL_QUADS);
-		glColor3f(0.8f, 0.8f, 0.8f);
-		glVertex2f(v0x, v0y);
-		glVertex2f(v1x, v1y);
-		glVertex2f(v2x, v2y);
-		glVertex2f(v3x, v3y);
-	glEnd();
-
-	v0x = 1 - (1 / (((float)mapWidth + 2) / 2));
-	v0y = -1.0;
-
-	v1x = 1.0;
-	v1y = -1.0;
-
-	v2x = 1.0;
-	v2y = 1.0;
-
-	v3x = 1 - (1 / (((float)mapWidth + 2) / 2));
-	v3y = 1.0;
-
-	glBegin(GL_QUADS);
-		glColor3f(0.8f, 0.8f, 0.8f);
-		glVertex2f(v0x, v0y);
-		glVertex2f(v1x, v1y);
-		glVertex2f(v2x, v2y);
-		glVertex2f(v3x, v3y);
-	glEnd();
-
-	v0x = -1.0;
-	v0y = -1.0;
-
-	v1x = 1.0;
-	v1y = -1.0;
-
-	v2x = 1.0;
-	v2y = -(1 - (1 / (((float)mapHeight + 2) / 2)));
-
-	v3x = -1.0;
-	v3y = -(1 - (1 / (((float)mapHeight + 2) / 2)));
-
-
-	glBegin(GL_QUADS);
-		glColor3f(0.8f, 0.8f, 0.8f);
-		glVertex2f(v0x, v0y);
-		glVertex2f(v1x, v1y);
-		glVertex2f(v2x, v2y);
-		glVertex2f(v3x, v3y);
-	glEnd();
-
-	v0x = -1.0;
-	v0y = -1.0;
-
-	v1x = -(1 - (1 / (((float)mapWidth + 2) / 2)));
-	v1y = -1.0;
-
-	v2x = -(1 - (1 / (((float)mapWidth + 2) / 2)));
-	v2y = 1.0;
-
-	v3x = -1.0;
-	v3y = 1.0;
-
-
-	glBegin(GL_QUADS);
-		glColor3f(0.8f, 0.8f, 0.8f);
-		glVertex2f(v0x, v0y);
-		glVertex2f(v1x, v1y);
-		glVertex2f(v2x, v2y); 
-		glVertex2f(v3x, v3y);
-	glEnd();
+	std::cout << "drawBorders" << std::endl;
 }
 
 void Lib::reshape(GLsizei width, GLsizei height)
 {
-	if (height == 0)
+	(void)width;
+	(void)height;
+	std::cout << "reshape" << std::endl;
+	/*if (height == 0)
 		height = 1;
 	GLfloat aspect = (GLfloat)width / (GLfloat)height;
 
@@ -396,11 +223,13 @@ void Lib::reshape(GLsizei width, GLsizei height)
 		clipAreaYBottom = -1.0 / aspect;
 		clipAreaYTop = 1.0 / aspect;
 	}
-	gluOrtho2D(clipAreaXLeft, clipAreaXRight, clipAreaYBottom, clipAreaYTop);
+	gluOrtho2D(clipAreaXLeft, clipAreaXRight, clipAreaYBottom, clipAreaYTop);*/
 }
 
-void Lib::specialKeys(int key, int x, int y)
+/*void Lib::specialKeys(int key, int x, int y)
 {
+	std::cout << "Special keys" << std::endl;
+	
 	(void)x;
 	(void)y;
 	switch (key)
@@ -435,10 +264,13 @@ void Lib::specialKeys(int key, int x, int y)
 			break;
 	}
 	glutPostRedisplay();
-}
+	
+}*/
 
-void Lib::keyboard(unsigned char key, int x, int y)
+/*void Lib::keyboard(unsigned char key, int x, int y)
 {
+	std::cout << "keyboard" << std::endl;
+	
 	(void)x;
 	(void)y;
 	switch (key)
@@ -450,9 +282,75 @@ void Lib::keyboard(unsigned char key, int x, int y)
 			keyPressed = key;
 			break;
 	}
-}
+}*/
 
 void Lib::initGL()
 {
-	
+	std::cout << "initGl" << std::endl;
+}
+
+void MouseCallback( GLFWwindow *window, double xPos, double yPos )
+{
+    (void)window;//cannot remove from top cuase it is needed
+    if (firstMouse)
+    {
+        lastX = xPos;
+        lastY = yPos;
+        firstMouse = false;
+    }
+
+    GLfloat xOffset = xPos - lastX;
+    GLfloat yOffset = lastY - yPos; // Reversed since y-coordinates go from bottom to left
+
+    lastX = xPos;
+    lastY = yPos;
+
+    camera.ProcessMouseMovement(xOffset, yOffset);
+}
+
+void KeyCallback( GLFWwindow *window, int key, int scancode, int action, int mode )
+{
+    (void)scancode;
+    (void)mode;
+    if (GLFW_KEY_ESCAPE == key && GLFW_PRESS == action)
+    {
+        glfwSetWindowShouldClose(window, GL_TRUE);
+    }
+
+    if (key >= 0 && key < 1024)
+    {
+        if (action == GLFW_PRESS)
+        {
+            keys[key] = true;
+        }
+        else if (action == GLFW_RELEASE)
+        {
+            keys[key] = false;
+        }
+    }
+}
+
+// Moves/alters the camera positions based on user input
+void DoMovement()
+{
+    // Camera controls
+    if (keys[GLFW_KEY_W] || keys[GLFW_KEY_UP])
+    {
+        camera.ProcessKeyboard(FORWARD, deltaTime);
+    }
+
+    if (keys[GLFW_KEY_S] || keys[GLFW_KEY_DOWN])
+    {
+        camera.ProcessKeyboard(BACKWARD, deltaTime);
+    }
+
+    if (keys[GLFW_KEY_A] || keys[GLFW_KEY_LEFT])
+    {
+        camera.ProcessKeyboard(LEFT, deltaTime);
+    }
+
+    if (keys[GLFW_KEY_D] || keys[GLFW_KEY_RIGHT])
+    {
+        camera.ProcessKeyboard(RIGHT, deltaTime);
+    }
 }
