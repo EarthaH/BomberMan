@@ -14,9 +14,9 @@ Kill enemies and destroy obstacles by strategically placing down timed bombs.
 - Use arrow keys to move Bomberman around map
 - Hit Spacebar to place bomb on location
 
-
-mkdir build
-cd build
-cmake ../
-make
-./bomberman
+# Build
+- mkdir build
+- cd build
+- cmake ../
+- make
+- ./bomberman
