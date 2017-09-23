@@ -18,5 +18,5 @@ Kill enemies and destroy obstacles by strategically placing down timed bombs.
 - $>make installBrew
 - $>exit
 - Open new terminal
-- $>./build
+- $>./build.sh
 - $>./bomberman
