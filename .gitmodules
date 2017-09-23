@@ -1,0 +1,6 @@
+[submodule "external/nanogui"]
+	path = external/nanogui
+	url = https://github.com/wjakob/nanogui.git
+[submodule "external/soil"]
+	path = external/soil
+	url = https://github.com/papagiannakis/soil2.git
