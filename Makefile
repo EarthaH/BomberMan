@@ -2,7 +2,7 @@ OBJS = src/bomber.cpp src/man.cpp src/bomb.cpp src/game.cpp src/main.cpp \
  src/object.cpp src/overflow.cpp src/map.cpp src/enemy.cpp src/handle.cpp \
  src/level.cpp src/load.cpp src/lib.cpp
  
-OBJ_NAME = bomberman
+OBJ_NAME = game
 
 CC = g++
 

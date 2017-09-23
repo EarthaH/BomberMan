@@ -1,7 +1,5 @@
 #include "../includes/lib.hpp"
 
-Shader lightingShader("res/graphics/shaders/lighting.vs", "res/graphics/shaders/lighting.frag");//ask eartah if this is ok
-Shader lampShader("res/graphics/shaders/lamp.vs", "res/graphics/shaders/lamp.frag");
 
 GLfloat vertices[] =
 {
@@ -49,32 +47,7 @@ GLfloat vertices[] =
 	-0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f};
 
 //!!!!!!!!!!!!!!!!many cubes
-glm::vec3 cubePositions[] = //array of vectors that are the cube positions becuase we have more than one cube
-{
-	glm::vec3(1.0f, 0.0f, 1.0f), //!!!!!!!after running guse which of these cubes applies for which
-	glm::vec3(3.0f, 0.0f, 1.0f),
-	glm::vec3(5.0f, 0.0f, 1.0f),
-	glm::vec3(1.0f, 0.0f, 3.0f),
-	glm::vec3(3.0f, 0.0f, 3.0f),
-	glm::vec3(5.0f, 0.0f, 3.0f),
-	glm::vec3(1.0f, 0.0f, 5.0f),
-	glm::vec3(3.0f, 0.0f, 5.0f),
-	glm::vec3(5.0f, 0.0f, 5.0f),
-	glm::vec3(7.0f, 0.0f, 7.0f)};
 
-GLuint VBO, containerVAO;
-GLuint lightVAO;
-GLuint diffuseMapWooden, specularMapWooden, mapStone;
-int textureWidth, textureHeight;
-unsigned char *image;
-GLfloat currentFrame;
-GLint lightPosLoc;
-GLint viewPosLoc;
-glm::mat4 view;
-GLint modelLoc;
-GLint viewLoc;
-GLint projLoc;
-glm::mat4 model;
 
 // Function prototypes
 void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode);
@@ -121,7 +94,11 @@ bool fullScreenMode = false;
 
 Lib::Lib()
 {
+	createWindow(0, 0);
 	_number = 1;
+	lightingShader = new Shader("res/graphics/shaders/lighting.vs", "res/graphics/shaders/lighting.frag");//ask eartah if this is ok
+	lampShader = new Shader("res/graphics/shaders/lamp.vs", "res/graphics/shaders/lamp.frag");
+	
 	std::cout << "Library created." << std::endl;
 }
 
@@ -138,6 +115,8 @@ Lib const &Lib::operator=(Lib const &copy)
 
 Lib::~Lib()
 {
+	delete lightingShader;
+	delete lampShader;
 	std::cout << "deleting library..." << std::endl;
 }
 
@@ -225,6 +204,19 @@ void		Lib::buildShaders()
 	
 	
 //the fucking arrays
+glm::vec3 cubePositions[] = //array of vectors that are the cube positions becuase we have more than one cube
+{
+	glm::vec3(1.0f, 0.0f, 1.0f), //!!!!!!!after running guse which of these cubes applies for which
+	glm::vec3(3.0f, 0.0f, 1.0f),
+	glm::vec3(5.0f, 0.0f, 1.0f),
+	glm::vec3(1.0f, 0.0f, 3.0f),
+	glm::vec3(3.0f, 0.0f, 3.0f),
+	glm::vec3(5.0f, 0.0f, 3.0f),
+	glm::vec3(1.0f, 0.0f, 5.0f),
+	glm::vec3(3.0f, 0.0f, 5.0f),
+	glm::vec3(5.0f, 0.0f, 5.0f),
+	glm::vec3(7.0f, 0.0f, 7.0f)};
+
 
 
     //!!!!!!!!!!!!!!!!many cubes end
@@ -302,9 +294,9 @@ void		Lib::buildShaders()
     glBindTexture(GL_TEXTURE_2D, 0);
 
     // Set texture units
-    lightingShader.Use();
-    glUniform1i(glGetUniformLocation(lightingShader.Program, "material.diffuse"), 0);
-    glUniform1i(glGetUniformLocation(lightingShader.Program, "material.specular"), 1);
+    lightingShader->Use();
+    glUniform1i(glGetUniformLocation(lightingShader->Program, "material.diffuse"), 0);
+    glUniform1i(glGetUniformLocation(lightingShader->Program, "material.specular"), 1);
 
     this->projection = glm::perspective(camera.GetZoom(), (GLfloat)SCREEN_WIDTH / (GLfloat)SCREEN_HEIGHT, 0.1f, 100.0f);
 
@@ -318,6 +310,20 @@ void Lib::Timer(int value)
 
 void Lib::draw(int nheight, int nwidth, int x, int y, char ch)
 {
+	glm::vec3 cubePositions[] = //array of vectors that are the cube positions becuase we have more than one cube
+	{
+		glm::vec3(1.0f, 0.0f, 1.0f), //!!!!!!!after running guse which of these cubes applies for which
+		glm::vec3(3.0f, 0.0f, 1.0f),
+		glm::vec3(5.0f, 0.0f, 1.0f),
+		glm::vec3(1.0f, 0.0f, 3.0f),
+		glm::vec3(3.0f, 0.0f, 3.0f),
+		glm::vec3(5.0f, 0.0f, 3.0f),
+		glm::vec3(1.0f, 0.0f, 5.0f),
+		glm::vec3(3.0f, 0.0f, 5.0f),
+		glm::vec3(5.0f, 0.0f, 5.0f),
+		glm::vec3(7.0f, 0.0f, 7.0f)};
+	
+	
 	(void)nheight;
 	(void)nwidth;
 	(void)x;
@@ -337,31 +343,31 @@ void Lib::draw(int nheight, int nwidth, int x, int y, char ch)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Use cooresponding shader when setting uniforms/drawing objects
-	lightingShader.Use();
-	lightPosLoc = glGetUniformLocation(lightingShader.Program, "light.position");
-	viewPosLoc = glGetUniformLocation(lightingShader.Program, "viewPos");
+	lightingShader->Use();
+	lightPosLoc = glGetUniformLocation(lightingShader->Program, "light.position");
+	viewPosLoc = glGetUniformLocation(lightingShader->Program, "viewPos");
 	glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
 	glUniform3f(viewPosLoc, camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
 
 	// Set lights properties
-	glUniform3f(glGetUniformLocation(lightingShader.Program, "light.ambient"), 0.5f, 0.5f, 0.5f);
-	glUniform3f(glGetUniformLocation(lightingShader.Program, "light.diffuse"), 0.5f, 0.5f, 0.5f);
-	glUniform3f(glGetUniformLocation(lightingShader.Program, "light.specular"), 1.0f, 1.0f, 1.0f);
+	glUniform3f(glGetUniformLocation(lightingShader->Program, "light.ambient"), 0.5f, 0.5f, 0.5f);
+	glUniform3f(glGetUniformLocation(lightingShader->Program, "light.diffuse"), 0.5f, 0.5f, 0.5f);
+	glUniform3f(glGetUniformLocation(lightingShader->Program, "light.specular"), 1.0f, 1.0f, 1.0f);
 
 	// Set material properties
-	glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 32.0f);
+	glUniform1f(glGetUniformLocation(lightingShader->Program, "material.shininess"), 32.0f);
 
 	// Create camera transformations
 	//glm::mat4 view;
 	view = camera.GetViewMatrix();
 
 	// Get the uniform locations
-	//GLint modelLoc = glGetUniformLocation(lightingShader.Program, "model");
-	//GLint viewLoc = glGetUniformLocation(lightingShader.Program, "view");
-	//GLint projLoc = glGetUniformLocation(lightingShader.Program, "projection");
-	modelLoc = glGetUniformLocation(lightingShader.Program, "model");
-	viewLoc = glGetUniformLocation(lightingShader.Program, "view");
-	projLoc = glGetUniformLocation(lightingShader.Program, "projection");
+	//GLint modelLoc = glGetUniformLocation(lightingShader->Program, "model");
+	//GLint viewLoc = glGetUniformLocation(lightingShader->Program, "view");
+	//GLint projLoc = glGetUniformLocation(lightingShader->Program, "projection");
+	modelLoc = glGetUniformLocation(lightingShader->Program, "model");
+	viewLoc = glGetUniformLocation(lightingShader->Program, "view");
+	projLoc = glGetUniformLocation(lightingShader->Program, "projection");
 
 	// Pass the matrices to the shader
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
@@ -403,11 +409,11 @@ void Lib::draw(int nheight, int nwidth, int x, int y, char ch)
 	glBindVertexArray(0);
 
 	// Also draw the lamp object, again binding the appropriate shader
-	lampShader.Use();
+	lampShader->Use();
 	// Get location objects for the matrices on the lamp shader (these could be different on a different shader)
-	modelLoc = glGetUniformLocation(lampShader.Program, "model");
-	viewLoc = glGetUniformLocation(lampShader.Program, "view");
-	projLoc = glGetUniformLocation(lampShader.Program, "projection");
+	modelLoc = glGetUniformLocation(lampShader->Program, "model");
+	viewLoc = glGetUniformLocation(lampShader->Program, "view");
+	projLoc = glGetUniformLocation(lampShader->Program, "projection");
 
 	// Set matrices
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));

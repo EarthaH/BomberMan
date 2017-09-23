@@ -58,6 +58,23 @@ class   Lib
 		//static void	keyboard(unsigned char key, int x, int y);
 		void		initGL();
 
+		GLuint VBO, containerVAO;
+		GLuint lightVAO;
+		GLuint diffuseMapWooden, specularMapWooden, mapStone;
+		int textureWidth, textureHeight;
+		unsigned char *image;
+		GLfloat currentFrame;
+		GLint lightPosLoc;
+		GLint viewPosLoc;
+		glm::mat4 view;
+		GLint modelLoc;
+		GLint viewLoc;
+		GLint projLoc;
+		glm::mat4 model;
+		Shader *lightingShader;//ask eartah if this is ok
+		Shader *lampShader;
+		
+
 		void destroy_window();
 		static void	drawBorders();
 		
