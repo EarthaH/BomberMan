@@ -46,6 +46,8 @@ set(RESOURCE_DIRS
 )
 
 set(SOURCE_FILES
+    src/camera.cpp
+    src/shader.cpp
     src/bomber.cpp
     src/man.cpp
     src/bomb.cpp
