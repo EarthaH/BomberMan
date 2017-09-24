@@ -964,7 +964,7 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 	{
 		if (action == GLFW_PRESS)
 		{
-			std::cout << key << std::endl;
+			//std::cout << key << std::endl;
 			keys[key] = true;
 		}
 		else if (action == GLFW_RELEASE)

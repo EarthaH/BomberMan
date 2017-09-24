@@ -72,13 +72,13 @@ void	Handle::createEnemy(int num, t_position pos)
 
 int 	Handle::checkKey(int key)
 {
-	std::cout << key << " wtf mate" << std::endl;
+	//std::cout << key << " wtf mate" << std::endl;
 	if (key == 264 || key == 265 || key == 262 || key == 263)
 		return (moveBomber(key));
 	else if (key == SPACE)
 	{
 		dropBomb(bomberman->getX(), bomberman->getY());
-		std::cout << key << " is this a fucking space !!!!???" << std::endl;
+		//std::cout << key << " is this a fucking space !!!!???" << std::endl;
 
 	}
     return (0);
