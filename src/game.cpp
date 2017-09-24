@@ -1,6 +1,7 @@
 #include "../includes/game.hpp"
 
 int enemy_movement = 0;
+bool complete = false;
 
 Game::Game() : score(0), speed(1000)
 {
@@ -98,7 +99,6 @@ int Game::loop()
 {
 	int key;
 	int change_level = 0;
-	bool complete = false;
 
 	//for (;;)
 	//while (!glfwWindowShouldClose(this->library->window))//why doe si tnot reconize a global??
