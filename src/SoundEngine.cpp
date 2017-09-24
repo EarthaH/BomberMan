@@ -4,7 +4,7 @@
 //put the sound on the stack and not on the heap.
 
 void *worker(void *argc){
-    std::cout << "playing from thread" << std::endl;
+    std::cout << "playing from thread: " << &argc << std::endl;
     return  argc;
 }
 

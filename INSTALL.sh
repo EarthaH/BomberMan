@@ -18,8 +18,8 @@ LIB_HG="$HOME/.brew/Cellar/hg"
 LIB_PREMAKE="$HOME/.brew/Cellar/premake"
 
 
-LIB_NANOGUI="../external/nanogui"
-LIB_SOIL="../external/SOIL2"
+LIB_NANOGUI="external/nanogui"
+LIB_SOIL="external/SOIL2"
 
 if [ ! -d "$HOMEBREW" ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/Tolsadus/42homebrewfix/master/install.sh)"
@@ -82,7 +82,7 @@ if [ ! -d "$LIB_ALUT" ]; then
 fi
 
 if [ ! -d "$LIB_NANOGUI" ]; then
-    git clone --recursive https://github.com/wjakob/nanogui.git ../external/nanogui
+    git clone --recursive https://github.com/wjakob/nanogui.git external/nanogui
     git submodule update --init --recursive
 
     mkdir ../external/nanogui/build
@@ -91,7 +91,7 @@ if [ ! -d "$LIB_NANOGUI" ]; then
 fi
 
 if [ ! -d "$LIB_SOIL" ]; then
-    hg clone https://bitbucket.org/SpartanJ/soil2 ../external/SOIL2
+    hg clone https://bitbucket.org/SpartanJ/soil2 external/SOIL2
 
     cd ../external/SOIL2
     premake4 gmake
