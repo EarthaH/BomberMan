@@ -245,6 +245,11 @@ int Lib::getKey()
 	{
 		return (GLFW_KEY_RIGHT);
 	}
+
+	if (keys[32])
+	{
+		return (32);
+	}
 	int key = keyPressed;
 	keyPressed = -1;
 	return (key);

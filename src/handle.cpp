@@ -76,7 +76,11 @@ int 	Handle::checkKey(int key)
 	if (key == 264 || key == 265 || key == 262 || key == 263)
 		return (moveBomber(key));
 	else if (key == SPACE)
-        dropBomb(bomberman->getX(), bomberman->getY());
+	{
+		dropBomb(bomberman->getX(), bomberman->getY());
+		std::cout << key << " is this a fucking space !!!!???" << std::endl;
+
+	}
     return (0);
 }
 
