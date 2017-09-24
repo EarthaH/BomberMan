@@ -59,7 +59,7 @@ void Game::start()
 	while (!glfwWindowShouldClose(this->library->window))
 	{
 		//std::cout << "1.0.1" << std::endl;
-		if ((change = loop()) != 0) //
+		if ((change = loop()) == 100) //
 		{
 			//while ((change = loop()) != 0) //0 means game over - this is for gameplay
 			//while (!glfwWindowShouldClose(this->library->window))
