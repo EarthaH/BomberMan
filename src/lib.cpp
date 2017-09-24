@@ -226,6 +226,25 @@ int Lib::getNumber()
 
 int Lib::getKey()
 {
+	if (keys[GLFW_KEY_UP])
+	{
+		return (GLFW_KEY_UP);
+	}
+
+	if (keys[GLFW_KEY_DOWN])
+	{
+		return (GLFW_KEY_DOWN);
+	}
+
+	if (keys[GLFW_KEY_LEFT])
+	{
+		return (GLFW_KEY_LEFT);
+	}
+
+	if (keys[GLFW_KEY_RIGHT])
+	{
+		return (GLFW_KEY_RIGHT);
+	}
 	int key = keyPressed;
 	keyPressed = -1;
 	return (key);
@@ -955,22 +974,22 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 void DoMovement()
 {
 	// Camera controls
-	if (keys[GLFW_KEY_W] || keys[GLFW_KEY_UP])
+	if (keys[GLFW_KEY_W])
 	{
 		camera.ProcessKeyboard(FORWARD, deltaTime);
 	}
 
-	if (keys[GLFW_KEY_S] || keys[GLFW_KEY_DOWN])
+	if (keys[GLFW_KEY_S])
 	{
 		camera.ProcessKeyboard(BACKWARD, deltaTime);
 	}
 
-	if (keys[GLFW_KEY_A] || keys[GLFW_KEY_LEFT])
+	if (keys[GLFW_KEY_A])
 	{
 		camera.ProcessKeyboard(LEFT, deltaTime);
 	}
 
-	if (keys[GLFW_KEY_D] || keys[GLFW_KEY_RIGHT])
+	if (keys[GLFW_KEY_D])
 	{
 		camera.ProcessKeyboard(RIGHT, deltaTime);
 	}

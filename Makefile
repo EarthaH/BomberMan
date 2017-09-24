@@ -42,9 +42,10 @@ LIBRARY_PATHS = -L ~/.brew/Cellar/glfw/3.2.1/lib \
 LINKER_FLAGS = -framework Cocoa -framework OpenGL -framework IOKit -framework CoreFoundation -framework CoreVideo -framework Carbon -lglfw -lGLEW
 
 
+#bash INSTALL.sh
+
 all:
 	@echo "Compiling code!"
-	bash INSTALL.sh
 	@$(CC) $(OBJS) $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 	@clear
 	@echo "\n# # # # # # # # # # #"

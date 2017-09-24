@@ -102,8 +102,12 @@ int Game::loop()
 	//for (;;)
 	//while (!glfwWindowShouldClose(this->library->window))//why doe si tnot reconize a global??
 	//{
-	if ((key = this->library->getKey()) != ERR) //come back to this
+	if ((key = this->library->getKey()) != ERR)
+	{
 		change_level = handle->checkKey(key);
+		std::cout << change_level << " thisis test"<< std::endl;
+
+	}
 	if (enemy_movement == 5)
 		enemy_movement = handle->moveEnemy();
 	handle->checkBombs();
