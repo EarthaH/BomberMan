@@ -1,9 +1,6 @@
 #include "../includes/game.hpp"
 
-int enemy_movement = 0;
-bool complete = false;
-
-Game::Game() : score(0), speed(1000)
+Game::Game() : speed(1000), enemy_movement(0), complete(false)
 {
 	init();
 }
@@ -15,7 +12,8 @@ Game::Game(Game const &copy)
 
 Game const &Game::operator=(Game const &copy)
 {
-	this->score = copy.score;
+	this->enemy_movement = copy.enemy_movement;
+	this->complete = copy.complete;
 	this->speed = copy.speed;
 	this->handle = copy.handle;
 	this->level = copy.level;
@@ -45,8 +43,6 @@ void Game::init()
 	std::cout << "0.2" << std::endl;
 	library->buildShaders();
 	std::cout << "0.2" << std::endl;
-
-	score = 0;
 }
 
 /* *** *** *** Main Loop *** *** *** */
@@ -213,7 +209,7 @@ void Game::draw()
 void Game::end()
 {
 	//library->
-	std::cout << "Game over! Score: " << this->score << std::endl;
+	std::cout << "Game over! Score: " << handle->score << std::endl;
 
 	exit(0);
 }
@@ -231,7 +227,7 @@ void Game::save()
 	ofs << handle->map->height << std::endl;
 	for (size_t i = 0; i < static_cast<size_t>(handle->map->height); i++)
 		ofs << handle->map->getMapRow(i) << std::endl;
-	ofs << level->getLevel() << " " << score << " ";
+	ofs << level->getLevel() << " " << handle->score << " ";
 	ofs << handle->bomberman->getRange() << " " << handle->bomberman->getLife();
 	ofs << " " << handle->bombs->size() << std::endl;
 }
@@ -244,7 +240,7 @@ void Game::load(char *file)
 	changeLevel(load_handle->level);
 	handle->map->map = load_handle->map;
 	level->num_of_enemies = handle->map->countType(ENEMY);
-	score = load_handle->score;
+	handle->score = load_handle->score;
 	pos = handle->map->getPosition(BOMBER);
 	handle->bomberman->init(pos.x, pos.y);
 	handle->bomberman->setRange(load_handle->range);
