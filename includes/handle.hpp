@@ -15,6 +15,8 @@ class   Handle
 {
 	private:
 
+	Sound explosion;
+
 	public:
 		Handle();
 		Handle(Level *);

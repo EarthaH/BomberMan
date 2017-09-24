@@ -191,6 +191,9 @@ void	Handle::activeBomb(Bomb *bomb)
 	for (int i = bomb->getY() - 1, r = 0; r < bomberman->getRange() && checkMapFire(bomb->getX() , i); r++, i--)
 		map->update(bomb->getX() , i, FIRE);
 
+	explosion.initialize("../res/sound/explosion.wav");
+	explosion.play(false);
+
 	bomb->exploded();
 	if (bomb->getX() == bomberman->getX() && bomb->getY() == bomberman->getY())
 		bomberman->playerHit();
