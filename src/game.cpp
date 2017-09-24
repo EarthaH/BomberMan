@@ -1,5 +1,7 @@
 #include "../includes/game.hpp"
 
+int enemy_movement = 0;
+
 Game::Game() : score(0), speed(1000)
 {
 	init();
@@ -96,7 +98,6 @@ int Game::loop()
 {
 	int key;
 	int change_level = 0;
-	int enemy_movement = 0;
 	bool complete = false;
 
 	//for (;;)
@@ -105,10 +106,8 @@ int Game::loop()
 	if ((key = this->library->getKey()) != ERR)
 	{
 		change_level = handle->checkKey(key);
-		std::cout << change_level << " thisis test"<< std::endl;
-
 	}
-	if (enemy_movement == 5)
+	if (enemy_movement == 10)
 		enemy_movement = handle->moveEnemy();
 	handle->checkBombs();
 	enemy_movement++;
