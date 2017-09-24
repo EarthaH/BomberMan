@@ -42,8 +42,9 @@ class   Game
 		bool	blockClear();
 		bool	endLevel();
 		
-		int		score;
 		int		speed;
+		int		enemy_movement;
+		bool	complete;
 		Handle  *handle;
 		Lib		*library;
 		Level   *level;

@@ -51,7 +51,7 @@ void	Bomber::playerHit()
 {
 	this->_life--;
 	
-	if (this->_life == 0)
+	if (this->_life < 1)
 		exit(0);
 }
 

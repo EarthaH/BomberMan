@@ -26,6 +26,7 @@ class   Handle
 		Handle const & operator=(Handle const &);
 		~Handle();
 
+		int						score;
 		Map					 	*map;
 		Bomber				  	*bomberman;
 		std::vector<Enemy *>	*enemies;

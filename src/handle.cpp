@@ -7,7 +7,8 @@ Handle::Handle()
 
 Handle::Handle(Level *level)
 {
-	
+	score = 0;
+
 	this->map = new Map(level->getWidth(), level->getHeight());
 
 	this->bomberman = new Bomber(1, 1);
@@ -138,7 +139,7 @@ void	Handle::killEnemy(int x, int y)
 		return ;
 	enemies->erase(enemies->begin() + num);
 	map->update(x, y, OPEN);
-
+	score += 10;
     killedEnemySound.initialize("../res/sound/GameOverArcade.wav");
     killedEnemySound.play(false);
 }
