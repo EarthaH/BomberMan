@@ -138,6 +138,9 @@ void	Handle::killEnemy(int x, int y)
 		return ;
 	enemies->erase(enemies->begin() + num);
 	map->update(x, y, OPEN);
+
+    killedEnemySound.initialize("../res/sound/GameOverArcade.wav");
+    killedEnemySound.play(false);
 }
 
 void	Handle::checkBombs()

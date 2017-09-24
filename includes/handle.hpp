@@ -17,6 +17,7 @@ class   Handle
 
 	Sound explosion;
     Sound powerUp;
+    Sound killedEnemySound;
 
 	public:
 		Handle();

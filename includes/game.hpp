@@ -13,6 +13,10 @@ class	Lib;
 
 class   Game 
 {
+	private:
+	Sound gameOver;
+
+
 	public:
 		Game();
 		Game(Game const &);

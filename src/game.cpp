@@ -213,6 +213,9 @@ void Game::draw()
 void Game::end()
 {
 	//library->
+
+	gameOver.initialize("../res/sound/gameover.wav");
+	gameOver.play(false);
 	std::cout << "Game over! Score: " << this->score << std::endl;
 
 	exit(0);
