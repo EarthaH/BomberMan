@@ -71,6 +71,7 @@ set(RESOURCE_DIRS
 		)
 
 set(SOURCE_FILES
+		src/SoundEngine.cpp
 		src/camera.cpp
 		src/shader.cpp
 		src/bomber.cpp
@@ -87,6 +88,7 @@ set(SOURCE_FILES
 		src/load.cpp
 		src/lib.cpp
 
+		includes/SoundEngine.hpp
 		includes/bomb.hpp
 		includes/camera.hpp
 		includes/game.hpp

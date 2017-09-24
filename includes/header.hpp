@@ -14,6 +14,7 @@
 #include <vector>
 
 #include "base.hpp"
+#include "SoundEngine.hpp"
 #include "game.hpp"
 #include "man.hpp"
 #include "bomb.hpp"
