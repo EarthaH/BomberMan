@@ -1,12 +1,12 @@
 #include "../includes/bomb.hpp"
 // #include <nanogui/nanogui.h>
 
-Bomb::Bomb() : _time(3), _active(false)
+Bomb::Bomb() : _time(1), _active(false)
 {
 	this->_type = BOMB;
 }
 
-Bomb::Bomb(int x, int y) : _time(3), _active(false)
+Bomb::Bomb(int x, int y) : _time(1), _active(false)
 {
 	this->_position.x = x;
 	this->_position.y = y;
@@ -51,7 +51,7 @@ void	Bomb::activate(int x, int y)
 	setX(x);
 	setY(y);
 	this->_active = true;
-	this->_time = 30;
+	this->_time = 10;
 }
 
 void	Bomb::exploded()
