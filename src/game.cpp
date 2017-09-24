@@ -1,5 +1,8 @@
 #include "../includes/game.hpp"
 
+int enemy_movement = 0;
+bool complete = false;
+
 Game::Game() : score(0), speed(1000)
 {
 	init();
@@ -53,13 +56,14 @@ void Game::start()
 	int change;
 	//char	file[] = "Test.txt";
 	std::cout << "1.0.0" << std::endl;
-	
+
 	// Menu menu(this->library->window, 800, 600);
 	
+	library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
 	while (!glfwWindowShouldClose(this->library->window))
 	{
 		//std::cout << "1.0.1" << std::endl;
-		if ((change = loop()) != 0) //
+		if ((change = loop()) == 100) //
 		{
 			//while ((change = loop()) != 0) //0 means game over - this is for gameplay
 			//while (!glfwWindowShouldClose(this->library->window))
@@ -77,12 +81,14 @@ void Game::start()
 		{
 			std::cout << "1.1 - LevelUp" << std::endl;
 			levelUp();
+			library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
 		}
 		else if (change == LEVEL_DOWN)
 		{
 
 			std::cout << "1.2" << std::endl;
 			levelDown();
+			library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
 		}
 		else
 		{
@@ -97,30 +103,40 @@ void Game::start()
 
 int Game::loop()
 {
-	int key;
-	int change_level = 0;
-	int enemy_movement = 0;
-	bool complete = false;
+	if (library->getMovementTime() == 0)
+	{
+		int key;
+		int change_level = 0;
 
-	//for (;;)
-	//while (!glfwWindowShouldClose(this->library->window))//why doe si tnot reconize a global??
-	//{
-	if ((key = this->library->getKey()) != ERR) //come back to this
-		change_level = handle->checkKey(key);
-	if (enemy_movement == 5)
-		enemy_movement = handle->moveEnemy();
-	handle->checkBombs();
-	enemy_movement++;
-	//	draw(); // this not at the bottom
+		//for (;;)
+		//while (!glfwWindowShouldClose(this->library->window))//why doe si tnot reconize a global??
+		//{
+		if ((key = this->library->getKey()) != ERR)
+		{
+			change_level = handle->checkKey(key);
+		}
+		//if (enemy_movement == 1) //can delete enemy movemnt
+		//{
+		handle->moveEnemy();
+		//enemy_movement = 0
+		//}
+		handle->checkBombs();
+		//if (library->getMovementTime() == 0)
+		//{
+		///	enemy_movement++;
+		//	std::cout << "enemy can move" << std::endl;
+		//}
+		//	draw(); // this not at the bottom
 
-	if (handle->bomberman->getLife() == 0)
-		return (0);
-	else if (handle->enemies->size() == 0 && !complete)
-		complete = endLevel();
-	if (change_level != 0)
-		return (change_level);
-	//}
-	//std::cout << "testing" << std::endl;
+		if (handle->bomberman->getLife() == 0)
+			return (0);
+		else if (handle->enemies->size() == 0 && !complete)
+			complete = endLevel();
+		if (change_level != 0)
+			return (change_level);
+		//}
+		//std::cout << "testing" << std::endl;
+	}
 	return 100;
 }
 
@@ -186,7 +202,6 @@ void Game::draw()
 	//library->draw(0, 0, 0, 0, 0);
 	//this->library->refresh();
 	library->postDraw();
-	
 }
 
 /* End game */

@@ -1,5 +1,5 @@
 #include "../includes/bomb.hpp"
-#include <nanogui/nanogui.h>
+// #include <nanogui/nanogui.h>
 
 Bomb::Bomb() : _time(3), _active(false)
 {

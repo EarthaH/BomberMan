@@ -72,24 +72,29 @@ void	Handle::createEnemy(int num, t_position pos)
 
 int 	Handle::checkKey(int key)
 {
-	if (key == 103 || key == 101 || key == 100 || key == 102)
+	//std::cout << key << " wtf mate" << std::endl;
+	if (key == 264 || key == 265 || key == 262 || key == 263)
 		return (moveBomber(key));
 	else if (key == SPACE)
-        dropBomb(bomberman->getX(), bomberman->getY());
+	{
+		dropBomb(bomberman->getX(), bomberman->getY());
+		//std::cout << key << " is this a fucking space !!!!???" << std::endl;
+
+	}
     return (0);
 }
 
-int     Handle::moveBomber(int key)
+int     Handle::moveBomber(int key)//!!!!!!!
 {
     int     res;
 
-	if (key == 103)
+	if (key == 264)
 		bomberman->moveDown(map);
-	else if (key == 101)
+	else if (key == 265)
 		bomberman->moveUp(map);
-	else if (key == 100)
+	else if (key == 263)
 		bomberman->moveLeft(map);
-	else if (key == 102)
+	else if (key == 262)
 		bomberman->moveRight(map);
 	
 	res = checkUpgrades();
@@ -149,7 +154,7 @@ void	Handle::checkBombs()
 	for (size_t i = 0; i < bombs->size(); i++)
 		if (updateBomb(bombs->at(i)))
 			if (bombs->at(i)->explode())
-				activeBomb(bombs->at(i));
+				activeBomb(bombs->at(i));//!!!!!!!
 }
 
 int     Handle::checkUpgrades()

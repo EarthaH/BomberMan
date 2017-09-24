@@ -159,7 +159,7 @@ const GLuint WIDTH = 800, HEIGHT = 600;
 int SCREEN_WIDTH, SCREEN_HEIGHT;
 
 // Camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera camera(glm::vec3(3.0f, 3.0f, 3.0f));//where the camera inits at !!!@@@
 GLfloat lastX = WIDTH / 2.0;
 GLfloat lastY = HEIGHT / 2.0;
 bool keys[1024];
@@ -171,7 +171,7 @@ glm::vec3 lightPos(10.0f, 10.0f, 10.0f);
 // Deltatime
 GLfloat deltaTime = 0.0f; // Time between current frame and last frame
 GLfloat lastFrame = 0.0f; // Time of last frame
-
+GLfloat movementTime = 0.0f;
 //void DrawBlock(glm::mat4 model, glm::vec3 cubePositions, GLint modelLoc, int i );
 
 //int window_valid = 1;
@@ -219,6 +219,12 @@ Lib::~Lib()
 	std::cout << "deleting library..." << std::endl;
 }
 
+
+void Lib::bombermanLevelBeginLib(glm::vec3 coordintates)
+{
+	camera.bombermanLevelBegin(coordintates);
+}
+
 int Lib::getNumber()
 {
 	return (this->_number);
@@ -226,6 +232,35 @@ int Lib::getNumber()
 
 int Lib::getKey()
 {
+	if (keys[GLFW_KEY_UP])
+	{
+		keys[GLFW_KEY_UP] = false;
+		return (GLFW_KEY_UP);
+	}
+
+	if (keys[GLFW_KEY_DOWN])
+	{
+		keys[GLFW_KEY_DOWN] = false;
+		return (GLFW_KEY_DOWN);
+	}
+
+	if (keys[GLFW_KEY_LEFT])
+	{
+		keys[GLFW_KEY_LEFT] = false;
+		return (GLFW_KEY_LEFT);
+	}
+
+	if (keys[GLFW_KEY_RIGHT])
+	{
+		keys[GLFW_KEY_RIGHT] = false;
+		return (GLFW_KEY_RIGHT);
+	}
+
+	if (keys[32])
+	{
+		keys[32] = false;
+		return (32);
+	}
 	int key = keyPressed;
 	keyPressed = -1;
 	return (key);
@@ -534,12 +569,25 @@ void Lib::Timer(int value)
 	std::cout << "Timer" << std::endl;
 }
 
+float Lib::getMovementTime()
+{
+	return movementTime;
+}
+
 void Lib::preDraw()
 {
 	currentFrame = glfwGetTime();
 	deltaTime = currentFrame - lastFrame;
 	lastFrame = currentFrame;
+	movementTime = movementTime + deltaTime;
+	if (movementTime > 0.25f)//this is essentally n second - maybe add movementTrue attribute 
+	{
+		std::cout << "teting" << std::endl;
+		movementTime = 0.0f;
+	}
 
+	std::cout << movementTime << " - "<< currentFrame << " " << deltaTime << " " << lastFrame + deltaTime << " " << std::endl;
+//!!@@@
 	// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 	glfwPollEvents();
 	DoMovement();
@@ -554,7 +602,8 @@ void Lib::preDraw()
 	viewPosLoc = glGetUniformLocation(lightingShader->Program, "viewPos");
 	glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
 	glUniform3f(viewPosLoc, camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
-
+    //std::cout <<  camera.GetPosition().x << " " << camera.GetPosition().y << " " << camera.GetPosition().z << std::endl;
+//!!!@@@
 	// Set lights properties
 	glUniform3f(glGetUniformLocation(lightingShader->Program, "light.ambient"), 0.5f, 0.5f, 0.5f);
 	glUniform3f(glGetUniformLocation(lightingShader->Program, "light.diffuse"), 0.5f, 0.5f, 0.5f);
@@ -619,7 +668,7 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
 
 		//std::cout << a << "-" << b << " ";
 	}
-	else if (ch == 2)
+	else if (ch == 6)
 	{
 		glBindVertexArray(containerVAO);
 		// Bind diffuse map
@@ -940,14 +989,14 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 	{
 		if (action == GLFW_PRESS)
 		{
-			std::cout << key << std::endl;
+			//std::cout << key << std::endl;
 			keys[key] = true;
 		}
-		else if (action == GLFW_RELEASE)
-		{
-			//std::cout << keys[key] << std::endl;
-			keys[key] = false;
-		}
+//		else if (action == GLFW_RELEASE)
+//		{
+//			//std::cout << keys[key] << std::endl;
+//			keys[key] = false;
+//		}
 	}
 }
 
@@ -955,22 +1004,22 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 void DoMovement()
 {
 	// Camera controls
-	if (keys[GLFW_KEY_W] || keys[GLFW_KEY_UP])
+	if (keys[GLFW_KEY_W])
 	{
 		camera.ProcessKeyboard(FORWARD, deltaTime);
 	}
 
-	if (keys[GLFW_KEY_S] || keys[GLFW_KEY_DOWN])
+	if (keys[GLFW_KEY_S])
 	{
 		camera.ProcessKeyboard(BACKWARD, deltaTime);
 	}
 
-	if (keys[GLFW_KEY_A] || keys[GLFW_KEY_LEFT])
+	if (keys[GLFW_KEY_A])
 	{
 		camera.ProcessKeyboard(LEFT, deltaTime);
 	}
 
-	if (keys[GLFW_KEY_D] || keys[GLFW_KEY_RIGHT])
+	if (keys[GLFW_KEY_D])
 	{
 		camera.ProcessKeyboard(RIGHT, deltaTime);
 	}

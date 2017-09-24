@@ -3,6 +3,9 @@
 // Std. Includes
 #include <vector>
 
+#include <iostream>
+#include "glm/ext.hpp"
+
 // GL Includes
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -54,6 +57,8 @@ class Camera
         GLfloat GetZoom( );
         
         glm::vec3 GetPosition( );
+
+        glm::vec3 bombermanLevelBegin(glm::vec3 coordinates);
         
     private:
         // Camera Attributes
