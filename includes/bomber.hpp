@@ -3,7 +3,7 @@
 
 #include "header.hpp"
 
-class	Object;
+class	Base;
 class	Man;
 class	Bomb;
 class	Map;

@@ -1,5 +1,53 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+#Cmake files to ignore
+.idea*
+cmake-build-debug
+
+#NANOGUI library
+external/nanogui
+.nanogui
+
+#SOIL2 library
+external/SOIL2
+.SOIL2
+
+#Build directory
 build
-external
-SOIL2
-.gitmodules
-.git
+
+# Other
+bomberman_log.txt
+._*
+.DS_Store
+.vscode
+.classdigest

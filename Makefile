@@ -1,5 +1,5 @@
 OBJS = src/bomber.cpp src/man.cpp src/bomb.cpp src/game.cpp src/main.cpp \
- src/object.cpp src/overflow.cpp src/map.cpp src/enemy.cpp src/handle.cpp \
+ src/base.cpp src/overflow.cpp src/map.cpp src/enemy.cpp src/handle.cpp \
  src/level.cpp src/load.cpp src/lib.cpp src/camera.cpp src/shader.cpp
  
 OBJ_NAME = game
@@ -29,17 +29,20 @@ INCLUDE_PATHS = -I ~/.brew/Cellar/glfw/3.2.1/include \
 				-I external/nanogui/ext/nanovg/src \
 				-I external/nanogui/ext/pybind \
 				-I external/nanogui/include \
-				external/SOIL2/lib/macosx/libsoil2.a
+				-I external/nanogui/python \
+				-I external/nanogui/resources \
+				-I external/nanogui/src \
+				-I external/nanogui \
+				external/SOIL2/lib/macosx/libsoil2.a 
 
 LIBRARY_PATHS = -L ~/.brew/Cellar/glfw/3.2.1/lib \
 				-L ~/.brew/Cellar/glew/2.1.0/lib \
 				-L ~/.brew/Cellar/glm/0.9.8.5/lib \
 				-L ~/.brew/Cellar/sdl/1.2.15/lib \
-				-L ~/.brew/Cellar/sdl2/2.0.5/lib \
-				-L external/nanogui/build
-				
+				-L ~/.brew/Cellar/sdl2/2.0.5/lib	
 
 LINKER_FLAGS = -framework Cocoa -framework OpenGL -framework IOKit -framework CoreFoundation -framework CoreVideo -framework Carbon -lglfw -lGLEW
+
 
 
 all:
@@ -53,6 +56,7 @@ all:
 	@echo "#    succesfully    #"
 	@echo "#                   #"
 	@echo "# # # # # # # # # # #\n"
+
 
 installBrew : 
 	@./brewInstall.sh

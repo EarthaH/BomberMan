@@ -1,5 +1,5 @@
-#ifndef OBJECT_H
-# define OBJECT_H
+#ifndef BASE_H
+# define BASE_H
 
 #include <iostream>
 
@@ -24,18 +24,18 @@ typedef struct  s_position
 	int		oldY;
 }	   t_position;
 
-class Object
+class Base
 {
 	protected:
 		t_position  _position;
 		int		 _type;
 
 	public:
-		Object();
-		Object(Object const &);
-		Object(int, int, char);
-		Object const & operator=(Object const &);
-		~Object();
+		Base();
+		Base(Base const &);
+		Base(int, int, char);
+		Base const & operator=(Base const &);
+		~Base();
 		int		getX();
 		int		getY();
 		int		getOldX();

@@ -4,10 +4,10 @@
 #include "header.hpp"
 
 class	Game;
-class	Object;
+class	Base;
 class	Map;
 
-class	Bomb: public Object
+class	Bomb: public Base
 {
 	private:
 		int		_time;

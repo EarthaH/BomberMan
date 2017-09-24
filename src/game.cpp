@@ -53,6 +53,9 @@ void Game::start()
 	int change;
 	//char	file[] = "Test.txt";
 	std::cout << "1.0.0" << std::endl;
+	
+	// Menu menu(this->library->window, 800, 600);
+	
 	while (!glfwWindowShouldClose(this->library->window))
 	{
 		//std::cout << "1.0.1" << std::endl;

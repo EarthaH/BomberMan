@@ -80,7 +80,7 @@ void	Map::update(t_position pos, int type)
 	map[pos.y][pos.x] = type;
 }
 
-void	Map::update(Object *obj, int type)
+void	Map::update(Base *obj, int type)
 {
 	if (isType(obj->getOldX(), obj->getOldY(), type))
 		map[obj->getOldY()][obj->getOldX()] = OPEN;

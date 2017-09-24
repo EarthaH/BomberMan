@@ -1,17 +1,17 @@
 #ifndef MAN_H
 # define MAN_H
 
-#include "object.hpp"
+#include "base.hpp"
 #include "map.hpp"
 
 #define PLAYER 0
 #define SIMPLE_ENEMY 1
 #define PLAYER_ENEMY 2
 
-class   Object;
+class   Base;
 class   Map;
 
-class   Man: public Object
+class   Man: public Base
 {
 	protected:
 		int		_type;

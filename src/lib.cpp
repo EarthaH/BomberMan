@@ -195,8 +195,8 @@ Lib::Lib()
 {
 	createWindow(0, 0);
 	_number = 1;
-	lightingShader = new Shader("res/graphics/shaders/lighting.vs", "res/graphics/shaders/lighting.frag"); //ask eartah if this is ok
-	lampShader = new Shader("res/graphics/shaders/lamp.vs", "res/graphics/shaders/lamp.frag");
+	lightingShader = new Shader("../res/graphics/shaders/lighting.vs", "../res/graphics/shaders/lighting.frag"); //ask eartah if this is ok
+	lampShader = new Shader("../res/graphics/shaders/lamp.vs", "../res/graphics/shaders/lamp.frag");
 
 	std::cout << "Library created." << std::endl;
 }
@@ -387,7 +387,7 @@ void Lib::buildShaders()
 	//unsigned char *image;
 
 	// Diffuse map
-	image = SOIL_load_image("res/graphics/images/container2.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	image = SOIL_load_image("../res/graphics/images/container2.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
 	glBindTexture(GL_TEXTURE_2D, diffuseMapWooden);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
@@ -398,7 +398,7 @@ void Lib::buildShaders()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 
 	// Specular map
-	image = SOIL_load_image("res/graphics/images/container2_specular.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	image = SOIL_load_image("../res/graphics/images/container2_specular.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
 	glBindTexture(GL_TEXTURE_2D, specularMapWooden);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
@@ -409,7 +409,7 @@ void Lib::buildShaders()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 
 	// Wooden Map
-	image = SOIL_load_image("res/graphics/images/stoneWall.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	image = SOIL_load_image("../res/graphics/images/stoneWall.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
 	glBindTexture(GL_TEXTURE_2D, mapStone);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
@@ -421,7 +421,7 @@ void Lib::buildShaders()
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	//fire
-	image = SOIL_load_image("res/graphics/images/fire.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	image = SOIL_load_image("../res/graphics/images/fire.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
 	glBindTexture(GL_TEXTURE_2D, mapFire);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
@@ -432,7 +432,7 @@ void Lib::buildShaders()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	image = SOIL_load_image("res/graphics/images/life.jpg", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	image = SOIL_load_image("../res/graphics/images/life.jpg", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
 	glBindTexture(GL_TEXTURE_2D, mapLife);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
@@ -443,7 +443,7 @@ void Lib::buildShaders()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	image = SOIL_load_image("res/graphics/images/bombUp.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	image = SOIL_load_image("../res/graphics/images/bombUp.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
 	glBindTexture(GL_TEXTURE_2D, mapBombUp);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
@@ -454,7 +454,7 @@ void Lib::buildShaders()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	image = SOIL_load_image("res/graphics/images/fireUp.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	image = SOIL_load_image("../res/graphics/images/fireUp.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
 	glBindTexture(GL_TEXTURE_2D, mapFireUp);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
@@ -465,7 +465,7 @@ void Lib::buildShaders()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	image = SOIL_load_image("res/graphics/images/blue.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	image = SOIL_load_image("../res/graphics/images/blue.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
 	glBindTexture(GL_TEXTURE_2D, mapBlue);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
@@ -476,7 +476,7 @@ void Lib::buildShaders()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	image = SOIL_load_image("res/graphics/images/orange.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	image = SOIL_load_image("../res/graphics/images/orange.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
 	glBindTexture(GL_TEXTURE_2D, mapOrange);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
@@ -487,7 +487,7 @@ void Lib::buildShaders()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	
-	image = SOIL_load_image("res/graphics/images/red.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	image = SOIL_load_image("../res/graphics/images/red.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
 	glBindTexture(GL_TEXTURE_2D, mapRed);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
@@ -498,7 +498,7 @@ void Lib::buildShaders()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	
-	image = SOIL_load_image("res/graphics/images/green.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	image = SOIL_load_image("../res/graphics/images/green.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
 	glBindTexture(GL_TEXTURE_2D, mapGreen);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
@@ -509,7 +509,7 @@ void Lib::buildShaders()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	image = SOIL_load_image("res/graphics/images/yellow.jpg", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	image = SOIL_load_image("../res/graphics/images/yellow.jpg", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
 	glBindTexture(GL_TEXTURE_2D, mapYellow);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);

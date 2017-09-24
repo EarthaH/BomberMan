@@ -6,9 +6,9 @@
 #include <string>
 #include <sstream>
 #include <iostream>
-#include "object.hpp"
+#include "base.hpp"
 
-class   Object;
+class   Base;
 
 class   Map
 {
@@ -25,7 +25,7 @@ class   Map
 		void		init();
 		void		update(int, int, int);
 		void		update(t_position, int);
-		void		update(Object *, int);
+		void		update(Base *, int);
 		void		clear();
 		bool		isOpen(int, int);
 		bool		isType(int, int, int);
