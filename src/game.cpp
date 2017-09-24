@@ -100,30 +100,40 @@ void Game::start()
 
 int Game::loop()
 {
-	int key;
-	int change_level = 0;
-
-	//for (;;)
-	//while (!glfwWindowShouldClose(this->library->window))//why doe si tnot reconize a global??
-	//{
-	if ((key = this->library->getKey()) != ERR)
+	if (library->getMovementTime() == 0)
 	{
-		change_level = handle->checkKey(key);
-	}
-	if (enemy_movement == 10)//can delete enemy movemnt
-		enemy_movement = handle->moveEnemy();
-	handle->checkBombs();
-	enemy_movement++;
-	//	draw(); // this not at the bottom
+		int key;
+		int change_level = 0;
 
-	if (handle->bomberman->getLife() == 0)
-		return (0);
-	else if (handle->enemies->size() == 0 && !complete)
-		complete = endLevel();
-	if (change_level != 0)
-		return (change_level);
-	//}
-	//std::cout << "testing" << std::endl;
+		//for (;;)
+		//while (!glfwWindowShouldClose(this->library->window))//why doe si tnot reconize a global??
+		//{
+		if ((key = this->library->getKey()) != ERR)
+		{
+			change_level = handle->checkKey(key);
+		}
+		//if (enemy_movement == 1) //can delete enemy movemnt
+		//{
+		handle->moveEnemy();
+		//enemy_movement = 0
+		//}
+		handle->checkBombs();
+		//if (library->getMovementTime() == 0)
+		//{
+		///	enemy_movement++;
+		//	std::cout << "enemy can move" << std::endl;
+		//}
+		//	draw(); // this not at the bottom
+
+		if (handle->bomberman->getLife() == 0)
+			return (0);
+		else if (handle->enemies->size() == 0 && !complete)
+			complete = endLevel();
+		if (change_level != 0)
+			return (change_level);
+		//}
+		//std::cout << "testing" << std::endl;
+	}
 	return 100;
 }
 
@@ -189,7 +199,6 @@ void Game::draw()
 	//library->draw(0, 0, 0, 0, 0);
 	//this->library->refresh();
 	library->postDraw();
-	
 }
 
 /* End game */

@@ -171,7 +171,7 @@ glm::vec3 lightPos(10.0f, 10.0f, 10.0f);
 // Deltatime
 GLfloat deltaTime = 0.0f; // Time between current frame and last frame
 GLfloat lastFrame = 0.0f; // Time of last frame
-
+GLfloat movementTime = 0.0f;
 //void DrawBlock(glm::mat4 model, glm::vec3 cubePositions, GLint modelLoc, int i );
 
 //int window_valid = 1;
@@ -564,12 +564,25 @@ void Lib::Timer(int value)
 	std::cout << "Timer" << std::endl;
 }
 
+float Lib::getMovementTime()
+{
+	return movementTime;
+}
+
 void Lib::preDraw()
 {
 	currentFrame = glfwGetTime();
 	deltaTime = currentFrame - lastFrame;
 	lastFrame = currentFrame;
+	movementTime = movementTime + deltaTime;
+	if (movementTime > 0.25f)//this is essentally n second - maybe add movementTrue attribute 
+	{
+		std::cout << "teting" << std::endl;
+		movementTime = 0.0f;
+	}
 
+	std::cout << movementTime << " - "<< currentFrame << " " << deltaTime << " " << lastFrame + deltaTime << " " << std::endl;
+//!!@@@
 	// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 	glfwPollEvents();
 	DoMovement();
@@ -584,7 +597,7 @@ void Lib::preDraw()
 	viewPosLoc = glGetUniformLocation(lightingShader->Program, "viewPos");
 	glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
 	glUniform3f(viewPosLoc, camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
-    std::cout <<  camera.GetPosition().x << " " << camera.GetPosition().y << " " << camera.GetPosition().z << std::endl;
+    //std::cout <<  camera.GetPosition().x << " " << camera.GetPosition().y << " " << camera.GetPosition().z << std::endl;
 //!!!@@@
 	// Set lights properties
 	glUniform3f(glGetUniformLocation(lightingShader->Program, "light.ambient"), 0.5f, 0.5f, 0.5f);
