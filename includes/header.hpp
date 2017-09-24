@@ -13,7 +13,7 @@
 #include <curses.h>
 #include <vector>
 
-#include "object.hpp"
+#include "base.hpp"
 #include "game.hpp"
 #include "man.hpp"
 #include "bomb.hpp"
@@ -35,7 +35,7 @@
 
 #define LIB1 "lib1.so"
 
-bool	equal(Object &, Object &);
-bool	equal(Object &, int, int);
+bool	equal(Base &, Base &);
+bool	equal(Base &, int, int);
 
 #endif

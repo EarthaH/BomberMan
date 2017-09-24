@@ -72,7 +72,7 @@ set(SOURCE_FILES
     includes/header.hpp
     includes/lib.hpp
     includes/man.hpp
-    includes/object.hpp
+    includes/base.hpp
     includes/bomber.hpp
     includes/enemy.hpp
     includes/handle.hpp
