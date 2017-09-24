@@ -234,26 +234,31 @@ int Lib::getKey()
 {
 	if (keys[GLFW_KEY_UP])
 	{
+		keys[GLFW_KEY_UP] = false;
 		return (GLFW_KEY_UP);
 	}
 
 	if (keys[GLFW_KEY_DOWN])
 	{
+		keys[GLFW_KEY_DOWN] = false;
 		return (GLFW_KEY_DOWN);
 	}
 
 	if (keys[GLFW_KEY_LEFT])
 	{
+		keys[GLFW_KEY_LEFT] = false;
 		return (GLFW_KEY_LEFT);
 	}
 
 	if (keys[GLFW_KEY_RIGHT])
 	{
+		keys[GLFW_KEY_RIGHT] = false;
 		return (GLFW_KEY_RIGHT);
 	}
 
 	if (keys[32])
 	{
+		keys[32] = false;
 		return (32);
 	}
 	int key = keyPressed;
@@ -663,7 +668,7 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
 
 		//std::cout << a << "-" << b << " ";
 	}
-	else if (ch == 2)
+	else if (ch == 6)
 	{
 		glBindVertexArray(containerVAO);
 		// Bind diffuse map
@@ -987,11 +992,11 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 			//std::cout << key << std::endl;
 			keys[key] = true;
 		}
-		else if (action == GLFW_RELEASE)
-		{
-			//std::cout << keys[key] << std::endl;
-			keys[key] = false;
-		}
+//		else if (action == GLFW_RELEASE)
+//		{
+//			//std::cout << keys[key] << std::endl;
+//			keys[key] = false;
+//		}
 	}
 }
 
