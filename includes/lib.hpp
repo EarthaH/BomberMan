@@ -72,6 +72,7 @@ class Lib
 	glm::mat4 model;
 	Shader *lightingShader; //ask eartah if this is ok
 	Shader *lampShader;
+	void bombermanLevelBeginLib(glm::vec3 coordintates);
 
 	void destroy_window();
 	static void drawBorders();

@@ -159,7 +159,7 @@ const GLuint WIDTH = 800, HEIGHT = 600;
 int SCREEN_WIDTH, SCREEN_HEIGHT;
 
 // Camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera camera(glm::vec3(3.0f, 3.0f, 3.0f));//where the camera inits at !!!@@@
 GLfloat lastX = WIDTH / 2.0;
 GLfloat lastY = HEIGHT / 2.0;
 bool keys[1024];
@@ -217,6 +217,12 @@ Lib::~Lib()
 	delete lightingShader;
 	delete lampShader;
 	std::cout << "deleting library..." << std::endl;
+}
+
+
+void Lib::bombermanLevelBeginLib(glm::vec3 coordintates)
+{
+	camera.bombermanLevelBegin(coordintates);
 }
 
 int Lib::getNumber()
@@ -578,7 +584,8 @@ void Lib::preDraw()
 	viewPosLoc = glGetUniformLocation(lightingShader->Program, "viewPos");
 	glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
 	glUniform3f(viewPosLoc, camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
-
+    std::cout <<  camera.GetPosition().x << " " << camera.GetPosition().y << " " << camera.GetPosition().z << std::endl;
+//!!!@@@
 	// Set lights properties
 	glUniform3f(glGetUniformLocation(lightingShader->Program, "light.ambient"), 0.5f, 0.5f, 0.5f);
 	glUniform3f(glGetUniformLocation(lightingShader->Program, "light.diffuse"), 0.5f, 0.5f, 0.5f);

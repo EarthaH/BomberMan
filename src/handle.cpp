@@ -154,7 +154,7 @@ void	Handle::checkBombs()
 	for (size_t i = 0; i < bombs->size(); i++)
 		if (updateBomb(bombs->at(i)))
 			if (bombs->at(i)->explode())
-				activeBomb(bombs->at(i));
+				activeBomb(bombs->at(i));//!!!!!!!
 }
 
 int     Handle::checkUpgrades()

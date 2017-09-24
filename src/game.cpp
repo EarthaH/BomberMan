@@ -56,6 +56,7 @@ void Game::start()
 	int change;
 	//char	file[] = "Test.txt";
 	std::cout << "1.0.0" << std::endl;
+	library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
 	while (!glfwWindowShouldClose(this->library->window))
 	{
 		//std::cout << "1.0.1" << std::endl;
@@ -77,12 +78,14 @@ void Game::start()
 		{
 			std::cout << "1.1 - LevelUp" << std::endl;
 			levelUp();
+			library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
 		}
 		else if (change == LEVEL_DOWN)
 		{
 
 			std::cout << "1.2" << std::endl;
 			levelDown();
+			library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
 		}
 		else
 		{
@@ -107,7 +110,7 @@ int Game::loop()
 	{
 		change_level = handle->checkKey(key);
 	}
-	if (enemy_movement == 10)
+	if (enemy_movement == 10)//can delete enemy movemnt
 		enemy_movement = handle->moveEnemy();
 	handle->checkBombs();
 	enemy_movement++;

@@ -61,6 +61,7 @@ Camera::Camera( GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat upX, GLfloat u
 // Returns the view matrix calculated using Eular Angles and the LookAt Matrix
 glm::mat4 Camera::GetViewMatrix( )
 {
+    //std::cout <<  glm::to_string(this->position) << " " << glm::to_string(this->front) << " " << glm::to_string(this->position) + glm::to_string(this->front) << " " << glm::to_string(this->up) << std::endl;
     return glm::lookAt( this->position, this->position + this->front, this->up );
 }
 
@@ -122,7 +123,7 @@ GLfloat Camera::GetZoom( )
     return this->zoom;
 }
 
-glm::vec3 Camera::GetPosition( )
+glm::vec3 Camera::GetPosition( )//this is the postion of the camera
 {
     return this->position;
 }
@@ -138,4 +139,13 @@ void Camera::updateCameraVectors( )
     // Also re-calculate the Right and Up vector
     this->right = glm::normalize( glm::cross( this->front, this->worldUp ) );  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
     this->up = glm::normalize( glm::cross( this->right, this->front ) );
+}
+
+glm::vec3 Camera::bombermanLevelBegin(glm::vec3 coordinates)//!!!@@@
+{
+    this->position.x = coordinates.x;
+    this->position.y = coordinates.y;
+    this->position.z = coordinates.z;
+
+    return coordinates;
 }
