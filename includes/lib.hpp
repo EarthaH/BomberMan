@@ -12,7 +12,7 @@
 #include <GLFW/glfw3.h>
 
 // Other Libs
-#include "../external/soil/include/SOIL2.h"
+#include "../external/SOIL2/src/SOIL2/SOIL2.h"
 
 // GLM Mathematics
 #include <glm/glm.hpp>

@@ -105,7 +105,7 @@ link_directories(
 add_executable(bomberman ${SOURCE_FILES})
 
 add_library(soil STATIC IMPORTED)
-set_target_properties(soil PROPERTIES IMPORTED_LOCATION ../external/soil/build/libsoil2.a)
+set_target_properties(soil PROPERTIES IMPORTED_LOCATION ../SOIL2/lib/macosx/libsoil2.a)
 
 # Link executable with libraries
 target_link_libraries(${PROJECT_NAME}

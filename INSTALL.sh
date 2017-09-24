@@ -14,9 +14,12 @@ LIB_GLM="$HOME/.brew/Cellar/glm"
 LIB_SMFL="$HOME/.brew/Cellar/sfml"
 LIB_EIGEN="$HOME/.brew/Cellar/eigen"
 LIB_ALUT="$HOME/.brew/Cellar/alut"
+LIB_HG="$HOME/.brew/Cellar/hg"
+LIB_PREMAKE="$HOME/.brew/Cellar/premake"
 
-LIB_NANOGUI="../external/nanogui"
-LIB_SOIL="../SOIL2"
+
+LIB_NANOGUI="external/nanogui"
+LIB_SOIL="external/SOIL2"
 
 if [ ! -d "$HOMEBREW" ]; then
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/Tolsadus/42homebrewfix/master/install.sh)"
@@ -32,6 +35,14 @@ fi
 
 if [ ! -d "$LIB_PNG" ]; then
 	$HOME/.brew/bin/brew install libpng
+fi
+
+if [ ! -d "$LIB_HG" ]; then
+	$HOME/.brew/bin/brew install hg
+fi
+
+if [ ! -d "$LIB_PREMAKE" ]; then
+	$HOME/.brew/bin/brew install premake
 fi
 
 if [ ! -d "$LIB_FREETYPE" ]; then
@@ -58,7 +69,6 @@ if [ ! -d "$LIB_GLM" ]; then
 	$HOME/.brew/bin/brew install glm
 fi
 
-
 if [ ! -d "$LIB_SFML" ]; then
 	$HOME/.brew/bin/brew install sfml
 fi
@@ -72,14 +82,20 @@ if [ ! -d "$LIB_ALUT" ]; then
 fi
 
 if [ ! -d "$LIB_NANOGUI" ]; then
-	git submodule add https://github.com/wjakob/nanogui.git ../external/nanogui
+	git clone --recursive https://github.com/wjakob/nanogui.git external/nanogui
 	git submodule update --init --recursive
+
+	mkdir external/nanogui/build
+	cmake -Bexternal/nanogui/build -Hexternal/nanogui
+	make -C external/nanogui/build
 fi
 
 if [ ! -d "$LIB_SOIL" ]; then
-	hg clone https://bitbucket.org/SpartanJ/soil2 ../SOIL2
+	hg clone https://bitbucket.org/SpartanJ/soil2 external/SOIL2
 
-	cd ../SOIL2
+	cd external/SOIL2
 	premake4 gmake
+
+	make -C make/macosx config=release
 
 fi
