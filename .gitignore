@@ -41,6 +41,7 @@ external/nanogui
 #SOIL2 library
 external/SOIL2
 .SOIL2
+soil
 
 #Build directory
 build
