@@ -16,6 +16,7 @@ class   Handle
 	private:
 
 	Sound explosion;
+    Sound powerUp;
 
 	public:
 		Handle();

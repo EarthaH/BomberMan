@@ -156,12 +156,21 @@ int     Handle::checkUpgrades()
 {
 	int	 block = map->getType(bomberman->getX(), bomberman->getY());
 
-	if (block == BOMB_UPGRADE)
-		createBomb();
-	else if (block == FIRE_UPGRADE)
-		bomberman->upgradeRange();
-	else if (block == LIFE_UPGRADE)
+	if (block == BOMB_UPGRADE) {
+        createBomb();
+        powerUp.initialize("../res/sound/power03.wav");
+        powerUp.play(false);
+    }
+	else if (block == FIRE_UPGRADE) {
+        bomberman->upgradeRange();
+        powerUp.initialize("../res/sound/power03.wav");
+        powerUp.play(false);
+    }
+	else if (block == LIFE_UPGRADE) {
         bomberman->upgradeLife();
+        powerUp.initialize("../res/sound/power03.wav");
+        powerUp.play(false);
+    }
     else if (block == LEVEL_UP)
         return (LEVEL_UP);
     else if (block == LEVEL_DOWN)
