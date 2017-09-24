@@ -6,9 +6,9 @@ OBJ_NAME = game
 
 CC = g++
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -std=c++11
 
-COMPILER_FLAGS = -Wall -Werror -Wextra
+COMPILER_FLAGS = -Wall -Werror -Wextra -Wno-unused-parameter -std=c++11
 
 #CFLAGS1 =	-std=c++11 -Wno-deprecated-declarations -O3
 
@@ -17,15 +17,34 @@ COMPILER_FLAGS = -Wall -Werror -Wextra
 
 LIBRARY = -framework OpenGL -framework AppKit
 
-INCLUDE_PATHS = -I ~/.brew/Cellar/glfw/3.2.1/include -I ~/.brew/Cellar/glew/2.1.0/include -I ~/.brew/Cellar/glm/0.9.8.5/include libsoil2.a
+INCLUDE_PATHS = -I ~/.brew/Cellar/glfw/3.2.1/include \
+				-I ~/.brew/Cellar/glew/2.1.0/include \
+				-I ~/.brew/Cellar/glm/0.9.8.5/include \
+				-I ~/.brew/Cellar/sdl/1.2.15/include \
+				-I ~/.brew/Cellar/sdl2/2.0.5/include \
+				-I external/nanogui/ext/eigen \
+				-I external/nanogui/ext/coro \
+				-I external/nanogui/ext/glad \
+				-I external/nanogui/ext/nanovg \
+				-I external/nanogui/ext/nanovg/src \
+				-I external/nanogui/ext/pybind \
+				-I external/nanogui/include \
+				external/SOIL2/lib/macosx/libsoil2.a
 
-LIBRARY_PATHS = -L ~/.brew/Cellar/glfw/3.2.1/lib -L ~/.brew/Cellar/glew/2.1.0/lib -L ~/.brew/Cellar/glm/0.9.8.5/lib
+LIBRARY_PATHS = -L ~/.brew/Cellar/glfw/3.2.1/lib \
+				-L ~/.brew/Cellar/glew/2.1.0/lib \
+				-L ~/.brew/Cellar/glm/0.9.8.5/lib \
+				-L ~/.brew/Cellar/sdl/1.2.15/lib \
+				-L ~/.brew/Cellar/sdl2/2.0.5/lib \
+				-L external/nanogui/build
+				
 
 LINKER_FLAGS = -framework Cocoa -framework OpenGL -framework IOKit -framework CoreFoundation -framework CoreVideo -framework Carbon -lglfw -lGLEW
 
 
 all:
 	@echo "Compiling code!"
+	bash INSTALL.sh
 	@$(CC) $(OBJS) $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 	@clear
 	@echo "\n# # # # # # # # # # #"
