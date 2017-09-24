@@ -10,13 +10,11 @@ Handle::Handle(Level *level)
 	
 	this->map = new Map(level->getWidth(), level->getHeight());
 
-	Bomb	*bomb = new Bomb(1, 1);
-
 	this->bomberman = new Bomber(1, 1);
 	this->enemies = new std::vector<Enemy *>;
 	this->bombs = new std::vector<Bomb *>;
 
-	bombs->push_back(bomb);
+	createBomb();
 	initMap(level);
 	for (int i = 0; i < level->num_of_enemies; i++)
 		createEnemy(i);
@@ -72,19 +70,14 @@ void	Handle::createEnemy(int num, t_position pos)
 
 int 	Handle::checkKey(int key)
 {
-	//std::cout << key << " wtf mate" << std::endl;
 	if (key == 264 || key == 265 || key == 262 || key == 263)
 		return (moveBomber(key));
 	else if (key == SPACE)
-	{
 		dropBomb(bomberman->getX(), bomberman->getY());
-		//std::cout << key << " is this a fucking space !!!!???" << std::endl;
-
-	}
     return (0);
 }
 
-int     Handle::moveBomber(int key)//!!!!!!!
+int     Handle::moveBomber(int key)
 {
     int     res;
 
@@ -191,6 +184,9 @@ void	Handle::createBomb()
 
 void	Handle::activeBomb(Bomb *bomb)
 {
+	bomb->exploded();
+	map->update(bomb, bomb->type());
+
 	for (int i = bomb->getX() + 1, r = 0; r < bomberman->getRange() && checkMapFire(i, bomb->getY() ); r++, i++)
 		map->update(i, bomb->getY(), FIRE);
 	for (int i = bomb->getX()  - 1, r = 0; r < bomberman->getRange() && checkMapFire(i, bomb->getY()); r++, i--)
@@ -199,11 +195,9 @@ void	Handle::activeBomb(Bomb *bomb)
 		map->update(bomb->getX() , i, FIRE);
 	for (int i = bomb->getY() - 1, r = 0; r < bomberman->getRange() && checkMapFire(bomb->getX() , i); r++, i--)
 		map->update(bomb->getX() , i, FIRE);
-
-	bomb->exploded();
+	
 	if (bomb->getX() == bomberman->getX() && bomb->getY() == bomberman->getY())
 		bomberman->playerHit();
-	map->update(bomb, bomb->type());
 
 	explosion.initialize("../res/sound/explosion.wav");
 	explosion.play(false);

@@ -159,6 +159,8 @@ void Game::levelUp()
 
 	level = new Level(current_level + 1);
 	handle = new Handle(level);
+
+	complete = false;
 }
 
 void Game::levelDown()
@@ -170,6 +172,8 @@ void Game::levelDown()
 
 	level = new Level(current_level - 1);
 	handle = new Handle(level);
+
+	complete = false;
 }
 
 void Game::changeLevel(int l)
