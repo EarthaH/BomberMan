@@ -1,5 +1,5 @@
 #ifndef LIB_H
-# define LIB_H
+#define LIB_H
 
 #include <iostream>
 #include <cmath>
@@ -22,63 +22,59 @@
 #include "camera.hpp"
 #include "shader.hpp"
 
-
-
-
-
-class   Lib
+class Lib
 {
-	private:
-		int			 _number;
-		
-	public:
-		Lib();
-		Lib(Lib const &);
-		Lib const & operator=(Lib const &);
-		~Lib();
-		int			getNumber();
-		int			getKey();//
-		bool		createWindow(int, int);
-		void		draw(int, int, int, int, char);
-		void		buildShaders();
+  private:
+	int _number;
 
+  public:
+	Lib();
+	Lib(Lib const &);
+	Lib const &operator=(Lib const &);
+	~Lib();
+	int getNumber();
+	int getKey(); //
+	bool createWindow(int, int);
+	void draw(int, int, int, int, int);
+	void preDraw();
+	void postDraw();
 
+	void buildShaders();
 
-		GLFWwindow *window;
-		int screenWidth, screenHeight;
-    	//GLfloat *vertices;
-		glm::mat4 projection;
-		//GLuint VBO, containerVAO;
+	GLFWwindow *window;
+	int screenWidth, screenHeight;
+	//GLfloat *vertices;
+	glm::mat4 projection;
+	//GLuint VBO, containerVAO;
 
-		static void Timer(int value);
+	static void Timer(int value);
 
-		static void	display();
-		static void	reshape(GLsizei width, GLsizei height);
-		//static void	specialKeys(int key, int x, int y);
-		//static void	keyboard(unsigned char key, int x, int y);
-		void		initGL();
+	static void display();
+	static void reshape(GLsizei width, GLsizei height);
+	//static void	specialKeys(int key, int x, int y);
+	//static void	keyboard(unsigned char key, int x, int y);
+	void initGL();
 
-		GLuint VBO, containerVAO;
-		GLuint lightVAO;
-		GLuint diffuseMapWooden, specularMapWooden, mapStone;
-		int textureWidth, textureHeight;
-		unsigned char *image;
-		GLfloat currentFrame;
-		GLint lightPosLoc;
-		GLint viewPosLoc;
-		glm::mat4 view;
-		GLint modelLoc;
-		GLint viewLoc;
-		GLint projLoc;
-		glm::mat4 model;
-		Shader *lightingShader;//ask eartah if this is ok
-		Shader *lampShader;
-		
+	GLuint containerVBO, containerVAO;
+	GLuint containerSmallVBO, containerSmallVAO;
+	GLuint containerTallVBO, containerTallVAO;
+	GLuint lightVAO;
+	GLuint diffuseMapWooden, specularMapWooden, mapStone, mapFire, mapLife, mapBombUp, mapFireUp, mapBlue, mapOrange, mapRed, mapGreen, mapYellow;
+	int textureWidth, textureHeight;
+	unsigned char *image;
+	GLfloat currentFrame;
+	GLint lightPosLoc;
+	GLint viewPosLoc;
+	glm::mat4 view;
+	GLint modelLoc;
+	GLint viewLoc;
+	GLint projLoc;
+	glm::mat4 model;
+	Shader *lightingShader; //ask eartah if this is ok
+	Shader *lampShader;
 
-		void destroy_window();
-		static void	drawBorders();
-		
+	void destroy_window();
+	static void drawBorders();
 };
-
 
 #endif

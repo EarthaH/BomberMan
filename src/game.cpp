@@ -37,12 +37,12 @@ void Game::init()
 	this->library = new Lib();
 	this->load_handle = new Load();
 
-	std::cout << "0.1" << std::endl;	
+	std::cout << "0.1" << std::endl;
 	//library->createWindow(level->getHeight(), level->getWidth());
-	std::cout << "0.2" << std::endl;	
+	std::cout << "0.2" << std::endl;
 	library->buildShaders();
 	std::cout << "0.2" << std::endl;
-	
+
 	score = 0;
 }
 
@@ -55,7 +55,7 @@ void Game::start()
 	std::cout << "1.0.0" << std::endl;
 	while (!glfwWindowShouldClose(this->library->window))
 	{
-		std::cout << "1.0.1" << std::endl;
+		//std::cout << "1.0.1" << std::endl;
 		if ((change = loop()) != 0) //
 		{
 			//while ((change = loop()) != 0) //0 means game over - this is for gameplay
@@ -67,7 +67,7 @@ void Game::start()
 			//save();
 			//load(file);
 			//}
-					std::cout << "1.0" << std::endl;
+			//std::cout << "1.0" << std::endl;
 			draw();
 		}
 		else if (change == LEVEL_UP)
@@ -85,10 +85,10 @@ void Game::start()
 		{
 			std::cout << "1.3" << std::endl;
 		}
-			std::cout << "1.4" << std::endl;
+		//std::cout << "1.4" << std::endl;
 	}
 
-	std::cout << "1.5" << std::endl;
+	//std::cout << "1.5" << std::endl;
 	end();
 }
 
@@ -153,7 +153,7 @@ void Game::levelDown()
 	handle = new Handle(level);
 }
 
-void	Game::changeLevel(int l)
+void Game::changeLevel(int l)
 {
 	delete level;
 	delete handle;
@@ -165,14 +165,25 @@ void	Game::changeLevel(int l)
 
 /* Draw game */
 
-void Game::draw() 
+void Game::draw()
 {
+	library->preDraw();
 	//library->clearWindow();
-	//for (int i = 0; i < level->getHeight(); ++i)
-	//for (int j = 0; j < level->getWidth(); ++j)
-	//library->draw(level->getHeight(), level->getWidth(), i, j, handle->map->map[j][i]);
-	library->draw(0, 0, 0, 0, 0);
+	for (int i = 0; i < level->getHeight(); ++i)
+	{
+		for (int j = 0; j < level->getWidth(); ++j)
+		{
+			//std::cout << handle->map->map[j][i] << " ";
+			library->draw(level->getHeight(), level->getWidth(), i, j, handle->map->map[j][i]);
+		}
+		//std::cout << std::endl;
+	}
+	//std::cout << std::endl;
+	//std::cout << std::endl;
+	//library->draw(0, 0, 0, 0, 0);
 	//this->library->refresh();
+	library->postDraw();
+	
 }
 
 /* End game */
@@ -194,7 +205,7 @@ void Game::save()
 	struct tm *curtime = localtime(&_tm);
 	std::string file = strcat(asctime(curtime), ".txt");
 
-	ofs.open (file, std::ofstream::out | std::ofstream::app);
+	ofs.open(file, std::ofstream::out | std::ofstream::app);
 	ofs << handle->map->height << std::endl;
 	for (size_t i = 0; i < static_cast<size_t>(handle->map->height); i++)
 		ofs << handle->map->getMapRow(i) << std::endl;
@@ -205,7 +216,7 @@ void Game::save()
 
 void Game::load(char *file)
 {
-	t_position	pos;
+	t_position pos;
 	load_handle->load(file);
 
 	changeLevel(load_handle->level);

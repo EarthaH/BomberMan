@@ -1,6 +1,6 @@
 #include "../includes/lib.hpp"
 
-GLfloat vertices[] =
+GLfloat verticesBigCubes[] =
 	{
 		// Positions            // Normals              // Texture Coords
 		-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
@@ -45,19 +45,109 @@ GLfloat vertices[] =
 		-0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
 		-0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f};
 
+GLfloat verticesTallCubes[] =
+	{
+		// Positions            // Normals              // Texture Coords
+		-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+		0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f,
+		0.5f, 0.7f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
+		0.5f, 0.7f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
+		-0.5f, 0.7f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+
+		-0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+		0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
+		0.5f, 0.7f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+		0.5f, 0.7f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+		-0.5f, 0.7f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+		-0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+
+		-0.5f, 0.7f, 0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+		-0.5f, 0.7f, -0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		-0.5f, -0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		-0.5f, 0.7f, 0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+
+		0.5f, 0.7f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+		0.5f, 0.7f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+		0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+
+		-0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
+		0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f,
+		0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+		0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+		-0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
+
+		-0.5f, 0.7f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+		0.5f, 0.7f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+		0.5f, 0.7f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+		0.5f, 0.7f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+		-0.5f, 0.7f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+		-0.5f, 0.7f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f};
+
+GLfloat verticesSmallCubes[] =
+	{
+		// Positions            // Normals              // Texture Coords
+		-0.111f, -0.111f, -0.111f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+		0.111f, -0.111f, -0.111f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f,
+		0.111f, 0.111f, -0.111f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
+		0.111f, 0.111f, -0.111f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
+		-0.111f, 0.111f, -0.111f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f,
+		-0.111f, -0.111f, -0.111f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+
+		-0.111f, -0.111f, 0.111f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+		0.111f, -0.111f, 0.111f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
+		0.111f, 0.111f, 0.111f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+		0.111f, 0.111f, 0.111f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+		-0.111f, 0.111f, 0.111f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+		-0.111f, -0.111f, 0.111f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+
+		-0.111f, 0.111f, 0.111f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+		-0.111f, 0.111f, -0.111f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+		-0.111f, -0.111f, -0.111f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		-0.111f, -0.111f, -0.111f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		-0.111f, -0.111f, 0.111f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		-0.111f, 0.111f, 0.111f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+
+		0.111f, 0.111f, 0.111f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+		0.111f, 0.111f, -0.111f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+		0.111f, -0.111f, -0.111f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		0.111f, -0.111f, -0.111f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		0.111f, -0.111f, 0.111f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		0.111f, 0.111f, 0.111f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+
+		-0.111f, -0.111f, -0.111f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
+		0.111f, -0.111f, -0.111f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f,
+		0.111f, -0.111f, 0.111f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+		0.111f, -0.111f, 0.111f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+		-0.111f, -0.111f, 0.111f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+		-0.111f, -0.111f, -0.111f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
+
+		-0.111f, 0.111f, -0.111f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+		0.111f, 0.111f, -0.111f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+		0.111f, 0.111f, 0.111f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+		0.111f, 0.111f, 0.111f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+		-0.111f, 0.111f, 0.111f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+		-0.111f, 0.111f, -0.111f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f};
+
 //!!!!!!!!!!!!!!!!many cubes
 glm::vec3 cubePositions[] = //array of vectors that are the cube positions becuase we have more than one cube
-{
-	glm::vec3(1.0f, 0.0f, 1.0f), //!!!!!!!after running guse which of these cubes applies for which
-	glm::vec3(3.0f, 0.0f, 1.0f),
-	glm::vec3(5.0f, 0.0f, 1.0f),
-	glm::vec3(1.0f, 0.0f, 3.0f),
-	glm::vec3(3.0f, 0.0f, 3.0f),
-	glm::vec3(5.0f, 0.0f, 3.0f),
-	glm::vec3(1.0f, 0.0f, 5.0f),
-	glm::vec3(3.0f, 0.0f, 5.0f),
-	glm::vec3(5.0f, 0.0f, 5.0f),
-	glm::vec3(7.0f, 0.0f, 7.0f)};
+	{
+		glm::vec3(1.0f, 0.0f, 1.0f), //!!!!!!!after running guse which of these cubes applies for which
+		glm::vec3(3.0f, 0.0f, 1.0f),
+		glm::vec3(5.0f, 0.0f, 1.0f),
+		glm::vec3(1.0f, 0.0f, 3.0f),
+		glm::vec3(3.0f, 0.0f, 3.0f),
+		glm::vec3(5.0f, 0.0f, 3.0f),
+		glm::vec3(1.0f, 0.0f, 5.0f),
+		glm::vec3(3.0f, 0.0f, 5.0f),
+		glm::vec3(5.0f, 0.0f, 5.0f),
+		glm::vec3(7.0f, 0.0f, 7.0f)};
 // Function prototypes
 void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode);
 void MouseCallback(GLFWwindow *window, double xPos, double yPos);
@@ -212,18 +302,17 @@ void Lib::buildShaders()
 	// Set up vertex data (and buffer(s)) and attribute pointers
 
 	//the fucking arrays
-	
 
 	//!!!!!!!!!!!!!!!!many cubes end
-	std::cout << (sizeof(cubePositions) / sizeof(*cubePositions)) << std::endl;
+	//std::cout << (sizeof(cubePositions) / sizeof(*cubePositions)) << std::endl;
 
-	// First, set the container's VAO (and VBO)
-	//GLuint VBO, containerVAO;
+	// First, set the container's VAO (and containerVBO)
+	//GLuint containerVBO, containerVAO;
 	glGenVertexArrays(1, &containerVAO); //&
-	glGenBuffers(1, &VBO);				 //&
+	glGenBuffers(1, &containerVBO);		 //&
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, containerVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(verticesBigCubes), verticesBigCubes, GL_STATIC_DRAW);
 
 	glBindVertexArray(containerVAO);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)0);
@@ -234,12 +323,46 @@ void Lib::buildShaders()
 	glEnableVertexAttribArray(2);
 	glBindVertexArray(0);
 
-	// Then, we set the light's VAO (VBO stays the same. After all, the vertices are the same for the light object (also a 3D cube))
+
+
+	glGenVertexArrays(1, &containerSmallVAO); //&
+	glGenBuffers(1, &containerSmallVBO);	  //&
+
+	glBindBuffer(GL_ARRAY_BUFFER, containerSmallVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(verticesSmallCubes), verticesSmallCubes, GL_STATIC_DRAW);
+
+	glBindVertexArray(containerSmallVAO);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)0);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(6 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(2);
+	glBindVertexArray(0);
+
+	
+
+	glGenVertexArrays(1, &containerTallVAO); //&
+	glGenBuffers(1, &containerTallVBO);	  //&
+
+	glBindBuffer(GL_ARRAY_BUFFER, containerTallVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(verticesTallCubes), verticesTallCubes, GL_STATIC_DRAW);
+
+	glBindVertexArray(containerTallVAO);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)0);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(6 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(2);
+	glBindVertexArray(0);
+
+	// Then, we set the light's VAO (containerVBO stays the same. After all, the verticesBigCubes are the same for the light object (also a 3D cube))
 	//GLuint lightVAO;
 	glGenVertexArrays(1, &lightVAO);
 	glBindVertexArray(lightVAO);
-	// We only need to bind to the VBO (to link it with glVertexAttribPointer), no need to fill it; the VBO's data already contains all we need.
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	// We only need to bind to the containerVBO (to link it with glVertexAttribPointer), no need to fill it; the containerVBO's data already contains all we need.
+	glBindBuffer(GL_ARRAY_BUFFER, containerVBO);
 	// Set the vertex attributes (only position data for the lamp))
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)0); // Note that we skip over the other data in our buffer object (we don't need the normals/textures, only positions).
 	glEnableVertexAttribArray(0);
@@ -250,6 +373,15 @@ void Lib::buildShaders()
 	glGenTextures(1, &diffuseMapWooden);
 	glGenTextures(1, &specularMapWooden);
 	glGenTextures(1, &mapStone);
+	glGenTextures(1, &mapFire);
+	glGenTextures(1, &mapLife);
+	glGenTextures(1, &mapBombUp);
+	glGenTextures(1, &mapFireUp);
+	glGenTextures(1, &mapBlue);
+	glGenTextures(1, &mapOrange);
+	glGenTextures(1, &mapRed);
+	glGenTextures(1, &mapGreen);
+	glGenTextures(1, &mapYellow);
 
 	//int textureWidth, textureHeight;
 	//unsigned char *image;
@@ -288,6 +420,106 @@ void Lib::buildShaders()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
+	//fire
+	image = SOIL_load_image("res/graphics/images/fire.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	glBindTexture(GL_TEXTURE_2D, mapFire);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	image = SOIL_load_image("res/graphics/images/life.jpg", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	glBindTexture(GL_TEXTURE_2D, mapLife);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	image = SOIL_load_image("res/graphics/images/bombUp.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	glBindTexture(GL_TEXTURE_2D, mapBombUp);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	image = SOIL_load_image("res/graphics/images/fireUp.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	glBindTexture(GL_TEXTURE_2D, mapFireUp);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	image = SOIL_load_image("res/graphics/images/blue.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	glBindTexture(GL_TEXTURE_2D, mapBlue);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	image = SOIL_load_image("res/graphics/images/orange.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	glBindTexture(GL_TEXTURE_2D, mapOrange);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	
+	image = SOIL_load_image("res/graphics/images/red.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	glBindTexture(GL_TEXTURE_2D, mapRed);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	
+	image = SOIL_load_image("res/graphics/images/green.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	glBindTexture(GL_TEXTURE_2D, mapGreen);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	image = SOIL_load_image("res/graphics/images/yellow.jpg", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+	glBindTexture(GL_TEXTURE_2D, mapYellow);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
 	// Set texture units
 	lightingShader->Use();
 	glUniform1i(glGetUniformLocation(lightingShader->Program, "material.diffuse"), 0);
@@ -302,16 +534,8 @@ void Lib::Timer(int value)
 	std::cout << "Timer" << std::endl;
 }
 
-void Lib::draw(int nheight, int nwidth, int x, int y, char ch)
+void Lib::preDraw()
 {
-	
-
-	(void)nheight;
-	(void)nwidth;
-	(void)x;
-	(void)y;
-	(void)ch;
-	// Calculate deltatime of current frame
 	currentFrame = glfwGetTime();
 	deltaTime = currentFrame - lastFrame;
 	lastFrame = currentFrame;
@@ -356,15 +580,154 @@ void Lib::draw(int nheight, int nwidth, int x, int y, char ch)
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
 	// Draw the container (using container's vertex attributes)
-	glBindVertexArray(containerVAO);
-	//glm::mat4 model;
+}
 
-	for (GLuint i = 0; i < (sizeof(cubePositions) / sizeof(*cubePositions)); i++) //make this dynamic also make one of these foo all different type of cubes
+void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
+{
+
+	(void)nwidth;
+	(void)nheight;
+	// Calculate deltatime of current frame
+
+	//glm::mat4 model;
+	if (ch == 5 || ch > 11)
+	{
+		glBindVertexArray(containerVAO);
+		// Bind diffuse map
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, diffuseMapWooden);
+
+		// Bind specular map
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, specularMapWooden);
+		float a = x;
+		float b = y;
+		//std::cout << x << "-" << y << " ";
+		//std::cout << ch << " ";
+		DrawBlock(model, glm::vec3(a, 0.0f, b), modelLoc);
+	}
+	else if (ch == 4)
+	{
+		glBindVertexArray(containerVAO);
+		// Bind diffuse map
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, mapStone);
+		float a = x;
+		float b = y;
+		DrawBlock(model, glm::vec3(a, 0.0f, b), modelLoc);
+		//std::cout << ch << " ";
+
+		//std::cout << a << "-" << b << " ";
+	}
+	else if (ch == 2)
+	{
+		glBindVertexArray(containerVAO);
+		// Bind diffuse map
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, mapFire);
+		float a = x;
+		float b = y;
+		DrawBlock(model, glm::vec3(a, 0.0f, b), modelLoc);
+		//std::cout << ch << " ";
+
+		//std::cout << a << "-" << b << " ";
+	}
+	else if (ch == 9)
+	{
+		glBindVertexArray(containerSmallVAO);
+		// Bind diffuse map
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, mapLife);
+		float a = x;
+		float b = y;
+		DrawBlock(model, glm::vec3(a, 0.0f, b), modelLoc);
+		//std::cout << ch << " ";
+
+		//std::cout << a << "-" << b << " ";
+	}
+	else if (ch == 10)
+	{
+		glBindVertexArray(containerSmallVAO);
+		// Bind diffuse map
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, mapBombUp);
+		float a = x;
+		float b = y;
+		DrawBlock(model, glm::vec3(a, 0.0f, b), modelLoc);
+		//std::cout << ch << " ";
+
+		//std::cout << a << "-" << b << " ";
+	}
+	else if (ch == 1)
+	{
+		glBindVertexArray(containerTallVAO);
+		// Bind diffuse map
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, mapBlue);
+		float a = x;
+		float b = y;
+		DrawBlock(model, glm::vec3(a, 0.0f, b), modelLoc);
+		//std::cout << ch << " ";
+
+		//std::cout << a << "-" << b << " ";
+	}
+	else if (ch == 2)
+	{
+		glBindVertexArray(containerSmallVAO);
+		// Bind diffuse map
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, mapOrange);
+		float a = x;
+		float b = y;
+		DrawBlock(model, glm::vec3(a, 0.0f, b), modelLoc);
+		//std::cout << ch << " ";
+
+		//std::cout << a << "-" << b << " ";
+	}
+	else if (ch == 3)
+	{
+		glBindVertexArray(containerTallVAO);
+		// Bind diffuse map
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, mapRed);
+		float a = x;
+		float b = y;
+		DrawBlock(model, glm::vec3(a, 0.0f, b), modelLoc);
+		//std::cout << ch << " ";
+
+		//std::cout << a << "-" << b << " ";
+	}
+	else if (ch == 7)
+	{
+		glBindVertexArray(containerVAO);
+		// Bind diffuse map
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, mapGreen);
+		float a = x;
+		float b = y;
+		DrawBlock(model, glm::vec3(a, 0.0f, b), modelLoc);
+		//std::cout << ch << " ";
+
+		//std::cout << a << "-" << b << " ";
+	}
+	else if (ch == 8)
+	{
+		glBindVertexArray(containerVAO);
+		// Bind diffuse map
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, mapYellow);
+		float a = x;
+		float b = y;
+		DrawBlock(model, glm::vec3(a, 0.0f, b), modelLoc);
+		//std::cout << ch << " ";
+
+		//std::cout << a << "-" << b << " ";
+	}
+
+	/*for (int i = 0; i < (nheight * nwidth); i++) //make this dynamic also make one of these foo all different type of cubes
 	{
 		if (i % 2 == 0)
-
 		{
-
 			// Bind diffuse map
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, diffuseMapWooden);
@@ -372,19 +735,28 @@ void Lib::draw(int nheight, int nwidth, int x, int y, char ch)
 			// Bind specular map
 			glActiveTexture(GL_TEXTURE1);
 			glBindTexture(GL_TEXTURE_2D, specularMapWooden);
-
-			DrawBlock(model, cubePositions[i], modelLoc);
+			float a = x;
+			float b = y;
+			std::cout << x << " " << y << " ";
+			DrawBlock(model, glm::vec3(b, 0.0f, a), modelLoc);
 		}
 		else
 		{
 			// Bind diffuse map
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, mapStone);
+			float a = x;
+			float b = y;
+			DrawBlock(model, glm::vec3(b, 0.0f, a), modelLoc);
 
-			DrawBlock(model, cubePositions[i], modelLoc);
+			std::cout << a << " " << b << " ";
 		}
 	}
+	std::cout << std::endl;*/
+}
 
+void Lib::postDraw()
+{
 	//glUniformMatrix4fv( modelLoc, 1, GL_FALSE, glm::value_ptr( model ) );
 	//glDrawArrays( GL_TRIANGLES, 0, 36 );
 	glBindVertexArray(0);
@@ -413,12 +785,12 @@ void Lib::draw(int nheight, int nwidth, int x, int y, char ch)
 
 	//std::cout << "draw" << std::endl;
 	/*s_objectsToDraw	 tempObject;
-	tempObject.x = x;
-	tempObject.y = y;
-	tempObject.c = ch;
-	objectsToDraw.push_back(tempObject);
-	mapWidth = nwidth;
-	mapHeight = nheight;*/
+		tempObject.x = x;
+		tempObject.y = y;
+		tempObject.c = ch;
+		objectsToDraw.push_back(tempObject);
+		mapWidth = nwidth;
+		mapHeight = nheight;*/
 }
 
 void Lib::destroy_window()
@@ -426,7 +798,7 @@ void Lib::destroy_window()
 	//window_valid = -1;
 	glDeleteVertexArrays(1, &containerVAO);
 	glDeleteVertexArrays(1, &lightVAO);
-	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &containerVBO);
 
 	// Terminate GLFW, clearing any resources allocated by GLFW.
 	glfwTerminate();
@@ -568,10 +940,12 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 	{
 		if (action == GLFW_PRESS)
 		{
+			std::cout << key << std::endl;
 			keys[key] = true;
 		}
 		else if (action == GLFW_RELEASE)
 		{
+			//std::cout << keys[key] << std::endl;
 			keys[key] = false;
 		}
 	}
