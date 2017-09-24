@@ -582,11 +582,11 @@ void Lib::preDraw()
 	movementTime = movementTime + deltaTime;
 	if (movementTime > 0.25f)//this is essentally n second - maybe add movementTrue attribute 
 	{
-		std::cout << "teting" << std::endl;
+		//std::cout << "teting" << std::endl;
 		movementTime = 0.0f;
 	}
 
-	std::cout << movementTime << " - "<< currentFrame << " " << deltaTime << " " << lastFrame + deltaTime << " " << std::endl;
+	//std::cout << movementTime << " - "<< currentFrame << " " << deltaTime << " " << lastFrame + deltaTime << " " << std::endl;
 //!!@@@
 	// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 	glfwPollEvents();
