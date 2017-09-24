@@ -13,7 +13,6 @@
 
 // Other Libs
 #include "../external/SOIL2/src/SOIL2/SOIL2.h"
-#include <SOIL2.h>
 
 // GLM Mathematics
 #include <glm/glm.hpp>
