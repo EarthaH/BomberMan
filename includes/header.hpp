@@ -13,6 +13,7 @@
 #include <curses.h>
 #include <vector>
 
+#include "menu.hpp"
 #include "base.hpp"
 #include "SoundEngine.hpp"
 #include "game.hpp"

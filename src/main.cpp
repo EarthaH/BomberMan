@@ -11,6 +11,7 @@ int		main()
 	Sound musicloop;
 	musicloop.initialize("../res/sound/loop.wav");
 	musicloop.play(true);
+    menu();
 	Game	*game = new Game();
 	game->start();
 	delete  game;

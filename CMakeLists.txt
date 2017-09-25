@@ -87,7 +87,9 @@ set(SOURCE_FILES
 		src/level.cpp
 		src/load.cpp
 		src/lib.cpp
+		src/menu.cpp
 
+		includes/menu.hpp
 		includes/SoundEngine.hpp
 		includes/bomb.hpp
 		includes/camera.hpp
@@ -108,6 +110,11 @@ set(SOURCE_FILES
 # Directories to find the header files
 include_directories(
 		includes
+		${PROJECT_SOURCE_DIR}/external/nanogui/include
+		${PROJECT_SOURCE_DIR}/external/nanogui/ext
+		${PROJECT_SOURCE_DIR}/external/nanogui/ext/nanovg/src
+		${PROJECT_SOURCE_DIR}/external/nanogui/ext/eigen
+		${PROJECT_SOURCE_DIR}/external/nanogui/ext/glfw/include
 		~/.brew/include
 		~/.brew/include/freetype2
 		~/.brew/include/eigen3
@@ -121,6 +128,7 @@ link_directories(
 		${PROJECT_SOURCE_DIR}
 		${GLEW_LIBRARY_DIRS}
 		${GLM_LIBRARY_DIRS}
+#		${PROJECT_SOURCE_DIR}/external/nanogui/build
 		${PROJECT_SOURCE_DIR}/external/SOIL2/lib/macosx/
 		#${GLFW_LIBRARY_DIRS}
 )
