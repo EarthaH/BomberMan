@@ -21,6 +21,7 @@
 #include <vector>
 #include "camera.hpp"
 #include "shader.hpp"
+#include "Menu.hpp"
 
 class Lib
 {

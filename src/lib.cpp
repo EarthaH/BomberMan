@@ -270,6 +270,9 @@ bool Lib::createWindow(int height, int width)
 {
 	(void)height;
 	(void)width;
+
+	nanogui::init();
+
 	// Init GLFW
 	glfwInit();
 
@@ -323,6 +326,8 @@ bool Lib::createWindow(int height, int width)
 
 	// OpenGL options
 	glEnable(GL_DEPTH_TEST);
+
+	Menu menu(this->window, &SCREEN_WIDTH, &SCREEN_HEIGHT)
 
 	std::cout << "created window" << std::endl;
 	return 1;
@@ -851,6 +856,9 @@ void Lib::destroy_window()
 
 	// Terminate GLFW, clearing any resources allocated by GLFW.
 	glfwTerminate();
+
+	nanogui::shutdown();
+
 	std::cout << "destroy window" << std::endl;
 }
 

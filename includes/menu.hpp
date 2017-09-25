@@ -1,14 +1,34 @@
-//
-// Created by Gabriel GROENER on 2017/09/25.
-//
+#pragma once
 
-#ifndef BOMBERMAN_MENU_H
-#define BOMBERMAN_MENU_H
+// #include <GLFW/glfw3.h>
+#include <iostream>
+#include <nanogui/nanogui.h>
+#include <GLFW/glfw3.h>
+#include "GameState.hpp"
 
+class Menu {
 
-class menu {
+public:
+    enum class State {
+        START,
+        END,
+        PAUSE,
+        SETTINGS,
+        SAVE,
+        LOAD,
+        LEVEL
+    };
+    
+    Menu( void );
+    Menu( GLFWwindow *window, int width, int height );
+	~Menu( void );
+
+	Menu( Menu const & copy );
+    Menu& operator=( Menu const & copy );
+    
+    void    setWinPosition(nanogui::Window *window, Eigen::Vector2i vec);
+    void    setWinLayout(nanogui::Window *window);
 
 };
 
-
-#endif //BOMBERMAN_MENU_H
+void        keyCallbackEvent(int key, int scancode, int action, int mods);

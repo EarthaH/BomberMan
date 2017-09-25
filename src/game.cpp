@@ -53,7 +53,6 @@ void Game::start()
 	//char	file[] = "Test.txt";
 	std::cout << "1.0.0" << std::endl;
 
-	// Menu menu(this->library->window, 800, 600);
 	
 	library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
 	while (!glfwWindowShouldClose(this->library->window))
