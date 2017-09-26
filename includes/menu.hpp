@@ -1,35 +1,17 @@
 //
 // Created by Gabriel GROENER on 2017/09/25.
 //
+#pragma once
+#include "header.hpp"
 
-#ifndef BOMBERMAN_MENU_H
-#define BOMBERMAN_MENU_H
-
-#include "../includes/handle.hpp"
-
-class menu {
+class Menu {
 
 public:
-    enum class State {
-        START,
-        END,
-        PAUSE,
-        SETTINGS,
-        SAVE,
-        LOAD,
-        LEVEL
-    };
 
-    menu( void );
-    menu( GLFWwindow *window, int width, int height );
-    ~menu( void );
+    Menu();
+    Menu(int width, int height, const char& windowName);
+    ~Menu();
 
-    menu( menu const & copy );
-    menu& operator=( menu const & copy );
-
-    void    setWinPosition(nanogui::Window *window, Eigen::Vector2i vec);
-    void    setWinLayout(nanogui::Window *window);
+    void initializeMenu(int width, int height, const char* windowName);
 
 };
-
-#endif //BOMBERMAN_MENU_H
