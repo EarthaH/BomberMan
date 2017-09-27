@@ -4,6 +4,6 @@ premake4 gmake
 cd make/macosx
 make config=release
 cd ../../../..
-cd external/soil2/lib/macosx/
-cp libsoil2.a ../../../..
-cd ../../../..
+#cd external/soil2/lib/macosx/
+#cp libsoil2.a ../../../..
+#cd ../../../..

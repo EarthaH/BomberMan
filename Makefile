@@ -46,7 +46,7 @@ LIBRARY_PATHS = -L ~/.brew/Cellar/glfw/3.2.1/lib \
 				-L ~/.brew/Cellar/glew/2.1.0/lib \
 				-L ~/.brew/Cellar/glm/0.9.8.5/lib \
 				-L ~/.brew/Cellar/openal-soft/1.18.2/lib \
-				./libnanogui.dylib \
+				external/nanogui/build/libnanogui.dylib \
 		        -L ./external/nanogui/ext/eigen \
         		-L ./external/nanogui/ext/nanovg/src \
 				external/soil2/lib/macosx/libsoil2.a
@@ -101,8 +101,10 @@ installExternalLibraries :
 	@brew install openal-soft
 	@brew install pkg-config
 	@brew install premake
+	@brew install cmake
 #	@brew install eigen
 	@./installSOIL.sh
+	@clear
 	@echo "Installing nanogui\n"
 	@./installNanogui.sh
 	@clear
