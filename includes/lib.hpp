@@ -6,13 +6,14 @@
 
 // GLEW
 #define GLEW_STATIC
+
 #include <GL/glew.h>
 
 // GLFW
 #include <GLFW/glfw3.h>
 
 // Other Libs
-#include "../external/SOIL2/src/SOIL2/SOIL2.h"
+#include "../external/soil2/src/SOIL2/SOIL2.h"
 
 // GLM Mathematics
 #include <glm/glm.hpp>

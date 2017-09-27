@@ -1,6 +1,7 @@
 OBJS = src/bomber.cpp src/man.cpp src/bomb.cpp src/game.cpp src/main.cpp \
  src/base.cpp src/overflow.cpp src/map.cpp src/enemy.cpp src/handle.cpp \
- src/level.cpp src/load.cpp src/lib.cpp src/camera.cpp src/shader.cpp
+ src/level.cpp src/load.cpp src/lib.cpp src/camera.cpp src/shader.cpp \
+ src/menu.cpp src/SoundEngine.cpp
  
 OBJ_NAME = game
 
@@ -17,37 +18,48 @@ COMPILER_FLAGS = -Wall -Werror -Wextra -Wno-unused-parameter -std=c++11
 
 LIBRARY = -framework OpenGL -framework AppKit
 
+#INCLUDE_PATHS = -I ~/.brew/Cellar/glfw/3.2.1/include \
+#				-I ~/.brew/Cellar/glew/2.1.0/include \
+#				-I ~/.brew/Cellar/glm/0.9.8.5/include \
+#				-I ~/.brew/Cellar/openal-soft/1.18.2/include/AL \
+#				-I ./external/nanogui/include/ \
+#				-I ~/.brew/Cellar/eigen/3.3.4/include/eigen3/ 
+#
+#LIBRARY_PATHS = -L ~/.brew/Cellar/glfw/3.2.1/lib \
+#				-L ~/.brew/Cellar/glew/2.1.0/lib \
+#				-L ~/.brew/Cellar/glm/0.9.8.5/lib \
+#				-L ~/.brew/Cellar/openal-soft/1.18.2/lib \
+#				-L ./external/nanogui/build/ \
+#				external/soil2/lib/macosx/libsoil2.a
+
 INCLUDE_PATHS = -I ~/.brew/Cellar/glfw/3.2.1/include \
 				-I ~/.brew/Cellar/glew/2.1.0/include \
 				-I ~/.brew/Cellar/glm/0.9.8.5/include \
-				-I ~/.brew/Cellar/sdl/1.2.15/include \
-				-I ~/.brew/Cellar/sdl2/2.0.5/include \
-				-I external/nanogui/ext/eigen \
-				-I external/nanogui/ext/coro \
-				-I external/nanogui/ext/glad \
-				-I external/nanogui/ext/nanovg \
-				-I external/nanogui/ext/nanovg/src \
-				-I external/nanogui/ext/pybind \
-				-I external/nanogui/include \
-				-I external/nanogui/python \
-				-I external/nanogui/resources \
-				-I external/nanogui/src \
-				-I external/nanogui \
-				external/SOIL2/lib/macosx/libsoil2.a 
+				-I ~/.brew/Cellar/openal-soft/1.18.2/include/AL \
+				-I ./external/nanogui/ext/glfw/include \
+        		-I ./external/nanogui/include \
+				-I ./external/nanogui/build \
+        		-I ./external/nanogui/ext/eigen \
+        		-I ./external/nanogui/ext/nanovg/src \
 
 LIBRARY_PATHS = -L ~/.brew/Cellar/glfw/3.2.1/lib \
 				-L ~/.brew/Cellar/glew/2.1.0/lib \
 				-L ~/.brew/Cellar/glm/0.9.8.5/lib \
-				-L ~/.brew/Cellar/sdl/1.2.15/lib \
-				-L ~/.brew/Cellar/sdl2/2.0.5/lib	
+				-L ~/.brew/Cellar/openal-soft/1.18.2/lib \
+				./libnanogui.dylib \
+		        -L ./external/nanogui/ext/eigen \
+        		-L ./external/nanogui/ext/nanovg/src \
+				external/soil2/lib/macosx/libsoil2.a
 
-LINKER_FLAGS = -framework Cocoa -framework OpenGL -framework IOKit -framework CoreFoundation -framework CoreVideo -framework Carbon -lglfw -lGLEW
+
+LINKER_FLAGS = -framework Cocoa -framework OpenGL -framework OpenAL -framework IOKit -framework CoreFoundation -framework CoreVideo -framework Carbon -lglfw -lGLEW
 
 #bash INSTALL.sh
 
 all:
 	@echo "Compiling code!"
 	@$(CC) $(OBJS) $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
+	@install_name_tool -change @rpath/libnanogui.dylib @executable_path/external/nanogui/build/libnanogui.dylib game
 	@clear
 	@echo "\n# # # # # # # # # # #"
 	@echo "#                   #"
@@ -58,12 +70,12 @@ all:
 
 
 installBrew : 
-	@./brewInstall.sh
+	@./installBrew.sh
 	@clear
 	@echo "\n# # # # # # # # # # #"
 	@echo "#                   #"
 	@echo "#   Brew Install    #"
-	@echo "#    succesfully    #"
+	@echo "#    succesfull     #"
 	@echo "#                   #"
 	@echo "# # # # # # # # # # #\n"
 
@@ -82,16 +94,23 @@ installBrew :
 #https://github.com/LimJing7/cs196-4dgame/blob/master/OPENGL_INSTALL_INSTRUCTIONS
 #https://www.cs.swarthmore.edu/~newhall/unixhelp/howto_C_libraries.html
 
-installOpengl :
+installExternalLibraries :
 	@brew install glew
 	@brew install glfw3
 	@brew install glm
+	@brew install openal-soft
+	@brew install pkg-config
+	@brew install premake
+#	@brew install eigen
+	@./installSOIL.sh
+	@echo "Installing nanogui\n"
+	@./installNanogui.sh
 	@clear
-	@echo "remember to install soil.a or just inclue the static library"
+	@echo "Please test nanogui install\n"
 	@echo "\n# # # # # # # # # # #"
 	@echo "#                   #"
 	@echo "#  OpenGL Install   #"
-	@echo "#    succesfully    #"
+	@echo "#    succesfull     #"
 	@echo "#                   #"
 	@echo "# # # # # # # # # # #\n"
 
@@ -106,6 +125,9 @@ clean:
 	@echo "# # # # # # # # # # #\n"
 
 fclean: clean
+	@cd external/soil2/make/macosx
+	@make clean
+	@cd ../../../..
 	@clear
 	@echo "\n# # # # # # # # # # # rmember to remove library files.. see comented out bit about installing soil"
 	@echo "#                   #"
@@ -122,3 +144,6 @@ re: fclean all
 	@echo "#     succesful     #"
 	@echo "#                   #"
 	@echo "# # # # # # # # # # #\n"
+
+
+	
