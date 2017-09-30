@@ -2,7 +2,6 @@
 # define GAME_H
 
 #include "header.hpp"
-// #include "Menu.hpp"
 #include <thread>
 
 
@@ -10,6 +9,7 @@ class   Handle;
 class   Level;
 class	Load;
 class	Lib;
+class	Menu;
 
 class   Game 
 {
@@ -49,6 +49,7 @@ class   Game
 		Lib		*library;
 		Level   *level;
 		Load	*load_handle;
+		Menu	*menu;
 };
 
 #endif

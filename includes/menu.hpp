@@ -1,17 +1,43 @@
-//
-// Created by Gabriel GROENER on 2017/09/25.
-//
 #pragma once
-#include "header.hpp"
 
-class Menu {
+// GLEW
+#define GLEW_STATIC
 
-public:
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
-    Menu();
-    Menu(int width, int height, const char& windowName);
-    ~Menu();
+#include <string>
+#include <iostream>
+#include <unistd.h>
 
-    void initializeMenu(int width, int height, const char* windowName);
+enum class	MenuState
+{
+	MAIN_MENU,
+	SETTINGS,
+	LOAD,
+	EXIT
+};
 
+class Menu
+{
+	private:
+		GLFWwindow  *_win;
+		MenuState   _menuState;
+
+	public:
+
+		Menu(GLFWwindow * pWin);
+		Menu(Menu const &);
+		~Menu();
+		Menu const & operator=(Menu const &);
+
+		void    mainMenu();
+		void	settingsMenu();
+		void	loadMenu();
+
+		void	menuHandler();
+		void	renderMenu();
+		void	popUpErrorMenu(std::string title, std::string message, std::string buttonText);
+
+		bool	isTextFile(std::string);
 };
