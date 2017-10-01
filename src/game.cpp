@@ -213,12 +213,8 @@ void Game::draw()
 
 void Game::end()
 {
-<<<<<<< HEAD
 	//library->
 	gameOver.initialize("/res/sound/gameover.wav");
-=======
-	gameOver.initialize("../res/sound/gameover.wav");
->>>>>>> c14ca0127af25f04a42fd49e97f0c6f2643cc964
 	gameOver.play(false);
 	std::cout << "Game over! Score: " << handle->score << std::endl;
 
