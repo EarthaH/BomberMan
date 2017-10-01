@@ -57,6 +57,7 @@ void Game::start()
 		{
 			logicKey = this->library->getKey();
 		}
+		std::cout << logicKey << std::endl;
  		//std::cout << "1.0.1" << std::endl;
 		if ((change = loop()) == 100) //
 		{
@@ -108,7 +109,7 @@ int Game::loop()
 		//{
 		if (library->getMovementTime() == 0)
 		{	
-			if ((key = this->library->getKey()) != -1)
+			if ((key = logicKey) != -1)
 			{
 				change_level = handle->checkKey(key);
 				logicKey = -1;

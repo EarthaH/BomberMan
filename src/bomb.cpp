@@ -50,7 +50,7 @@ void	Bomb::activate(int x, int y)
 	setX(x);
 	setY(y);
 	this->_active = true;
-	this->_time = 10;
+	this->_time = 6;
 }
 
 void	Bomb::exploded()
