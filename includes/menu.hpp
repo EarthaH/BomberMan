@@ -1,19 +1,59 @@
-//
-// Created by Gabriel GROENER on 2017/09/25.
-//
 #pragma once
-#include "header.hpp"
 
+// GLEW
+#define GLEW_STATIC
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
-class Menu {
+#include <string>
+#include <iostream>
+#include <unistd.h>
 
-public:
+#include "game.hpp"
 
-    Menu();
-    Menu(int width, int height, const char& windowName);
-    ~Menu();
+class	Game;
 
-    void initializeMenu(int width, int height, const char* windowName);
+enum class	MenuState
+{
+	MAIN_MENU,
+	SETTINGS,
+	LOAD,
+	EXIT
+};
 
+enum class	GameState
+{
+	MENU,
+	PLAY,
+	EXIT
+};
+
+class Menu
+{
+	private:
+		GLFWwindow  *_win;
+		MenuState   _menuState;
+		GameState	_gameState;
+
+	public:
+
+		Menu();
+		Menu(Menu const &);
+		~Menu();
+		Menu const & operator=(Menu const &);
+
+		void    	mainMenu();
+		void		settingsMenu();
+		void		loadMenu();
+
+		void		run();
+		void		renderMenu();
+		void		popUpErrorMenu(std::string title, std::string message, std::string buttonText);
+		void		changeCallback();
+
+		GameState	menuHandler();
+		GameState	gameHandler();
+
+		Game	*game;
 };

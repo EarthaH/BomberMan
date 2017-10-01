@@ -38,11 +38,7 @@ void Game::init()
 	this->library = new Lib();
 	this->load_handle = new Load();
 
-	std::cout << "0.1" << std::endl;
-	//library->createWindow(level->getHeight(), level->getWidth());
-	std::cout << "0.2" << std::endl;
-	library->buildShaders();
-	std::cout << "0.2" << std::endl;
+	
 }
 
 /* *** *** *** Main Loop *** *** *** */
@@ -50,12 +46,10 @@ void Game::init()
 void Game::start()
 {
 	int change;
-	//char	file[] = "Test.txt";
-	std::cout << "1.0.0" << std::endl;
 
-	// Menu menu(this->library->window, 800, 600);
-	
+	library->buildShaders();
 	library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
+
 	while (!glfwWindowShouldClose(this->library->window))
 	{
 		//std::cout << "1.0.1" << std::endl;
@@ -219,8 +213,12 @@ void Game::draw()
 
 void Game::end()
 {
+<<<<<<< HEAD
 	//library->
 	gameOver.initialize("/res/sound/gameover.wav");
+=======
+	gameOver.initialize("../res/sound/gameover.wav");
+>>>>>>> c14ca0127af25f04a42fd49e97f0c6f2643cc964
 	gameOver.play(false);
 	std::cout << "Game over! Score: " << handle->score << std::endl;
 
@@ -245,7 +243,7 @@ void Game::save()
 	ofs << " " << handle->bombs->size() << std::endl;
 }
 
-void Game::load(char *file)
+void Game::load(std::string file)
 {
 	t_position pos;
 	load_handle->load(file);

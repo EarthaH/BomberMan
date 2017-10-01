@@ -87,6 +87,8 @@ class Lib
 
 	void destroy_window();
 	static void drawBorders();
+
+	void	resetCallback();
 };
 
 #endif

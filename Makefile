@@ -3,13 +3,13 @@ OBJS = src/bomber.cpp src/man.cpp src/bomb.cpp src/game.cpp src/main.cpp \
  src/level.cpp src/load.cpp src/lib.cpp src/camera.cpp src/shader.cpp \
  src/menu.cpp src/SoundEngine.cpp src/Mesh.cpp src/Model.cpp
  
-OBJ_NAME = game
+OBJ_NAME = bomberman
 
 CC = g++
 
 CFLAGS = -Wall -Werror -Wextra -std=c++11
 
-COMPILER_FLAGS = -Wall -Werror -Wextra -Wno-unused-parameter -std=c++11
+COMPILER_FLAGS = -g -Wall -Werror -Wextra -Wno-unused-parameter -std=c++11
 
 #CFLAGS1 =	-std=c++11 -Wno-deprecated-declarations -O3
 
@@ -61,7 +61,7 @@ LINKER_FLAGS = -framework Cocoa -framework OpenGL -framework OpenAL -framework I
 all:
 	@./checkExternalLibraries.sh
 	@$(CC) $(OBJS) $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
-	@install_name_tool -change @rpath/libnanogui.dylib @executable_path/external/nanogui/build/libnanogui.dylib game
+	@install_name_tool -change @rpath/libnanogui.dylib @executable_path/external/nanogui/build/libnanogui.dylib bomberman
 	@clear
 	@echo "\n# # # # # # # # # # #"
 	@echo "#                   #"

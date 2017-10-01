@@ -13,7 +13,6 @@
 #include <curses.h>
 #include <vector>
 
-//#include "menu.hpp"//########
 #include "base.hpp"
 #include "SoundEngine.hpp"
 #include "game.hpp"
@@ -24,10 +23,8 @@
 #include "enemy.hpp"
 #include "handle.hpp"
 #include "level.hpp"
-#include "load.hpp"
 #include "lib.hpp"
-//#include "Model.hpp"
-//#include "Mesh.hpp"
+#include "menu.hpp"
 //#include "camera.hpp"
 
 #define RIGHT 1

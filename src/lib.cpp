@@ -1240,4 +1240,12 @@ void Lib::calculateNewFrame(float prevX, float currentX, float prevY, float curr
 			DrawBlock(model, glm::vec3(currentX, 0.0f, (prevY - (1.0f / framesPerChar * i))), modelLoc);
 		}*/
 	//}
+
+void	Lib::resetCallback()
+{
+	glEnable(GL_DEPTH_TEST);
+	glfwSetKeyCallback(this->window, KeyCallback);
+	glfwSetCursorPosCallback(this->window, MouseCallback);
+
+	glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
