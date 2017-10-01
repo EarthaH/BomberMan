@@ -18,7 +18,6 @@ Game const &Game::operator=(Game const &copy)
 	this->handle = copy.handle;
 	this->level = copy.level;
 	this->library = copy.library;
-	this->menu = copy.menu;
 
 	return (*this);
 }
@@ -29,7 +28,6 @@ Game::~Game()
 	delete level;
 	delete load_handle;
 	delete library;
-	delete menu;
 }
 
 void Game::init()
@@ -39,14 +37,8 @@ void Game::init()
 	this->handle = new Handle(level);
 	this->library = new Lib();
 	this->load_handle = new Load();
-	this->menu = new Menu(library->window);
 
-	/* Calls Menu Loop. To test - uncomment line
-		& move lines(303 - 308) to buildShaders() in lib.cpp */
-	//menu->menuHandler();
-
-	std::cout << "Your mother!\n";
-	library->buildShaders();
+	
 }
 
 /* *** *** *** Main Loop *** *** *** */
@@ -54,8 +46,8 @@ void Game::init()
 void Game::start()
 {
 	int change;
-	std::cout << "1.0.0" << std::endl;
 
+	library->buildShaders();
 	library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
 
 	while (!glfwWindowShouldClose(this->library->window))
@@ -235,7 +227,7 @@ void Game::save()
 	ofs << " " << handle->bombs->size() << std::endl;
 }
 
-void Game::load(char *file)
+void Game::load(std::string file)
 {
 	t_position pos;
 	load_handle->load(file);

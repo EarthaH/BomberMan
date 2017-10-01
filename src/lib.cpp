@@ -1035,3 +1035,13 @@ void DrawBlock(glm::mat4 model, glm::vec3 cubePositions, GLint modelLoc)
 
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
+
+
+void	Lib::resetCallback()
+{
+	glEnable(GL_DEPTH_TEST);
+	glfwSetKeyCallback(this->window, KeyCallback);
+	glfwSetCursorPosCallback(this->window, MouseCallback);
+
+	glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+}

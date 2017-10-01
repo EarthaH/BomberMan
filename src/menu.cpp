@@ -13,19 +13,33 @@ std::vector<std::string>	*getFiles(std::vector<std::string> *files);
 bool						isTextFile(std::string file);
 
 nanogui::Screen				*screen = nullptr;
-std::vector<std::string>	*files = new std::vector<std::string>();
+std::vector<std::string>	*files;
 
-Menu::Menu(GLFWwindow * pWin) : _win(pWin), _menuState(MenuState::MAIN_MENU)
+Menu::Menu() : _menuState(MenuState::MAIN_MENU), _gameState(GameState::MENU)
 {
-
+	game = new Game();
+	_win = game->library->window;
 }
 
 Menu::~Menu()
 {
+	delete screen;
+	delete game;
 	glfwTerminate();
 }
 
-void	Menu::menuHandler()
+void	Menu::run()
+{
+	while (_gameState != GameState::EXIT)
+	{
+		if (_gameState == GameState::MENU)
+			_gameState = menuHandler();
+		if (_gameState == GameState::PLAY)
+			_gameState = gameHandler();
+	}
+}
+
+GameState	Menu::menuHandler()
 {
 	#if defined(NANOGUI_GLAD)
 		#if defined(NANOGUI_SHARED) && !defined(GLAD_GLAPI_EXPORT)
@@ -42,6 +56,7 @@ void	Menu::menuHandler()
 	#endif
 
 	screen = new nanogui::Screen;
+	screen->initialize(_win, true);
 
 	glfwSetCursorPosCallback(_win, [](GLFWwindow *, double x, double y)
 		{
@@ -71,10 +86,12 @@ void	Menu::menuHandler()
 		{
             screen->resizeCallbackEvent(width, height);
         }
-    );
+	);
+	
+	glfwSetInputMode(_win, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
 	//Break when time to play :D !!!
-	while (_menuState != MenuState::EXIT)
+	while (_gameState == GameState::MENU && _menuState != MenuState::EXIT)
 	{
 		switch (_menuState)
 		{
@@ -85,20 +102,36 @@ void	Menu::menuHandler()
 				settingsMenu();
 				break;
 			case MenuState::LOAD :
-				files = getFiles(files);
+				files = getFiles(new std::vector<std::string>());
 				loadMenu();
+				delete files;
 				break;
 			case MenuState::EXIT :
 				std::cout << "What the fuck impossible" << std::endl;
 		}
 	}
+	return (_gameState == GameState::PLAY ? GameState::PLAY : GameState::EXIT);
+}
+
+GameState	Menu::gameHandler()
+{
+	// int		width;
+	// int		height;
+
+	// glfwDefaultWindowHints();
+	// glfwGetFramebufferSize(_win, &width, &height);
+	// glViewport( 0, 0, width, height);
+	// glClear(GL_COLOR_BUFFER_BIT);
+	// glfwSwapBuffers(_win);
+
+	game->library->resetCallback();
+	game->start();
+	return (GameState::EXIT);
 }
 
 void	Menu::mainMenu()
 {
 	/* NEEDED FOR EVERY NEW MENU */
-	screen->initialize(_win, true);
-
 	nanogui::FormHelper	*gui = new nanogui::FormHelper(screen);
 	nanogui::ref<nanogui::Window> nanoguiWindow = gui->addWindow(Eigen::Vector2i(10, 10), "Main Menu");
 
@@ -113,6 +146,8 @@ void	Menu::mainMenu()
 	new_game_button->setCallback([&]
 	{
 		//ADD code for new game
+		_gameState = GameState::PLAY;
+		_menuState = MenuState::EXIT;
 		std::cout << "New Game SHOULD start now!!!\n";
 	});
 
@@ -133,6 +168,7 @@ void	Menu::mainMenu()
 	exit_button->setCallback([&]
 	{
 		_menuState = MenuState::EXIT;
+		_gameState = GameState::EXIT;
 	});
 
 	/* NEEDED FOR EVERY NEW MENU */
@@ -219,7 +255,21 @@ void	Menu::loadMenu()
 
 	nanoguiWindow->setLayout(new nanogui::GroupLayout);
 
-	new nanogui::ComboBox(nanoguiWindow, *files);
+	nanogui::ComboBox *list = new nanogui::ComboBox(nanoguiWindow, *files);
+	nanogui::Button	*load_game_button = new nanogui::Button(nanoguiWindow, "Load Game");
+	nanogui::Button	*back_button = new nanogui::Button(nanoguiWindow, "Back");
+
+	load_game_button->setCallback([&]
+	{
+		std::cout << "Loading: " << files->at(list->selectedIndex()) << std::endl;
+		game->load(files->at(list->selectedIndex()));
+	});
+
+	back_button->setCallback([&]
+	{
+		_menuState = MenuState::MAIN_MENU;
+		std::cout << "Back!!!\n";
+	});
 
 	screen->setVisible(1);
 	screen->performLayout();
@@ -316,4 +366,21 @@ void	Menu::popUpErrorMenu(std::string title, std::string message, std::string bu
 		_menuState = MenuState::EXIT;
 	nanoguiWindow->dispose();
 	delete gui;
+}
+
+void	Menu::changeCallback()
+{
+	glfwSetCursorPosCallback(_win, [](GLFWwindow *, double x, double y)
+		{
+				screen->cursorPosCallbackEvent(x, y);
+		}
+	);
+
+	glfwSetKeyCallback(_win, [](GLFWwindow *, int key, int scancode, int action, int mods)
+		{
+			screen->keyCallbackEvent(key, scancode, action, mods);
+		}
+	);
+
+	glfwSetInputMode(_win, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 }

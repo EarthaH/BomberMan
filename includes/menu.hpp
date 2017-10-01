@@ -10,6 +10,10 @@
 #include <iostream>
 #include <unistd.h>
 
+#include "game.hpp"
+
+class	Game;
+
 enum class	MenuState
 {
 	MAIN_MENU,
@@ -18,24 +22,38 @@ enum class	MenuState
 	EXIT
 };
 
+enum class	GameState
+{
+	MENU,
+	PLAY,
+	EXIT
+};
+
 class Menu
 {
 	private:
 		GLFWwindow  *_win;
 		MenuState   _menuState;
+		GameState	_gameState;
 
 	public:
 
-		Menu(GLFWwindow * pWin);
+		Menu();
 		Menu(Menu const &);
 		~Menu();
 		Menu const & operator=(Menu const &);
 
-		void    mainMenu();
-		void	settingsMenu();
-		void	loadMenu();
+		void    	mainMenu();
+		void		settingsMenu();
+		void		loadMenu();
 
-		void	menuHandler();
-		void	renderMenu();
-		void	popUpErrorMenu(std::string title, std::string message, std::string buttonText);
+		void		run();
+		void		renderMenu();
+		void		popUpErrorMenu(std::string title, std::string message, std::string buttonText);
+		void		changeCallback();
+
+		GameState	menuHandler();
+		GameState	gameHandler();
+
+		Game	*game;
 };

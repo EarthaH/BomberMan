@@ -1,4 +1,4 @@
-#include "../includes/header.hpp"
+#include "../includes/menu.hpp"
 
 int		x;
 int		y;
@@ -11,9 +11,10 @@ int		main()
 	Sound musicloop;
 	musicloop.initialize("../res/sound/loop.wav");
 	musicloop.play(true);
-	Game	*game = new Game();
-	game->start();
-	delete  game;
 
+	Menu	*menu = new Menu();
+	menu->run();
+
+	delete	menu;
 	return (0);
 }
