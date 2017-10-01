@@ -39,6 +39,7 @@ class   Man: public Base
 		void	moveRight(Map *);
 
 		void	moveToBlock(Map *, int, int);
+		void	isStaticEnemy(Map *, int, int, int, int);
 };
 
 #endif

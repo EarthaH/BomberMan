@@ -140,7 +140,7 @@ void	Handle::killEnemy(int x, int y)
 	enemies->erase(enemies->begin() + num);
 	map->update(x, y, OPEN);
 	score += 10;
-    killedEnemySound.initialize("../res/sound/GameOverArcade.wav");
+    killedEnemySound.initialize("/res/sound/GameOverArcade.wav");
     killedEnemySound.play(false);
 }
 
@@ -160,17 +160,20 @@ int     Handle::checkUpgrades()
 
 	if (block == BOMB_UPGRADE) {
         createBomb();
-        powerUp.initialize("../res/sound/power03.wav");
+		powerUp.initialize("res/sound/power03.wav"); //!!!!!!!@@@@@@@@@@
+		std::cout << "BOMB_UPGRADE" << std::endl;//works
         powerUp.play(false);
     }
 	else if (block == FIRE_UPGRADE) {
         bomberman->upgradeRange();
-        powerUp.initialize("../res/sound/power03.wav");
+        powerUp.initialize("res/sound/power03.wav");
+		std::cout << "FIRE_UPGRADE" << std::endl;//works
         powerUp.play(false);
     }
 	else if (block == LIFE_UPGRADE) {
         bomberman->upgradeLife();
-        powerUp.initialize("../res/sound/power03.wav");
+        powerUp.initialize("/res/sound/power01.wav");
+		std::cout << "LIFE_UPGRADE" << std::endl;//doenst work
         powerUp.play(false);
     }
     else if (block == LEVEL_UP)
@@ -203,7 +206,7 @@ void	Handle::activeBomb(Bomb *bomb)
 	if (bomb->getX() == bomberman->getX() && bomb->getY() == bomberman->getY())
 		bomberman->playerHit();
 
-	explosion.initialize("../res/sound/explosion.wav");
+	explosion.initialize("/res/sound/explosion.wav");
 	explosion.play(false);
 }
 
@@ -293,4 +296,22 @@ t_position  Handle::randomPosition()
 	pos.y = y;
 
 	return (pos);
+}
+
+t_position	Handle::enemyOldPosition(int x, int y)
+{
+	t_position	res;
+
+	for (size_t i = 0; i < enemies->size(); i++)
+		if (enemies->at(i)->getX() == x && enemies->at(i)->getY() == y)
+		{
+			res.x = x;
+			res.y = y;
+			res.oldX = enemies->at(i)->getOldX();
+			res.oldY = enemies->at(i)->getOldY();
+			return (res);
+		}
+	
+	res.x = res.y = res.oldX = res.oldY = 0;
+	return (res);
 }

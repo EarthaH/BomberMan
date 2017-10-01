@@ -22,6 +22,7 @@
 #include <vector>
 #include "camera.hpp"
 #include "shader.hpp"
+#include "Model.hpp"
 
 class Lib
 {
@@ -71,9 +72,17 @@ class Lib
 	GLint viewLoc;
 	GLint projLoc;
 	glm::mat4 model;
+	glm::mat4 bomberModel;
 	Shader *lightingShader; //ask eartah if this is ok
 	Shader *lampShader;
+
+	Shader *bomberShaderRun1;
+	Model *bomberModelRun1;
 	void bombermanLevelBeginLib(glm::vec3 coordintates);
+	void bombermanLevelBeginLibOnCamera(glm::vec3 coordintates);
+	void calculateNewFrame(float prevEnemyX, float currentEnemyX, float prevEnemyY, float currentEnemyY, float i, glm::mat4 model, GLint modelLoc, bool cam);
+	void changeEnemyPos(int prevEnemyX, int prevEnemyY, int currentEnemyX, int currentEnemyY);
+	
 	float getMovementTime();
 
 	void destroy_window();

@@ -52,6 +52,7 @@ class   Handle
 		bool		updateBomb(Bomb *);
 		bool		checkMapFire(int, int);
 		t_position  randomPosition();
+		t_position	enemyOldPosition(int, int);
 		size_t		getBomb();
 };
 

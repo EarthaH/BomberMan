@@ -63,21 +63,25 @@ void	Man::setLife(int life)
 
 void	Man::moveUp(Map *map)
 {
+	isStaticEnemy(map, getX(), getY(), getX(), getY() - 1);
 	moveToBlock(map, getX(), getY() - 1);
 }
 
 void	Man::moveDown(Map *map)
 {
+	isStaticEnemy(map, getX(), getY(), getX(), getY() + 1);
 	moveToBlock(map, getX(), getY() + 1);
 }
 
 void	Man::moveLeft(Map *map)
 {
+	isStaticEnemy(map, getX(), getY(), getX() - 1, getY());
 	moveToBlock(map, getX() - 1, getY());
 }
 
 void	Man::moveRight(Map *map)
 {
+	isStaticEnemy(map, getX(), getY(), getX() + 1, getY());
 	moveToBlock(map, getX() + 1, getY());
 }
 
@@ -89,4 +93,16 @@ void	Man::moveToBlock(Map *map, int x, int y)
 		this->_life--;
 
 	this->move(x, y);
+}
+
+void	Man::isStaticEnemy(Map *map, int cx, int cy, int fx, int fy)
+{
+	if (!map->isType(cx, cy, ENEMY))
+		return ;
+
+	if (map->isType(fx, fy, WALL) || map->isType(fx, fy, BOMB) || map->isType(fx, fy, BLOCK) || map->getType(fx, fy) > 11)
+	{
+		setX(cx);
+		setY(cy);
+	}
 }

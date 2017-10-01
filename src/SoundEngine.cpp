@@ -87,12 +87,12 @@ void Sound::initialize(const char* File) {
     alBufferData(_buffer, _format, _data, _size, _sampleRate);
 
     alGenSources(1, &_source);
-    std::cout << "channel: " << _channel << std::endl;
-    std::cout << "samplerate: " << _sampleRate << std::endl;
-    std::cout << "bps: " << _bps << std::endl;
-    std::cout << "size: " << _size << std::endl;
-    std::cout << "format: " << _format << std::endl;
-    std::cout << "data: " << &_data << std::endl;
+    //std::cout << "channel: " << _channel << std::endl;
+    //std::cout << "samplerate: " << _sampleRate << std::endl;
+    //std::cout << "bps: " << _bps << std::endl;
+    //std::cout << "size: " << _size << std::endl;
+    //std::cout << "format: " << _format << std::endl;
+    //std::cout << "data: " << &_data << std::endl;
 
     delete(_data);
 }

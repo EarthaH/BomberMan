@@ -1,7 +1,7 @@
 OBJS = src/bomber.cpp src/man.cpp src/bomb.cpp src/game.cpp src/main.cpp \
  src/base.cpp src/overflow.cpp src/map.cpp src/enemy.cpp src/handle.cpp \
  src/level.cpp src/load.cpp src/lib.cpp src/camera.cpp src/shader.cpp \
- src/menu.cpp src/SoundEngine.cpp
+ src/menu.cpp src/SoundEngine.cpp src/Mesh.cpp src/Model.cpp
  
 OBJ_NAME = game
 
@@ -35,6 +35,7 @@ LIBRARY = -framework OpenGL -framework AppKit
 INCLUDE_PATHS = -I ~/.brew/Cellar/glfw/3.2.1/include \
 				-I ~/.brew/Cellar/glew/2.1.0/include \
 				-I ~/.brew/Cellar/glm/0.9.8.5/include \
+				-I ~/.brew/Cellar/assimp/4.0.1/include \
 				-I ~/.brew/Cellar/openal-soft/1.18.2/include/AL \
 				-I ./external/nanogui/ext/glfw/include \
         		-I ./external/nanogui/include \
@@ -45,6 +46,7 @@ INCLUDE_PATHS = -I ~/.brew/Cellar/glfw/3.2.1/include \
 LIBRARY_PATHS = -L ~/.brew/Cellar/glfw/3.2.1/lib \
 				-L ~/.brew/Cellar/glew/2.1.0/lib \
 				-L ~/.brew/Cellar/glm/0.9.8.5/lib \
+				-L ~/.brew/Cellar/assimp/4.0.1/lib \
 				-L ~/.brew/Cellar/openal-soft/1.18.2/lib \
 				external/nanogui/build/libnanogui.dylib \
 		        -L ./external/nanogui/ext/eigen \
@@ -52,12 +54,12 @@ LIBRARY_PATHS = -L ~/.brew/Cellar/glfw/3.2.1/lib \
 				external/soil2/lib/macosx/libsoil2.a
 
 
-LINKER_FLAGS = -framework Cocoa -framework OpenGL -framework OpenAL -framework IOKit -framework CoreFoundation -framework CoreVideo -framework Carbon -lglfw -lGLEW
+LINKER_FLAGS = -framework Cocoa -framework OpenGL -framework OpenAL -framework IOKit -framework CoreFoundation -framework CoreVideo -framework Carbon -lglfw -lGLEW -lassimp
 
 #bash INSTALL.sh
 
 all:
-	@echo "Compiling code!"
+	@./checkExternalLibraries.sh
 	@$(CC) $(OBJS) $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 	@install_name_tool -change @rpath/libnanogui.dylib @executable_path/external/nanogui/build/libnanogui.dylib game
 	@clear
@@ -70,8 +72,13 @@ all:
 
 
 installBrew : 
-	@./installBrew.sh
+	./installBrew.sh
+	#echo -n -e "\033]0;My Window Name\007"
+	#osascript -e 'tell application "Terminal" to close (every window whose name contains "My Window Name")' &
 	@clear
+	@./installExternalLibraries.sh
+	#@if ./installExternalLibraries.sh ; then echo " " && sleep 5 ; else echo "there was a godam error"; fi
+	@echo "test reset\n"
 	@echo "\n# # # # # # # # # # #"
 	@echo "#                   #"
 	@echo "#   Brew Install    #"
@@ -102,12 +109,17 @@ installExternalLibraries :
 	@brew install pkg-config
 	@brew install premake
 	@brew install cmake
-#	@brew install eigen
+	@brew install hg
+	@brew install assimp
 	@./installSOIL.sh
 	@clear
 	@echo "Installing nanogui\n"
 	@./installNanogui.sh
 	@clear
+	@touch text.txt
+	@sleep 2.5
+	@rm text.txt
+	@sleep 1.0
 	@echo "Please test nanogui install\n"
 	@echo "\n# # # # # # # # # # #"
 	@echo "#                   #"

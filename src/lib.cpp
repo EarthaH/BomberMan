@@ -93,47 +93,47 @@ GLfloat verticesTallCubes[] =
 GLfloat verticesSmallCubes[] =
 	{
 		// Positions            // Normals              // Texture Coords
-		-0.111f, -0.111f, -0.111f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
-		0.111f, -0.111f, -0.111f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f,
-		0.111f, 0.111f, -0.111f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
-		0.111f, 0.111f, -0.111f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
-		-0.111f, 0.111f, -0.111f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f,
-		-0.111f, -0.111f, -0.111f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+		-0.25f, -0.25f, -0.25f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+		0.25f, -0.25f, -0.25f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f,
+		0.25f, 0.25f, -0.25f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
+		0.25f, 0.25f, -0.25f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
+		-0.25f, 0.25f, -0.25f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f,
+		-0.25f, -0.25f, -0.25f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
 
-		-0.111f, -0.111f, 0.111f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-		0.111f, -0.111f, 0.111f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
-		0.111f, 0.111f, 0.111f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
-		0.111f, 0.111f, 0.111f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
-		-0.111f, 0.111f, 0.111f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-		-0.111f, -0.111f, 0.111f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+		-0.25f, -0.25f, 0.25f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+		0.25f, -0.25f, 0.25f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
+		0.25f, 0.25f, 0.25f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+		0.25f, 0.25f, 0.25f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+		-0.25f, 0.25f, 0.25f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+		-0.25f, -0.25f, 0.25f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
 
-		-0.111f, 0.111f, 0.111f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-		-0.111f, 0.111f, -0.111f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-		-0.111f, -0.111f, -0.111f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-		-0.111f, -0.111f, -0.111f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-		-0.111f, -0.111f, 0.111f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-		-0.111f, 0.111f, 0.111f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+		-0.25f, 0.25f, 0.25f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+		-0.25f, 0.25f, -0.25f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+		-0.25f, -0.25f, -0.25f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		-0.25f, -0.25f, -0.25f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		-0.25f, -0.25f, 0.25f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		-0.25f, 0.25f, 0.25f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
 
-		0.111f, 0.111f, 0.111f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-		0.111f, 0.111f, -0.111f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-		0.111f, -0.111f, -0.111f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-		0.111f, -0.111f, -0.111f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-		0.111f, -0.111f, 0.111f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-		0.111f, 0.111f, 0.111f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+		0.25f, 0.25f, 0.25f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+		0.25f, 0.25f, -0.25f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+		0.25f, -0.25f, -0.25f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		0.25f, -0.25f, -0.25f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		0.25f, -0.25f, 0.25f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		0.25f, 0.25f, 0.25f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
 
-		-0.111f, -0.111f, -0.111f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
-		0.111f, -0.111f, -0.111f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f,
-		0.111f, -0.111f, 0.111f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-		0.111f, -0.111f, 0.111f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-		-0.111f, -0.111f, 0.111f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-		-0.111f, -0.111f, -0.111f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
+		-0.25f, -0.25f, -0.25f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
+		0.25f, -0.25f, -0.25f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f,
+		0.25f, -0.25f, 0.25f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+		0.25f, -0.25f, 0.25f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+		-0.25f, -0.25f, 0.25f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+		-0.25f, -0.25f, -0.25f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
 
-		-0.111f, 0.111f, -0.111f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-		0.111f, 0.111f, -0.111f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-		0.111f, 0.111f, 0.111f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
-		0.111f, 0.111f, 0.111f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
-		-0.111f, 0.111f, 0.111f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-		-0.111f, 0.111f, -0.111f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f};
+		-0.25f, 0.25f, -0.25f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+		0.25f, 0.25f, -0.25f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+		0.25f, 0.25f, 0.25f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+		0.25f, 0.25f, 0.25f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+		-0.25f, 0.25f, 0.25f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+		-0.25f, 0.25f, -0.25f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f};
 
 //!!!!!!!!!!!!!!!!many cubes
 glm::vec3 cubePositions[] = //array of vectors that are the cube positions becuase we have more than one cube
@@ -153,7 +153,6 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 void MouseCallback(GLFWwindow *window, double xPos, double yPos);
 void DoMovement();
 void DrawBlock(glm::mat4 model, glm::vec3 cubePositions, GLint modelLoc);
-
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
 int SCREEN_WIDTH, SCREEN_HEIGHT;
@@ -172,6 +171,21 @@ glm::vec3 lightPos(10.0f, 10.0f, 10.0f);
 GLfloat deltaTime = 0.0f; // Time between current frame and last frame
 GLfloat lastFrame = 0.0f; // Time of last frame
 GLfloat movementTime = 0.0f;
+GLfloat velocity = 0.0f;
+GLfloat movementSpeed = 6.0f; 
+
+float prevEnemyX = 0.0f;
+float prevEnemyY = 0.0f;
+float currentEnemyX = 0.0f;
+float currentEnemyY = 0.0f;
+
+float prevBomberX = 0.0f;
+float prevBomberY = 0.0f;
+float currentBomberX = 0.0f;
+float currentBomberY = 0.0f;
+
+float framesPerChar = 15; 
+float gameSpeed = 0.35f;
 //void DrawBlock(glm::mat4 model, glm::vec3 cubePositions, GLint modelLoc, int i );
 
 //int window_valid = 1;
@@ -197,7 +211,12 @@ Lib::Lib()
 	_number = 1;
 	lightingShader = new Shader("res/graphics/shaders/lighting.vs", "res/graphics/shaders/lighting.frag"); //ask eartah if this is ok
 	lampShader = new Shader("res/graphics/shaders/lamp.vs", "res/graphics/shaders/lamp.frag");
-
+	
+	//bomberShaderRun1 = new Shader( "res/graphics/shaders/modelLoading.vs", "res/graphics/shaders/modelLoading.frag" );
+    //
+    //// Load models!!!!!!@@@@@@
+    //char    str[] = "res/graphics/models/bomber1/running/Bomber1Running01.obj";
+    //bomberModelRun1 = new Model( str );
 	std::cout << "Library created." << std::endl;
 }
 
@@ -234,31 +253,31 @@ int Lib::getKey()
 {
 	if (keys[GLFW_KEY_UP])
 	{
-		keys[GLFW_KEY_UP] = false;
+//		keys[GLFW_KEY_UP] = false;
 		return (GLFW_KEY_UP);
 	}
 
 	if (keys[GLFW_KEY_DOWN])
 	{
-		keys[GLFW_KEY_DOWN] = false;
+//		keys[GLFW_KEY_DOWN] = false;
 		return (GLFW_KEY_DOWN);
 	}
 
 	if (keys[GLFW_KEY_LEFT])
 	{
-		keys[GLFW_KEY_LEFT] = false;
+//		keys[GLFW_KEY_LEFT] = false;
 		return (GLFW_KEY_LEFT);
 	}
 
 	if (keys[GLFW_KEY_RIGHT])
 	{
-		keys[GLFW_KEY_RIGHT] = false;
+//		keys[GLFW_KEY_RIGHT] = false;
 		return (GLFW_KEY_RIGHT);
 	}
 
 	if (keys[32])
 	{
-		keys[32] = false;
+//		keys[32] = false;
 		return (32);
 	}
 	int key = keyPressed;
@@ -330,6 +349,8 @@ bool Lib::createWindow(int height, int width)
 
 void Lib::buildShaders()
 {
+
+	
 	// Build and compile our shader program
 	//   Shader lightingShader("res/graphics/shaders/lighting.vs", "res/graphics/shaders/lighting.frag");
 	//   Shader lampShader("res/graphics/shaders/lamp.vs", "res/graphics/shaders/lamp.frag");
@@ -576,21 +597,35 @@ float Lib::getMovementTime()
 
 void Lib::preDraw()
 {
+//	currentFrame = glfwGetTime();
+//	deltaTime = currentFrame - lastFrame;
+//	lastFrame = currentFrame;
+//	movementTime = movementTime + deltaTime;
+//	if (movementTime > 0.25f)//this is essentally n second - maybe add movementTrue attribute 
+//	{
+//		//std::cout << "teting" << std::endl;
+//		movementTime = 0.0f;
+//	}
 	currentFrame = glfwGetTime();
 	deltaTime = currentFrame - lastFrame;
 	lastFrame = currentFrame;
-	movementTime = movementTime + deltaTime;
-	if (movementTime > 0.25f)//this is essentally n second - maybe add movementTrue attribute 
+	movementTime = movementTime + deltaTime;;
+	if (movementTime > gameSpeed)//this is essentally n second - maybe add movementTrue attribute 
 	{
 		//std::cout << "teting" << std::endl;
 		movementTime = 0.0f;
 	}
 
+	velocity = movementSpeed * deltaTime; //this is how fast the camera moves or minions move
+	
+	//std::cout << velocity << " - "<< std::endl;
+	//std::cout << movementTime << std::endl;
+
 	//std::cout << movementTime << " - "<< currentFrame << " " << deltaTime << " " << lastFrame + deltaTime << " " << std::endl;
 //!!@@@
 	// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 	glfwPollEvents();
-	DoMovement();
+	//DoMovement();
 
 	// Clear the colorbuffer
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
@@ -627,6 +662,8 @@ void Lib::preDraw()
 	// Pass the matrices to the shader
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
+
 
 	// Draw the container (using container's vertex attributes)
 }
@@ -707,12 +744,12 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
 
 		//std::cout << a << "-" << b << " ";
 	}
-	else if (ch == 1)
+	else if (ch == 11)
 	{
-		glBindVertexArray(containerTallVAO);
+		glBindVertexArray(containerSmallVAO);
 		// Bind diffuse map
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, mapBlue);
+		glBindTexture(GL_TEXTURE_2D, mapFireUp);
 		float a = x;
 		float b = y;
 		DrawBlock(model, glm::vec3(a, 0.0f, b), modelLoc);
@@ -720,31 +757,118 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
 
 		//std::cout << a << "-" << b << " ";
 	}
+	else if (ch == 1)//bomber
+	{
+
+		float hasBlockBeenDrawn = 0.0f;
+		glBindVertexArray(containerTallVAO);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, mapBlue);
+		
+		float a = x;
+		float b = y;
+		currentBomberX = x;
+		currentBomberY = y;
+
+	
+		if (prevBomberX != 0.0f && (prevBomberX != currentBomberX || prevBomberY != currentBomberY))
+		{
+			for(float index = 0.0f; index != framesPerChar; index = index + 1.0f)
+			{
+				if ((movementTime <= gameSpeed / framesPerChar * index) && (movementTime > gameSpeed / framesPerChar * (index - 1.0f)))
+				{
+					
+					hasBlockBeenDrawn = 1.0f;
+					calculateNewFrame(prevBomberX, currentBomberX, prevBomberY, currentBomberY, index, model, modelLoc, true);
+					//bomberModelRun1->Draw( *bomberShaderRun1 );
+				}
+			}
+			if (((movementTime ) <= gameSpeed / framesPerChar * framesPerChar) && hasBlockBeenDrawn != 1.0f )
+			{
+				hasBlockBeenDrawn = 1.0f;
+				calculateNewFrame(prevBomberX, currentBomberX, prevBomberY, currentBomberY, framesPerChar, model, modelLoc, true);
+				//bomberModelRun1->Draw( *bomberShaderRun1 );
+				prevBomberX = currentBomberX;
+				prevBomberY = currentBomberY;
+			}
+		}
+		if (hasBlockBeenDrawn == 0.0f)
+		{
+			DrawBlock(model, glm::vec3(a, 0.0f, b), modelLoc);
+
+			//bomberShaderRun1->Use( );
+			//
+			//glm::mat4 view = camera.GetViewMatrix( );
+			//glUniformMatrix4fv( glGetUniformLocation( bomberShaderRun1->Program, "projection" ), 1, GL_FALSE, glm::value_ptr( projection ) );
+			//glUniformMatrix4fv( glGetUniformLocation( bomberShaderRun1->Program, "view" ), 1, GL_FALSE, glm::value_ptr( view ) );
+			//
+			//// Draw the loaded model
+			////glm::mat4 model;
+			//bomberModel = glm::translate( bomberModel, glm::vec3( a, 0.0f, b) ); // Translate it down a bit so it's at the center of the scene
+			//bomberModel = glm::scale( bomberModel, glm::vec3( 0.2f, 0.2f, 0.2f ) );	// It's a bit too big for our scene, so scale it down
+			//glUniformMatrix4fv( glGetUniformLocation( bomberShaderRun1->Program, "model" ), 1, GL_FALSE, glm::value_ptr( bomberModel ) );
+			//bomberModelRun1->Draw( *bomberShaderRun1 );
+		}
+		if (prevBomberX == 0.0f)
+		{
+			prevBomberX = currentBomberX;
+			prevBomberY = currentBomberY;
+
+		}
+
+	}
 	else if (ch == 2)
 	{
 		glBindVertexArray(containerSmallVAO);
-		// Bind diffuse map
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, mapOrange);
 		float a = x;
 		float b = y;
 		DrawBlock(model, glm::vec3(a, 0.0f, b), modelLoc);
-		//std::cout << ch << " ";
-
-		//std::cout << a << "-" << b << " ";
 	}
-	else if (ch == 3)
+	else if (ch == 3)//enemy
 	{
+		float hasBlockBeenDrawn = 0.0f;
 		glBindVertexArray(containerTallVAO);
-		// Bind diffuse map
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, mapRed);
 		float a = x;
 		float b = y;
-		DrawBlock(model, glm::vec3(a, 0.0f, b), modelLoc);
-		//std::cout << ch << " ";
+		currentEnemyX = x;
+		currentEnemyY = y;
+		//std::cout << "needs to be drawn" << std::endl;
+		if (prevEnemyX != 0.0f && (prevEnemyX != currentEnemyX || prevEnemyY != currentEnemyY))
+		{
+			for(float index = 0.0f; index != framesPerChar; index = index + 1.0f)
+			{
+				if ((movementTime < gameSpeed / framesPerChar * index) && (movementTime > gameSpeed / framesPerChar * (index - 1.0f)))
+				{
+					//std::cout << "1 drawn" << std::endl;
+					hasBlockBeenDrawn = 1.0f;
+					calculateNewFrame(prevEnemyX, currentEnemyX, prevEnemyY, currentEnemyY, index, model, modelLoc, false);
+				}
+			}
+			if (((movementTime ) <= gameSpeed / framesPerChar * framesPerChar) && hasBlockBeenDrawn != 1.0f )
+			{
+				//std::cout << "2 drawn 000000000000000000000000000000000000000" << std::endl;
+				hasBlockBeenDrawn = 1.0f;
+				calculateNewFrame(prevEnemyX, currentEnemyX, prevEnemyY, currentEnemyY, framesPerChar, model, modelLoc, false);
+				prevEnemyX = currentEnemyX;
+				prevEnemyY = currentEnemyY;
+			}
+		}
+		if (hasBlockBeenDrawn == 0.0f)
+		{
+			//std::cout << "0 drawn" << std::endl;
+			DrawBlock(model, glm::vec3(a, 0.0f, b), modelLoc);
+		}
+		if (prevEnemyX == 0.0f)
+		{
+			prevEnemyX = currentEnemyX;
+			prevEnemyY = currentEnemyY;
 
-		//std::cout << a << "-" << b << " ";
+		}
+
 	}
 	else if (ch == 7)
 	{
@@ -957,10 +1081,12 @@ void Lib::initGL()
 	std::cout << "initGl" << std::endl;
 }
 
-void MouseCallback(GLFWwindow *window, double xPos, double yPos)
+void MouseCallback(GLFWwindow *window, double xPos, double yPos) //this needs to be set up for the menue instead
 {
 	(void)window; //cannot remove from top cuase it is needed
-	if (firstMouse)
+	(void)xPos;
+	(void)yPos;
+	/*if (firstMouse)
 	{
 		lastX = xPos;
 		lastY = yPos;
@@ -973,7 +1099,7 @@ void MouseCallback(GLFWwindow *window, double xPos, double yPos)
 	lastX = xPos;
 	lastY = yPos;
 
-	camera.ProcessMouseMovement(xOffset, yOffset);
+	camera.ProcessMouseMovement(xOffset, yOffset);*/
 }
 
 void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode)
@@ -992,11 +1118,11 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 			//std::cout << key << std::endl;
 			keys[key] = true;
 		}
-//		else if (action == GLFW_RELEASE)
-//		{
-//			//std::cout << keys[key] << std::endl;
-//			keys[key] = false;
-//		}
+		else if (action == GLFW_RELEASE)
+		{
+			//std::cout << keys[key] << std::endl;
+			keys[key] = false;
+		}
 	}
 }
 
@@ -1034,4 +1160,84 @@ void DrawBlock(glm::mat4 model, glm::vec3 cubePositions, GLint modelLoc)
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
 	glDrawArrays(GL_TRIANGLES, 0, 36);
+}
+
+void Lib::changeEnemyPos(int prevEnX, int prevEnY, int currentEnX, int currentEnY)
+{
+	//std::cout << "px = " << prevEnemyX << " - py = " << prevEnemyY << ". cx = "  << currentEnemyX << " - px = "  << currentEnemyY << std::endl;
+	
+	//if (currentEnX != currentEnemyX && currentEnY != currentEnemyY)
+	//{
+		//if (currentEnX == currentEnemyX || currentEnY == currentEnemyY)
+		//{
+			prevEnemyX = prevEnX;
+			prevEnemyY = prevEnY;
+		//}
+	//}
+}
+
+void Lib::calculateNewFrame(float prevX, float currentX, float prevY, float currentY, float i, glm::mat4 model, GLint modelLoc, bool cam)
+{
+	//std::cout << "insid function" << std::endl;
+	//if (prevX != currentX || prevY != currentY)
+	//{
+
+		if (prevX < currentX)
+		{
+			if (cam)
+				bombermanLevelBeginLib(glm::vec3((prevX + (1.0f / framesPerChar * i)), 11.0f, currentY));
+			//std::cout << i << " a 1x = " << prevX + (1.0f / framesPerChar * i) << "; 1y = " << currentY << std::endl;
+			DrawBlock(model, glm::vec3((prevX + (1.0f / framesPerChar * i)), 0.0f, currentY), modelLoc);
+			//DrawBlock(model, glm::vec3(currentX, 0.0f, currentY), modelLoc);
+			//std::cout << i << " R " << (prevX + (1.0f / framesPerChar * i)) << " : " << currentY << std::endl;		
+		}
+		else if (prevX > currentX)
+		{
+			if (cam)
+				bombermanLevelBeginLib(glm::vec3((prevX - (1.0f / framesPerChar * i)), 11.0f, currentY));
+			//std::cout <<  i << " b 1x = " << prevX - (1.0f / framesPerChar * i) << "; 1y = " << currentY << std::endl;											
+			//DrawBlock(model, glm::vec3(currentX, 0.0f, currentY), modelLoc);
+			DrawBlock(model, glm::vec3((prevX - (1.0f / framesPerChar * i)), 0.0f, currentY), modelLoc);
+			//std::cout << i << " L " << (prevX - (1.0f / framesPerChar * i)) << " : " << currentY << std::endl;
+		}
+		if (prevY < currentY)
+		{
+			if (cam)
+				bombermanLevelBeginLib(glm::vec3(currentX, 11.0f, (prevY + (1.0f / framesPerChar * i))));
+			//std::cout << i << " c 1x = " << currentX << "; 1y = " << prevY + (1.0f / framesPerChar * i) << std::endl;
+			//DrawBlock(model, glm::vec3(currentX, 0.0f, currentY), modelLoc);
+			DrawBlock(model, glm::vec3(currentX, 0.0f, (prevY + (1.0f / framesPerChar * i))), modelLoc);
+			//std::cout << i << " U " << currentX << " : " << (prevY + (1.0f / framesPerChar * i)) << std::endl;
+		}
+		else if (prevY > currentY)
+		{
+			if (cam)
+				bombermanLevelBeginLib(glm::vec3(currentX, 11.0f, (prevY - (1.0f / framesPerChar * i))));
+			//std::cout << i << " d 1x = " << currentX << "; 1y = " << prevY - (1.0f / framesPerChar * i) << std::endl;											
+			//DrawBlock(model, glm::vec3(currentX, 0.0f, currentY), modelLoc);
+			DrawBlock(model, glm::vec3(currentX, 0.0f, (prevY - (1.0f / framesPerChar * i))), modelLoc);
+			//std::cout << i << " D " << currentX << " : " << (prevY - (1.0f / framesPerChar * i)) << std::endl;
+		}
+
+	/*	if (prevX < currentX)
+		{
+			std::cout << i << " a 1x = " << prevX + (1.0f / framesPerChar * i) << "; 1y = " << currentY << std::endl;
+			DrawBlock(model, glm::vec3((prevX + (1.0f / framesPerChar * i)), 0.0f, currentY), modelLoc);			
+		}
+		else if (prevX > currentX)
+		{
+			std::cout <<  i << " b 1x = " << prevX - (1.0f / framesPerChar * i) << "; 1y = " << currentY << std::endl;											
+			DrawBlock(model, glm::vec3((prevX - (1.0f / framesPerChar * i)), 0.0f, b), currentY);
+		}
+		if (prevY < currentY)
+		{
+			std::cout << i << " c 1x = " << currentX << "; 1y = " << prevY + (1.0f / framesPerChar * i) << std::endl;
+			DrawBlock(model, glm::vec3(currentX, 0.0f, (prevY + (1.0f / framesPerChar * i))), modelLoc);
+		}
+		else if (prevY > currentY)
+		{
+			std::cout << i << " d 1x = " << currentX << "; 1y = " << prevY - (1.0f / framesPerChar * i) << std::endl;											
+			DrawBlock(model, glm::vec3(currentX, 0.0f, (prevY - (1.0f / framesPerChar * i))), modelLoc);
+		}*/
+	//}
 }

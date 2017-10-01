@@ -5,7 +5,7 @@
 #include <ctime>
 #include <iostream>
 #include <fstream>
-#include <sstream>
+#include <sstream>//
 #include <time.h>
 #include <unistd.h>
 #include <ctype.h>
@@ -13,7 +13,7 @@
 #include <curses.h>
 #include <vector>
 
-#include "menu.hpp"
+//#include "menu.hpp"//########
 #include "base.hpp"
 #include "SoundEngine.hpp"
 #include "game.hpp"
@@ -26,6 +26,8 @@
 #include "level.hpp"
 #include "load.hpp"
 #include "lib.hpp"
+//#include "Model.hpp"
+//#include "Mesh.hpp"
 //#include "camera.hpp"
 
 #define RIGHT 1

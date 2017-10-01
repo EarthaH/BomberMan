@@ -87,7 +87,7 @@ void	Level::two()
 
 void	Level::three()
 {
-	num_of_enemies = 6;
+	num_of_enemies = 1;
 	num_of_blocks = 100;
 	num_of_upgrades = 8;
 	_height = 21;

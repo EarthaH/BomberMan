@@ -99,24 +99,29 @@ void Game::start()
 
 int Game::loop()
 {
-	if (library->getMovementTime() == 0)
-	{
+	//if (library->getMovementTime() == 0)
+	//{
 		int key;
 		int change_level = 0;
 
 		//for (;;)
 		//while (!glfwWindowShouldClose(this->library->window))//why doe si tnot reconize a global??
 		//{
-		if ((key = this->library->getKey()) != ERR)
-		{
-			change_level = handle->checkKey(key);
-		}
+		if (library->getMovementTime() == 0)
+		{	
+			if ((key = this->library->getKey()) != ERR)
+			{
+				change_level = handle->checkKey(key);
+			}
 		//if (enemy_movement == 1) //can delete enemy movemnt
 		//{
-		handle->moveEnemy();
+		
+			handle->moveEnemy();
+		
 		//enemy_movement = 0
 		//}
-		handle->checkBombs();
+			handle->checkBombs();
+		}
 		//if (library->getMovementTime() == 0)
 		//{
 		///	enemy_movement++;
@@ -132,7 +137,7 @@ int Game::loop()
 			return (change_level);
 		//}
 		//std::cout << "testing" << std::endl;
-	}
+	//}
 	return 100;
 }
 
@@ -193,6 +198,12 @@ void Game::draw()
 		for (int j = 0; j < level->getWidth(); ++j)
 		{
 			//std::cout << handle->map->map[j][i] << " ";
+			if (handle->map->map[j][i] == ENEMY)
+			{
+				t_position	pos = handle->enemyOldPosition(i, j);
+				//std::cout << "tetinf "<< handle->enemyOldPosition(i, j).y << std::endl;
+				library->changeEnemyPos(pos.oldX, pos.oldY, pos.x, pos.y);
+			}
 			library->draw(level->getHeight(), level->getWidth(), i, j, handle->map->map[j][i]);
 		}
 		//std::cout << std::endl;
@@ -209,7 +220,7 @@ void Game::draw()
 void Game::end()
 {
 	//library->
-	gameOver.initialize("../res/sound/gameover.wav");
+	gameOver.initialize("/res/sound/gameover.wav");
 	gameOver.play(false);
 	std::cout << "Game over! Score: " << handle->score << std::endl;
 
