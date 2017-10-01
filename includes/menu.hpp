@@ -26,6 +26,7 @@ enum class	GameState
 {
 	MENU,
 	PLAY,
+	END,
 	EXIT
 };
 
@@ -35,6 +36,7 @@ class Menu
 		GLFWwindow  *_win;
 		MenuState   _menuState;
 		GameState	_gameState;
+		int			_gameEnd;
 
 	public:
 
@@ -46,14 +48,15 @@ class Menu
 		void    	mainMenu();
 		void		settingsMenu();
 		void		loadMenu();
-
+		
 		void		run();
 		void		renderMenu();
 		void		popUpErrorMenu(std::string title, std::string message, std::string buttonText);
-		void		changeCallback();
+		void		setGLFWCallback();
 
 		GameState	menuHandler();
 		GameState	gameHandler();
+		GameState	endGameMenu();
 
 		Game	*game;
 };

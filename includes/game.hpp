@@ -34,7 +34,8 @@ class	Lib;
 class   Game 
 {
 	private:
-	Sound gameOver;
+        Sound gameOver;
+        int		_state;
 
 
 	public:
@@ -44,7 +45,7 @@ class   Game
 		~Game();
 
 		int		loop();
-		void	start();
+		int     start();
 		void	move();
 		void	end();
 		void	init();
@@ -53,7 +54,7 @@ class   Game
 		void	dlerror_wrapper();
 		void	deleteLibrary();
 		void	clearMap();
-		void	levelUp();
+		bool	levelUp();
 		void	levelDown();
 		void	changeLevel(int);
 		void	save();
