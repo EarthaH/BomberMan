@@ -3,12 +3,17 @@
 #include <nanogui/nanogui.h>
 #include <nanogui/screen.h>
 #include <nanogui/widget.h>
+#include <nanogui/combobox.h>
 #include <utility>
 #include <vector>
 #include <fstream>
 #include <dirent.h>
 
-nanogui::Screen		*screen = nullptr;
+std::vector<std::string>	*getFiles(std::vector<std::string> *files);
+bool						isTextFile(std::string file);
+
+nanogui::Screen				*screen = nullptr;
+std::vector<std::string>	*files = new std::vector<std::string>();
 
 Menu::Menu(GLFWwindow * pWin) : _win(pWin), _menuState(MenuState::MAIN_MENU)
 {
@@ -62,6 +67,12 @@ void	Menu::menuHandler()
 		}
 	);
 
+	glfwSetFramebufferSizeCallback(_win, [](GLFWwindow *, int width, int height) 
+		{
+            screen->resizeCallbackEvent(width, height);
+        }
+    );
+
 	//Break when time to play :D !!!
 	while (_menuState != MenuState::EXIT)
 	{
@@ -74,14 +85,13 @@ void	Menu::menuHandler()
 				settingsMenu();
 				break;
 			case MenuState::LOAD :
+				files = getFiles(files);
 				loadMenu();
 				break;
 			case MenuState::EXIT :
 				std::cout << "What the fuck impossible" << std::endl;
 		}
 	}
-
-	//delete screen;
 }
 
 void	Menu::mainMenu()
@@ -138,24 +148,15 @@ void	Menu::mainMenu()
 	}
 	if (glfwWindowShouldClose(_win))
 		_menuState = MenuState::EXIT;
+
 	nanoguiWindow->dispose();
-	// delete new_game_button;
-	// delete load_game_button;
-	// delete settings_button;
-	// delete exit_button;
-	// delete gui;
 }
 
 void	Menu::settingsMenu()
 {
-	std::cout << "Welcome to Settings Menu!\n";
-	//screen->initialize(_win, true);
-	std::cout << "++++++++++++++++++++++++\n";
-
 	nanogui::FormHelper	*gui = new nanogui::FormHelper(screen);
 	nanogui::ref<nanogui::Window> nanoguiWindow = gui->addWindow(Eigen::Vector2i(10, 10), "Settings");
 
-	std::cout << "NanoGui pointer created!\n";
 	nanoguiWindow->setLayout(new nanogui::GroupLayout);
 
 	nanogui::Button	*screen_res_button = new nanogui::Button(nanoguiWindow, "Screen Resolution");
@@ -197,8 +198,6 @@ void	Menu::settingsMenu()
 	screen->performLayout();
 	nanoguiWindow->center();
 
-	std::cout << "Starting Loop!\n";
-
 	while (!glfwWindowShouldClose(_win) && _menuState == MenuState::SETTINGS)
 	{
 		glfwPollEvents();
@@ -208,40 +207,11 @@ void	Menu::settingsMenu()
 	if (glfwWindowShouldClose(_win))
 		_menuState = MenuState::EXIT;
 
-	std::cout << "Exiting Menu!\n";
-
 	nanoguiWindow->dispose();
-	// delete screen_res_button;
-	// delete full_screen_button;
-	// delete key_bindings_button;
-	// delete sound_button;
-	// delete back_button;
-	// delete gui;
 }
 
 void	Menu::loadMenu()
 {
-	// char						buffer[4242];
-	// char						*dir = getcwd(buffer, sizeof(buffer));
-	// std::string					cwd;
-	// std::vector<std::string>	*files = new std::vector<std::string>();
-
-	// if (dir)
-	// 	cwd = dir;
-
-	// for (auto &p : std::filesystem::directory_iterator(cwd))
-	// 	if (isTextFile(p))
-	// 		files->push_back(p);
-
-	DIR				*dpdf;
-	struct	dirent	*epdf;
-
-	dpdf = opendir("./");
-
-	if (dpdf != NULL)
-		while ((epdf = readdir(dpdf)))
-			std::cout << epdf->d_name << std::endl;
-
 	screen->initialize(_win, true);
 
 	nanogui::FormHelper	*gui = new nanogui::FormHelper(screen);
@@ -249,7 +219,7 @@ void	Menu::loadMenu()
 
 	nanoguiWindow->setLayout(new nanogui::GroupLayout);
 
-	//new nanogui::ComboBox(_win, files);
+	new nanogui::ComboBox(nanoguiWindow, *files);
 
 	screen->setVisible(1);
 	screen->performLayout();
@@ -260,6 +230,9 @@ void	Menu::loadMenu()
 		glfwPollEvents();
 		renderMenu();
 	}
+
+	if (glfwWindowShouldClose(_win))
+		_menuState = MenuState::EXIT;
 
 	nanoguiWindow->dispose();
 }
@@ -277,18 +250,34 @@ void	Menu::renderMenu()
 	glfwSwapBuffers(_win);
 }
 
-bool	Menu::isTextFile(std::string file)
+bool	isTextFile(std::string file)
 {
-	// size_t		pos = file.find(".txt");
-	// std::string	ex;
+	size_t		pos = file.find(".txt");
+	std::string	ex;
 
-	// if (pos == -1)
-	// 	return (false);
+	if (pos == std::string::npos)
+		return (false);
 
-	// ex = file.substr(pos);
-	// if (ex.compare(".txt"))
-	// 	return (true);
+	std::cout << pos << std::endl;
+	ex = file.substr(pos);
+	if (ex.size() == 4)
+		return (true);
 	return (false);
+}
+
+std::vector<std::string>	*getFiles(std::vector<std::string> *files)
+{
+	DIR							*dpdf;
+	struct	dirent				*epdf;
+
+	dpdf = opendir("./");
+
+	if (dpdf != NULL)
+		while ((epdf = readdir(dpdf)))
+			if (isTextFile(epdf->d_name))
+				files->push_back(epdf->d_name);
+	
+	return (files);
 }
 
 void	Menu::popUpErrorMenu(std::string title, std::string message, std::string buttonText)

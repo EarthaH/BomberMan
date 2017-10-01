@@ -38,6 +38,4 @@ class Menu
 		void	menuHandler();
 		void	renderMenu();
 		void	popUpErrorMenu(std::string title, std::string message, std::string buttonText);
-
-		bool	isTextFile(std::string);
 };
