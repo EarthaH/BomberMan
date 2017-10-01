@@ -41,6 +41,7 @@ void Game::init()
 	
 }
 
+int logicKey = -1;
 /* *** *** *** Main Loop *** *** *** */
 
 void Game::start()
@@ -52,7 +53,11 @@ void Game::start()
 
 	while (!glfwWindowShouldClose(this->library->window))
 	{
-		//std::cout << "1.0.1" << std::endl;
+		if (logicKey == -1)
+		{
+			logicKey = this->library->getKey();
+		}
+ 		//std::cout << "1.0.1" << std::endl;
 		if ((change = loop()) == 100) //
 		{
 			//while ((change = loop()) != 0) //0 means game over - this is for gameplay
@@ -103,9 +108,10 @@ int Game::loop()
 		//{
 		if (library->getMovementTime() == 0)
 		{	
-			if ((key = this->library->getKey()) != ERR)
+			if ((key = this->library->getKey()) != -1)
 			{
 				change_level = handle->checkKey(key);
+				logicKey = -1;
 			}
 		//if (enemy_movement == 1) //can delete enemy movemnt
 		//{
@@ -214,7 +220,7 @@ void Game::draw()
 void Game::end()
 {
 	//library->
-	gameOver.initialize("/res/sound/gameover.wav");
+	gameOver.initialize("res/sound/gameover.wav");
 	gameOver.play(false);
 	std::cout << "Game over! Score: " << handle->score << std::endl;
 

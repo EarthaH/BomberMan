@@ -9,7 +9,7 @@ int		main()
 	srand((unsigned)time(0));
 
 	Sound musicloop;
-	musicloop.initialize("/res/sound/loop.wav");
+	musicloop.initialize("res/sound/loop.wav");
 	musicloop.play(true);
 
 	Menu	*menu = new Menu();

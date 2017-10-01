@@ -1240,6 +1240,7 @@ void Lib::calculateNewFrame(float prevX, float currentX, float prevY, float curr
 			DrawBlock(model, glm::vec3(currentX, 0.0f, (prevY - (1.0f / framesPerChar * i))), modelLoc);
 		}*/
 	//}
+}
 
 void	Lib::resetCallback()
 {

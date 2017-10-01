@@ -140,7 +140,7 @@ void	Handle::killEnemy(int x, int y)
 	enemies->erase(enemies->begin() + num);
 	map->update(x, y, OPEN);
 	score += 10;
-    killedEnemySound.initialize("/res/sound/GameOverArcade.wav");
+    killedEnemySound.initialize("res/sound/GameOverArcade.wav");
     killedEnemySound.play(false);
 }
 
@@ -172,7 +172,7 @@ int     Handle::checkUpgrades()
     }
 	else if (block == LIFE_UPGRADE) {
         bomberman->upgradeLife();
-        powerUp.initialize("/res/sound/power01.wav");
+        powerUp.initialize("res/sound/power01.wav");
 		std::cout << "LIFE_UPGRADE" << std::endl;//doenst work
         powerUp.play(false);
     }
@@ -206,7 +206,7 @@ void	Handle::activeBomb(Bomb *bomb)
 	if (bomb->getX() == bomberman->getX() && bomb->getY() == bomberman->getY())
 		bomberman->playerHit();
 
-	explosion.initialize("/res/sound/explosion.wav");
+	explosion.initialize("res/sound/explosion.wav");
 	explosion.play(false);
 }
 
