@@ -10,7 +10,6 @@
 #include <unistd.h>
 #include <ctype.h>
 #include <dlfcn.h>
-#include <curses.h>
 #include <vector>
 
 #include "base.hpp"

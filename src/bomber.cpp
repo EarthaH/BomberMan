@@ -50,6 +50,9 @@ Bomber::~Bomber()
 void	Bomber::playerHit()
 {
 	this->_life--;
+	
+	if (this->_life < 1)
+		exit(0);
 }
 
 void	Bomber::upgradeLife()

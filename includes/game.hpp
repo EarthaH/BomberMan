@@ -10,7 +10,6 @@
 #include <unistd.h>
 #include <ctype.h>
 #include <dlfcn.h>
-#include <curses.h>
 #include <vector>
 #include <thread>
 
@@ -34,8 +33,7 @@ class	Lib;
 class   Game 
 {
 	private:
-        Sound gameOver;
-        int		_state;
+	Sound gameOver;
 
 
 	public:
@@ -45,7 +43,7 @@ class   Game
 		~Game();
 
 		int		loop();
-		int     start();
+		void	start();
 		void	move();
 		void	end();
 		void	init();
@@ -54,7 +52,7 @@ class   Game
 		void	dlerror_wrapper();
 		void	deleteLibrary();
 		void	clearMap();
-		bool	levelUp();
+		void	levelUp();
 		void	levelDown();
 		void	changeLevel(int);
 		void	save();

@@ -36,8 +36,6 @@ void	Menu::run()
 			_gameState = menuHandler();
 		if (_gameState == GameState::PLAY)
 			_gameState = gameHandler();
-		if (_gameState == GameState::END)
-			_gameState = endGameMenu();
 	}
 }
 
@@ -60,7 +58,37 @@ GameState	Menu::menuHandler()
 	screen = new nanogui::Screen;
 	screen->initialize(_win, true);
 
-	setGLFWCallback();
+	glfwSetCursorPosCallback(_win, [](GLFWwindow *, double x, double y)
+		{
+				screen->cursorPosCallbackEvent(x, y);
+		}
+	);
+
+	glfwSetMouseButtonCallback(_win, [](GLFWwindow *, int button, int action, int modifiers)
+		{
+			screen->mouseButtonCallbackEvent(button, action, modifiers);
+		}
+	);
+
+	glfwSetKeyCallback(_win, [](GLFWwindow *, int key, int scancode, int action, int mods)
+		{
+			screen->keyCallbackEvent(key, scancode, action, mods);
+		}
+	);
+
+	glfwSetCharCallback(_win, [](GLFWwindow *, unsigned int codepoint)
+		{
+			screen->charCallbackEvent(codepoint);
+		}
+	);
+
+	glfwSetFramebufferSizeCallback(_win, [](GLFWwindow *, int width, int height) 
+		{
+            screen->resizeCallbackEvent(width, height);
+        }
+	);
+	
+	glfwSetInputMode(_win, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
 	//Break when time to play :D !!!
 	while (_gameState == GameState::MENU && _menuState != MenuState::EXIT)
@@ -87,9 +115,18 @@ GameState	Menu::menuHandler()
 
 GameState	Menu::gameHandler()
 {
+	// int		width;
+	// int		height;
+
+	// glfwDefaultWindowHints();
+	// glfwGetFramebufferSize(_win, &width, &height);
+	// glViewport( 0, 0, width, height);
+	// glClear(GL_COLOR_BUFFER_BIT);
+	// glfwSwapBuffers(_win);
+
 	game->library->resetCallback();
-	_gameEnd = game->start();
-	return (GameState::END);
+	game->start();
+	return (GameState::EXIT);
 }
 
 void	Menu::mainMenu()
@@ -146,10 +183,7 @@ void	Menu::mainMenu()
 		renderMenu();
 	}
 	if (glfwWindowShouldClose(_win))
-	{
 		_menuState = MenuState::EXIT;
-		_gameState = GameState::EXIT;
-	}
 
 	nanoguiWindow->dispose();
 }
@@ -183,6 +217,7 @@ void	Menu::settingsMenu()
 	key_bindings_button->setCallback([&]
 	{
 		std::cout << "Key Bindings!\n";
+		//nanogui::ComboBox *list = new nanogui::ComboBox(nanoguiWindow, {"Movement = A, D, W, S", "Movement = LEFT, RIGHT, UP, DOWN"});
 	});
 
 	sound_button->setCallback([&]
@@ -207,10 +242,7 @@ void	Menu::settingsMenu()
 	}
 
 	if (glfwWindowShouldClose(_win))
-	{
 		_menuState = MenuState::EXIT;
-		_gameState = GameState::EXIT;
-	}
 
 	nanoguiWindow->dispose();
 }
@@ -251,82 +283,9 @@ void	Menu::loadMenu()
 	}
 
 	if (glfwWindowShouldClose(_win))
-	{
 		_menuState = MenuState::EXIT;
-		_gameState = GameState::EXIT;
-	}
 
 	nanoguiWindow->dispose();
-}
-
-GameState	Menu::endGameMenu()
-{
-	setGLFWCallback();
-	screen->initialize(_win, true);
-
-	nanogui::FormHelper	*gui = new nanogui::FormHelper(screen);
-	nanogui::ref<nanogui::Window> nanoguiWindow = gui->addWindow(Eigen::Vector2i(100, 100), "Game Over");
-
-	nanoguiWindow->setLayout(new nanogui::GroupLayout);
-
-
-	if (_gameEnd == 0)
-	{
-		new nanogui::Label(nanoguiWindow, "Oops... You Lost!");
-
-		nanogui::Button	*restart_game_button = new nanogui::Button(nanoguiWindow, "Restart");
-		nanogui::Button	*main_menu_button = new nanogui::Button(nanoguiWindow, "Main Menu");
-	
-		restart_game_button->setCallback([&]
-		{
-			_gameState = GameState::PLAY;
-			_menuState = MenuState::EXIT;
-		});
-	
-		main_menu_button->setCallback([&]
-		{
-			_menuState = MenuState::MAIN_MENU;
-		});
-	}
-	else if (_gameEnd == 1)
-	{
-		new nanogui::Label(nanoguiWindow, "Well done! You Won!!!");
-
-		nanogui::Button	*restart_game_button = new nanogui::Button(nanoguiWindow, "Restart");
-		nanogui::Button	*main_menu_button = new nanogui::Button(nanoguiWindow, "Main Menu");
-	
-		restart_game_button->setCallback([&]
-		{
-			_gameState = GameState::PLAY;
-			_menuState = MenuState::EXIT;
-		});
-	
-		main_menu_button->setCallback([&]
-		{
-			_gameState = GameState::MENU;
-			_menuState = MenuState::MAIN_MENU;
-			std::cout << "Back!!!\n";
-		});
-	}
-
-	screen->setVisible(1);
-	screen->performLayout();
-	nanoguiWindow->center();
-
-	while (!glfwWindowShouldClose(_win) && _gameState == GameState::END)
-	{
-		glfwPollEvents();
-		renderMenu();
-	}
-
-	if (glfwWindowShouldClose(_win))
-	{
-		_menuState = MenuState::EXIT;
-		_gameState = GameState::EXIT;
-	}
-
-	nanoguiWindow->dispose();
-	return (_gameState);
 }
 
 void	Menu::renderMenu()
@@ -374,6 +333,7 @@ std::vector<std::string>	*getFiles(std::vector<std::string> *files)
 
 void	Menu::popUpErrorMenu(std::string title, std::string message, std::string buttonText)
 {
+	std::cout << "HELLLO" << std::endl;
 	bool						breaker = false;
 	nanogui::FormHelper	*gui = new nanogui::FormHelper(screen);
 	nanogui::ref<nanogui::Window> nanoguiWindow = gui->addWindow(Eigen::Vector2i(10, 10), title);
@@ -389,9 +349,11 @@ void	Menu::popUpErrorMenu(std::string title, std::string message, std::string bu
 		breaker = true;
 	});
 
+
 	screen->setVisible(1);
 	screen->performLayout();
 	nanoguiWindow->center();
+	std::cout << "error message" << std::endl;
 
 	while (!glfwWindowShouldClose(_win) && !breaker)
 	{
@@ -402,15 +364,12 @@ void	Menu::popUpErrorMenu(std::string title, std::string message, std::string bu
 	}
 
 	if (glfwWindowShouldClose(_win))
-	{
 		_menuState = MenuState::EXIT;
-		_gameState = GameState::EXIT;
-	}
 	nanoguiWindow->dispose();
 	delete gui;
 }
 
-void	Menu::setGLFWCallback()
+void	Menu::changeCallback()
 {
 	glfwSetCursorPosCallback(_win, [](GLFWwindow *, double x, double y)
 		{
@@ -418,27 +377,9 @@ void	Menu::setGLFWCallback()
 		}
 	);
 
-	glfwSetMouseButtonCallback(_win, [](GLFWwindow *, int button, int action, int modifiers)
-		{
-			screen->mouseButtonCallbackEvent(button, action, modifiers);
-		}
-	);
-
 	glfwSetKeyCallback(_win, [](GLFWwindow *, int key, int scancode, int action, int mods)
 		{
 			screen->keyCallbackEvent(key, scancode, action, mods);
-		}
-	);
-
-	glfwSetCharCallback(_win, [](GLFWwindow *, unsigned int codepoint)
-		{
-			screen->charCallbackEvent(codepoint);
-		}
-	);
-
-	glfwSetFramebufferSizeCallback(_win, [](GLFWwindow *, int width, int height) 
-		{
-			screen->resizeCallbackEvent(width, height);
 		}
 	);
 
