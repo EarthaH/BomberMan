@@ -5,7 +5,7 @@
 #include <ctime>
 #include <iostream>
 #include <fstream>
-#include <sstream>//
+#include <sstream>
 #include <time.h>
 #include <unistd.h>
 #include <ctype.h>
@@ -24,7 +24,6 @@
 #include "level.hpp"
 #include "lib.hpp"
 #include "menu.hpp"
-//#include "camera.hpp"
 
 #define RIGHT 1
 #define LEFT 2

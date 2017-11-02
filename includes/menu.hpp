@@ -19,6 +19,7 @@ enum class	MenuState
 	MAIN_MENU,
 	SETTINGS,
 	LOAD,
+	END,
 	EXIT
 };
 
@@ -46,6 +47,7 @@ class Menu
 		void    	mainMenu();
 		void		settingsMenu();
 		void		loadMenu();
+		void		gameOverMenu();
 
 		void		run();
 		void		renderMenu();

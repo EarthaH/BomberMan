@@ -33,8 +33,7 @@ class	Lib;
 class   Game 
 {
 	private:
-	Sound gameOver;
-
+		Sound	gameOver;
 
 	public:
 		Game();
@@ -43,7 +42,7 @@ class   Game
 		~Game();
 
 		int		loop();
-		void	start();
+		int		start();
 		void	move();
 		void	end();
 		void	init();
@@ -57,12 +56,14 @@ class   Game
 		void	changeLevel(int);
 		void	save();
 		void	load(std::string);
+		static void	setGameState(int);
 		
 		bool	blockClear();
 		bool	endLevel();
 		
 		int		speed;
 		int		enemy_movement;
+		static int		gameState;
 		bool	complete;
 		Handle  *handle;
 		Lib		*library;

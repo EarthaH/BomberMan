@@ -52,7 +52,7 @@ void	Bomber::playerHit()
 	this->_life--;
 	
 	if (this->_life < 1)
-		exit(0);
+		Game::setGameState(0);
 }
 
 void	Bomber::upgradeLife()

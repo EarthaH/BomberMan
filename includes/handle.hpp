@@ -2,7 +2,6 @@
 # define HANDLE_H
 
 #include "header.hpp"
-//#include "IEntity.hpp"
 #include <thread>
 
 class   Bomber;

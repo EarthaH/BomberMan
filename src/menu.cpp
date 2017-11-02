@@ -15,9 +15,12 @@ bool						isTextFile(std::string file);
 nanogui::Screen				*screen = nullptr;
 std::vector<std::string>	*files;
 
+int		Game::gameState = 0;
+
 Menu::Menu() : _menuState(MenuState::MAIN_MENU), _gameState(GameState::MENU)
 {
 	game = new Game();
+	Game::gameState = 0;
 	_win = game->library->window;
 }
 
@@ -106,6 +109,9 @@ GameState	Menu::menuHandler()
 				loadMenu();
 				delete files;
 				break;
+			case MenuState::END :
+				gameOverMenu();
+				break;
 			case MenuState::EXIT :
 				std::cout << "What the fuck impossible" << std::endl;
 		}
@@ -115,18 +121,17 @@ GameState	Menu::menuHandler()
 
 GameState	Menu::gameHandler()
 {
-	// int		width;
-	// int		height;
-
-	// glfwDefaultWindowHints();
-	// glfwGetFramebufferSize(_win, &width, &height);
-	// glViewport( 0, 0, width, height);
-	// glClear(GL_COLOR_BUFFER_BIT);
-	// glfwSwapBuffers(_win);
-
 	game->library->resetCallback();
 	game->start();
-	return (GameState::EXIT);
+	_menuState = MenuState::END;
+
+	delete game->handle;
+	delete game->level;
+
+	game->level = new Level();
+	game->handle = new Handle(game->level);
+
+	return (GameState::MENU);
 }
 
 void	Menu::mainMenu()
@@ -277,6 +282,43 @@ void	Menu::loadMenu()
 	nanoguiWindow->center();
 
 	while (!glfwWindowShouldClose(_win) && _menuState == MenuState::LOAD)
+	{
+		glfwPollEvents();
+		renderMenu();
+	}
+
+	if (glfwWindowShouldClose(_win))
+		_menuState = MenuState::EXIT;
+
+	nanoguiWindow->dispose();
+}
+
+void	Menu::gameOverMenu()
+{
+	nanogui::FormHelper	*gui = new nanogui::FormHelper(screen);
+	nanogui::ref<nanogui::Window> nanoguiWindow = gui->addWindow(Eigen::Vector2i(10, 10), "Game Over!");
+
+	nanoguiWindow->setLayout(new nanogui::GroupLayout);
+
+	nanogui::Button	*back_button = new nanogui::Button(nanoguiWindow, "Main Menu");
+	nanogui::Button	*exit_button = new nanogui::Button(nanoguiWindow, "Exit");
+
+	back_button->setCallback([&]
+	{
+		_menuState = MenuState::MAIN_MENU;
+	});
+
+	exit_button->setCallback([&]
+	{
+		_gameState = GameState::EXIT;
+		_menuState = MenuState::EXIT;
+	});
+
+	screen->setVisible(1);
+	screen->performLayout();
+	nanoguiWindow->center();
+
+	while (!glfwWindowShouldClose(_win) && _menuState == MenuState::END)
 	{
 		glfwPollEvents();
 		renderMenu();

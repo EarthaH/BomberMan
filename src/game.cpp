@@ -37,42 +37,27 @@ void Game::init()
 	this->handle = new Handle(level);
 	this->library = new Lib();
 	this->load_handle = new Load();
-
-	
 }
 
 int logicKey = -1;
 /* *** *** *** Main Loop *** *** *** */
 
-void Game::start()
+int	Game::start()
 {
 	int change;
 
 	library->buildShaders();
 	library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
+	gameState = 1;
 
 	while (!glfwWindowShouldClose(this->library->window))
 	{
+		if (gameState != 1)
+			return (gameState);
 		if (logicKey == -1)
-		{
 			logicKey = this->library->getKey();
-		}
-		//std::cout << logicKey << std::endl;
- 		//std::cout << "1.0.1" << std::endl;
-		if ((change = loop()) == 100) //
-		{
-			//while ((change = loop()) != 0) //0 means game over - this is for gameplay
-			//while (!glfwWindowShouldClose(this->library->window))
-			//{
-			//change = loop();
-
-			//loop();
-			//save();
-			//load(file);
-			//}
-			//std::cout << "1.0" << std::endl;
+		if ((change = loop()) == 100)
 			draw();
-		}
 		else if (change == LEVEL_UP)
 		{
 			std::cout << "1.1 - LevelUp" << std::endl;
@@ -90,55 +75,31 @@ void Game::start()
 		{
 			std::cout << "1.3" << std::endl;
 		}
-		//std::cout << "1.4" << std::endl;
 	}
-
-	//std::cout << "1.5" << std::endl;
-	end();
+	return (gameState);
 }
 
 int Game::loop()
 {
-	//if (library->getMovementTime() == 0)
-	//{
-		int key;
-		int change_level = 0;
+	int key;
+	int change_level = 0;
 
-		//for (;;)
-		//while (!glfwWindowShouldClose(this->library->window))//why doe si tnot reconize a global??
-		//{
-		if (library->getMovementTime() == 0)
-		{	
-			if ((key = logicKey) != -1)
-			{
-				change_level = handle->checkKey(key);
-				logicKey = -1;
-			}
-		//if (enemy_movement == 1) //can delete enemy movemnt
-		//{
-		
-			handle->moveEnemy();
-		
-		//enemy_movement = 0
-		//}
-			handle->checkBombs();
+	if (library->getMovementTime() == 0)
+	{	
+		if ((key = logicKey) != -1)
+		{
+			change_level = handle->checkKey(key);
+			logicKey = -1;
 		}
-		//if (library->getMovementTime() == 0)
-		//{
-		///	enemy_movement++;
-		//	std::cout << "enemy can move" << std::endl;
-		//}
-		//	draw(); // this not at the bottom
-
-		if (handle->bomberman->getLife() == 0)
-			return (0);
-		else if (handle->enemies->size() == 0 && !complete)
-			complete = endLevel();
-		if (change_level != 0)
-			return (change_level);
-		//}
-		//std::cout << "testing" << std::endl;
-	//}
+		handle->moveEnemy();
+		handle->checkBombs();
+	}
+	if (handle->bomberman->getLife() == 0)
+		return (0);
+	else if (handle->enemies->size() == 0 && !complete)
+		complete = endLevel();
+	if (change_level != 0)
+		return (change_level);
 	return 100;
 }
 
@@ -193,26 +154,19 @@ void Game::changeLevel(int l)
 void Game::draw()
 {
 	library->preDraw();
-	//library->clearWindow();
+
 	for (int i = 0; i < level->getHeight(); ++i)
 	{
 		for (int j = 0; j < level->getWidth(); ++j)
 		{
-			//std::cout << handle->map->map[j][i] << " ";
 			if (handle->map->map[j][i] == ENEMY)
 			{
 				t_position	pos = handle->enemyOldPosition(i, j);
-				//std::cout << "tetinf "<< handle->enemyOldPosition(i, j).y << std::endl;
 				library->changeEnemyPos(pos.oldX, pos.oldY, pos.x, pos.y);
 			}
 			library->draw(level->getHeight(), level->getWidth(), i, j, handle->map->map[j][i]);
 		}
-		//std::cout << std::endl;
 	}
-	//std::cout << std::endl;
-	//std::cout << std::endl;
-	//library->draw(0, 0, 0, 0, 0);
-	//this->library->refresh();
 	library->postDraw();
 }
 
@@ -220,7 +174,6 @@ void Game::draw()
 
 void Game::end()
 {
-	//library->
 	gameOver.initialize("res/sound/gameover.wav");
 	gameOver.play(false);
 	std::cout << "Game over! Score: " << handle->score << std::endl;
@@ -262,4 +215,9 @@ void Game::load(std::string file)
 	handle->initEnemy();
 	for (size_t i = 1; i < static_cast<size_t>(load_handle->bomb_size); i++)
 		handle->createBomb();
+}
+
+void Game::setGameState(int state)
+{
+	gameState = state;
 }

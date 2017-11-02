@@ -8,9 +8,9 @@ int		main()
 	std::cout << "0.0.0" << std::endl;	
 	srand((unsigned)time(0));
 
-	Sound musicloop;
-	musicloop.initialize("res/sound/loop.wav");
-	musicloop.play(true);
+	// Sound musicloop;
+	// musicloop.initialize("res/sound/loop.wav");
+	// musicloop.play(true);
 
 	Menu	*menu = new Menu();
 	menu->run();
