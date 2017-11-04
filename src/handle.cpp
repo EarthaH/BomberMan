@@ -80,7 +80,7 @@ int 	Handle::checkKey(int key)
 
 int     Handle::moveBomber(int key)
 {
-    int     res;
+	int     res;
 
 	if (key == 264)
 		bomberman->moveDown(map);
@@ -160,20 +160,17 @@ int     Handle::checkUpgrades()
 
 	if (block == BOMB_UPGRADE) {
         createBomb();
-		powerUp.initialize("res/sound/power03.wav"); //!!!!!!!@@@@@@@@@@
-		std::cout << "BOMB_UPGRADE" << std::endl;//works
+		powerUp.initialize("res/sound/power03.wav");
         powerUp.play(false);
     }
 	else if (block == FIRE_UPGRADE) {
         bomberman->upgradeRange();
         powerUp.initialize("res/sound/power03.wav");
-		std::cout << "FIRE_UPGRADE" << std::endl;//works
         powerUp.play(false);
     }
 	else if (block == LIFE_UPGRADE) {
         bomberman->upgradeLife();
         powerUp.initialize("res/sound/power01.wav");
-		std::cout << "LIFE_UPGRADE" << std::endl;//doenst work
         powerUp.play(false);
     }
     else if (block == LEVEL_UP)

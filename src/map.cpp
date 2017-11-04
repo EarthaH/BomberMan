@@ -52,22 +52,17 @@ int		Map::countType(int type)
 
 void	Map::init()
 {
-	//std::cout << "Height: " << height << " Width: " << width << std::endl;
 	map.resize(height);
-	//std::cout << "Map height resized.\n";
 	for (int i = 0; i < height; ++i)
 	{
 		map[i].resize(width);
 		map[i][0] = map[i][width - 1] = WALL;
 	}
-	//std::cout << std::endl << "Map width resized.\n";
 	for (int i = 0; i < width; ++i)
 		map[0][i] = map[height - 1][i] = WALL;
-	//std::cout << "Border walls added.\n";
 	for (int i = 2; i < (width - 2); i += 2)
 		for (int j = 2; j < (height - 2); j += 2)
 			map[j][i] = WALL;
-	//std::cout << "Maze walls added.\n";
 }
 
 void	Map::update(int x, int y, int type)
@@ -104,6 +99,8 @@ bool	Map::isOpen(int x, int y)
 
 bool	Map::isType(int x, int y, int type)
 {
+	if (x > width || x < 0 || y > height || y < 0)
+		return false;
 	if (map[y][x] == type)
 		return true;
 	return false;
