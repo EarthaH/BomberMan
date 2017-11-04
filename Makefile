@@ -108,8 +108,8 @@ installExternalLibraries :
 	@brew install openal-soft
 	@brew install pkg-config
 	@brew install premake
-	@brew install cmake
 	@brew install hg
+	@brew install cmake
 	@brew install assimp
 	@./installSOIL.sh
 	@clear
