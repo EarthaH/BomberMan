@@ -122,7 +122,7 @@ GameState	Menu::menuHandler()
 GameState	Menu::gameHandler()
 {
 	game->library->resetCallback();
-	game->start();
+	_game_complete = game->start();
 	_menuState = MenuState::END;
 
 	delete game->handle;
@@ -297,8 +297,13 @@ void	Menu::gameOverMenu()
 {
 	nanogui::FormHelper	*gui = new nanogui::FormHelper(screen);
 	nanogui::ref<nanogui::Window> nanoguiWindow = gui->addWindow(Eigen::Vector2i(10, 10), "Game Over!");
+	nanogui::Widget *tools = new nanogui::Widget(nanoguiWindow);
 
+	std::string	message = _game_complete == 0 ? "Well Done! You completed all the levels." : "Looks like you killed yourself...";
 	nanoguiWindow->setLayout(new nanogui::GroupLayout);
+	tools->setLayout(new nanogui::BoxLayout(nanogui::Orientation::Horizontal,
+		nanogui::Alignment::Middle, 0, 6));
+	new nanogui::Label(tools, message);
 
 	nanogui::Button	*back_button = new nanogui::Button(nanoguiWindow, "Main Menu");
 	nanogui::Button	*exit_button = new nanogui::Button(nanoguiWindow, "Exit");
@@ -375,7 +380,6 @@ std::vector<std::string>	*getFiles(std::vector<std::string> *files)
 
 void	Menu::popUpErrorMenu(std::string title, std::string message, std::string buttonText)
 {
-	std::cout << "HELLLO" << std::endl;
 	bool						breaker = false;
 	nanogui::FormHelper	*gui = new nanogui::FormHelper(screen);
 	nanogui::ref<nanogui::Window> nanoguiWindow = gui->addWindow(Eigen::Vector2i(10, 10), title);

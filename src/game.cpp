@@ -60,7 +60,7 @@ int	Game::start()
 			draw();
 		else if (change == LEVEL_UP)
 		{
-			std::cout << "1.1 - LevelUp" << std::endl;
+			std::cout << "1.1 - LevelUp: " << level->getLevel() << std::endl;
 			levelUp();
 			library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
 		}
@@ -105,6 +105,8 @@ int Game::loop()
 
 bool Game::endLevel()
 {
+	if (level->getLevel() == 4)
+		gameState = 0;
 	if (level->getLevel() < 4)
 		handle->map->update(handle->randomPosition(), LEVEL_UP);
 	if (level->getLevel() > 1)

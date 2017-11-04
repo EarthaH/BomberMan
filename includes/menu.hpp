@@ -36,6 +36,7 @@ class Menu
 		GLFWwindow  *_win;
 		MenuState   _menuState;
 		GameState	_gameState;
+		int			_game_complete;
 
 	public:
 
