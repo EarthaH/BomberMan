@@ -73,6 +73,8 @@ int 	Handle::checkKey(int key)
 {
 	if (key == 264 || key == 265 || key == 262 || key == 263)
 		return (moveBomber(key));
+	if (key == 80)
+		Game::setGameState(2);
 	else if (key == SPACE)
 		dropBomb(bomberman->getX(), bomberman->getY());
     return (0);

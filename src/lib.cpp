@@ -280,6 +280,12 @@ int Lib::getKey()
 //		keys[32] = false;
 		return (32);
 	}
+
+	if (keys[GLFW_KEY_P])
+	{
+		return (GLFW_KEY_P);
+	}
+
 	int key = keyPressed;
 	keyPressed = -1;
 	return (key);

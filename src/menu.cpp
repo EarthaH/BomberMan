@@ -42,25 +42,8 @@ void	Menu::run()
 	}
 }
 
-GameState	Menu::menuHandler()
+void		Menu::setCallbacks()
 {
-	#if defined(NANOGUI_GLAD)
-		#if defined(NANOGUI_SHARED) && !defined(GLAD_GLAPI_EXPORT)
-			#define GLAD_GLAPI_EXPORT
-		#endif
-
-		#include <glad/glad.h>
-	#else
-		#if defined(__APPLE__)
-			#define GLFW_INCLUDE_GLCOREARB
-		#else
-			#define GL_GLEXT_PROTOTYPES
-		#endif
-	#endif
-
-	screen = new nanogui::Screen;
-	screen->initialize(_win, true);
-
 	glfwSetCursorPosCallback(_win, [](GLFWwindow *, double x, double y)
 		{
 				screen->cursorPosCallbackEvent(x, y);
@@ -87,11 +70,33 @@ GameState	Menu::menuHandler()
 
 	glfwSetFramebufferSizeCallback(_win, [](GLFWwindow *, int width, int height) 
 		{
-            screen->resizeCallbackEvent(width, height);
-        }
+			screen->resizeCallbackEvent(width, height);
+		}
 	);
-	
+
 	glfwSetInputMode(_win, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+}
+
+GameState	Menu::menuHandler()
+{
+	#if defined(NANOGUI_GLAD)
+		#if defined(NANOGUI_SHARED) && !defined(GLAD_GLAPI_EXPORT)
+			#define GLAD_GLAPI_EXPORT
+		#endif
+
+		#include <glad/glad.h>
+	#else
+		#if defined(__APPLE__)
+			#define GLFW_INCLUDE_GLCOREARB
+		#else
+			#define GL_GLEXT_PROTOTYPES
+		#endif
+	#endif
+
+	setCallbacks();
+
+	screen = new nanogui::Screen;
+	screen->initialize(_win, true);
 
 	//Break when time to play :D !!!
 	while (_gameState == GameState::MENU && _menuState != MenuState::EXIT)
@@ -122,7 +127,13 @@ GameState	Menu::menuHandler()
 GameState	Menu::gameHandler()
 {
 	game->library->resetCallback();
-	_game_complete = game->start();
+	while ((_game_complete = game->start()) == 2)
+	{
+		_gameState = GameState::STOP;
+		pausedMenu();
+		game->library->resetCallback();
+	}
+	
 	_menuState = MenuState::END;
 
 	delete game->handle;
@@ -267,8 +278,9 @@ void	Menu::loadMenu()
 
 	load_game_button->setCallback([&]
 	{
-		std::cout << "Loading: " << files->at(list->selectedIndex()) << std::endl;
 		game->load(files->at(list->selectedIndex()));
+		_gameState = GameState::PLAY;
+		_menuState = MenuState::EXIT;
 	});
 
 	back_button->setCallback([&]
@@ -324,6 +336,50 @@ void	Menu::gameOverMenu()
 	nanoguiWindow->center();
 
 	while (!glfwWindowShouldClose(_win) && _menuState == MenuState::END)
+	{
+		glfwPollEvents();
+		renderMenu();
+	}
+
+	if (glfwWindowShouldClose(_win))
+		_menuState = MenuState::EXIT;
+
+	nanoguiWindow->dispose();
+}
+
+void	Menu::pausedMenu()
+{
+	setCallbacks();
+	nanogui::FormHelper	*gui = new nanogui::FormHelper(screen);
+	nanogui::ref<nanogui::Window> nanoguiWindow = gui->addWindow(Eigen::Vector2i(10, 10), "Game Paused");
+	nanoguiWindow->setLayout(new nanogui::GroupLayout);
+
+	nanogui::Button	*play_button = new nanogui::Button(nanoguiWindow, "Play");
+	nanogui::Button	*save_button = new nanogui::Button(nanoguiWindow, "Save");
+	nanogui::Button	*exit_button = new nanogui::Button(nanoguiWindow, "Exit");
+
+	play_button->setCallback([&]
+	{
+		_gameState = GameState::PLAY;
+	});
+
+	save_button->setCallback([&]
+	{
+		game->save();
+		popUpErrorMenu("SAVED", "Access saved games from Main Menu 'Load Game'\n", "OK");
+	});
+
+	exit_button->setCallback([&]
+	{
+		_gameState = GameState::EXIT;
+		_menuState = MenuState::EXIT;
+	});
+
+	screen->setVisible(1);
+	screen->performLayout();
+	nanoguiWindow->center();
+
+	while (!glfwWindowShouldClose(_win) && _gameState == GameState::STOP)
 	{
 		glfwPollEvents();
 		renderMenu();

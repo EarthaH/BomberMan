@@ -24,7 +24,6 @@
 #define UP 3
 #define DOWN 4
 
-
 class   Handle;
 class   Level;
 class	Load;
@@ -55,6 +54,7 @@ class   Game
 		void	levelDown();
 		void	changeLevel(int);
 		void	save();
+		void	save(std::string);
 		void	load(std::string);
 		static void	setGameState(int);
 		

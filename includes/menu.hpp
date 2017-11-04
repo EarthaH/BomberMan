@@ -12,6 +12,8 @@
 
 #include "game.hpp"
 
+#define CURRENT_GAME "current_game"
+
 class	Game;
 
 enum class	MenuState
@@ -27,6 +29,7 @@ enum class	GameState
 {
 	MENU,
 	PLAY,
+	STOP,
 	EXIT
 };
 
@@ -45,10 +48,13 @@ class Menu
 		~Menu();
 		Menu const & operator=(Menu const &);
 
+		void		setCallbacks();
+
 		void    	mainMenu();
 		void		settingsMenu();
 		void		loadMenu();
 		void		gameOverMenu();
+		void		pausedMenu();
 
 		void		run();
 		void		renderMenu();

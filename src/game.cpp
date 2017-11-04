@@ -60,6 +60,7 @@ int	Game::start()
 			draw();
 		else if (change == LEVEL_UP)
 		{
+			save();
 			levelUp();
 			library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
 		}
@@ -67,6 +68,10 @@ int	Game::start()
 		{
 			levelDown();
 			library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
+		}
+		else if (gameState == 2)
+		{
+			return (gameState);
 		}
 		else
 		{
@@ -196,6 +201,19 @@ void Game::save()
 	std::string file = strcat(asctime(curtime), ".txt");
 
 	ofs.open(file, std::ofstream::out | std::ofstream::app);
+	ofs << handle->map->height << std::endl;
+	for (size_t i = 0; i < static_cast<size_t>(handle->map->height); i++)
+		ofs << handle->map->getMapRow(i) << std::endl;
+	ofs << level->getLevel() << " " << handle->score << " ";
+	ofs << handle->bomberman->getRange() << " " << handle->bomberman->getLife();
+	ofs << " " << handle->bombs->size() << std::endl;
+}
+
+void Game::save(std::string file)
+{
+	std::ofstream ofs;
+
+	ofs.open(file);
 	ofs << handle->map->height << std::endl;
 	for (size_t i = 0; i < static_cast<size_t>(handle->map->height); i++)
 		ofs << handle->map->getMapRow(i) << std::endl;
