@@ -50,7 +50,6 @@ int	Game::start()
 	library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
 	gameState = 1;
 
-	std::cout << "**************** GAME STARTING NOW ****************\n";
 	while (!glfwWindowShouldClose(this->library->window))
 	{
 		if (gameState != 1)
@@ -61,22 +60,22 @@ int	Game::start()
 			draw();
 		else if (change == LEVEL_UP)
 		{
-			std::cout << "1.1 - LevelUp: " << level->getLevel() << std::endl;
 			levelUp();
 			library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
 		}
 		else if (change == LEVEL_DOWN)
 		{
-
-			std::cout << "1.2" << std::endl;
 			levelDown();
 			library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
 		}
 		else
 		{
+			end();
 			return (gameState);
 		}
 	}
+
+	end();
 	return (gameState);
 }
 
@@ -177,11 +176,14 @@ void Game::draw()
 
 void Game::end()
 {
+	handle->map->update(handle->bomberman->getX(), handle->bomberman->getY(), FIRE);
+	for (size_t i = 0; i < handle->bombs->size(); i++)
+		handle->map->update(handle->bombs->at(i)->getX(), handle->bombs->at(i)->getY(), FIRE);
+	draw();
+	sleep(2);
 	gameOver.initialize("res/sound/gameover.wav");
 	gameOver.play(false);
 	std::cout << "Game over! Score: " << handle->score << std::endl;
-
-	exit(0);
 }
 
 /* Saving and Loading */
