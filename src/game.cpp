@@ -50,6 +50,7 @@ int	Game::start()
 	library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
 	gameState = 1;
 
+	std::cout << "**************** GAME STARTING NOW ****************\n";
 	while (!glfwWindowShouldClose(this->library->window))
 	{
 		if (gameState != 1)
@@ -73,7 +74,7 @@ int	Game::start()
 		}
 		else
 		{
-			std::cout << "1.3" << std::endl;
+			return (gameState);
 		}
 	}
 	return (gameState);
