@@ -4,7 +4,7 @@
 //put the sound on the stack and not on the heap.
 
 void *worker(void *argc){
-    std::cout << "playing from thread: " << &argc << std::endl;
+    //std::cout << "playing from thread: " << &argc << std::endl;
     return  argc;
 }
 
@@ -39,7 +39,7 @@ Sound::~Sound() {
     _rc = pthread_detach(_thread[2]);
     if (!_thread[2])
     {
-        std::cout << stderr << "Thread been deleted" << std::endl;
+        //std::cout << stderr << "Thread been deleted" << std::endl;
     }
 }
 

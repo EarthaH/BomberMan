@@ -162,6 +162,12 @@ Camera camera(glm::vec3(3.0f, 3.0f, 3.0f));//where the camera inits at !!!@@@
 GLfloat lastX = WIDTH / 2.0;
 GLfloat lastY = HEIGHT / 2.0;
 bool keys[1024];
+int CURRENT_KEY_UP = GLFW_KEY_UP;
+int CURRENT_KEY_DOWN = GLFW_KEY_DOWN;
+int CURRENT_KEY_LEFT = GLFW_KEY_LEFT;
+int CURRENT_KEY_RIGHT = GLFW_KEY_RIGHT;
+int CURRENT_KEY_BOMB = 32;
+int CURRENT_KEY_P = GLFW_KEY_P;
 bool firstMouse = true;
 
 // Light attributes
@@ -217,7 +223,6 @@ Lib::Lib()
     //// Load models!!!!!!@@@@@@
     //char    str[] = "res/graphics/models/bomber1/running/Bomber1Running01.obj";
     //bomberModelRun1 = new Model( str );
-	std::cout << "Library created." << std::endl;
 }
 
 Lib::Lib(Lib const &copy)
@@ -235,7 +240,6 @@ Lib::~Lib()
 {
 	delete lightingShader;
 	delete lampShader;
-	std::cout << "deleting library..." << std::endl;
 }
 
 
@@ -248,42 +252,103 @@ int Lib::getNumber()
 {
 	return (this->_number);
 }
+	
+int		Lib::getUpKey()
+{
+	return CURRENT_KEY_UP;
+}
+
+int		Lib::getDownKey()
+{
+	return CURRENT_KEY_DOWN;
+}
+
+int		Lib::getLeftKey()
+{
+	return CURRENT_KEY_LEFT;
+}
+
+int		Lib::getRightKey()
+{
+	return CURRENT_KEY_RIGHT;
+}
+
+int		Lib::getPauseKey()
+{
+	return CURRENT_KEY_P;
+}
+
+int		Lib::getBombKey()
+{
+	return CURRENT_KEY_BOMB;
+}
+
+void		Lib::setUpKey()
+{
+CURRENT_KEY_UP = GLFW_KEY_W;
+}
+
+void		Lib::setDownKey()
+{
+CURRENT_KEY_DOWN = GLFW_KEY_S;
+}
+
+void		Lib::setLeftKey()
+{
+CURRENT_KEY_LEFT = GLFW_KEY_A;
+}
+
+void		Lib::setRightKey()
+{
+CURRENT_KEY_RIGHT = GLFW_KEY_D;
+}
+
+void		Lib::setPauseKey()
+{
+CURRENT_KEY_P = GLFW_KEY_ESCAPE;
+}
+
+void		Lib::setBombKey()
+{
+CURRENT_KEY_BOMB = GLFW_KEY_B;
+}
+
 
 int Lib::getKey()
 {
-	if (keys[GLFW_KEY_UP])
+	if (keys[CURRENT_KEY_UP])
 	{
 //		keys[GLFW_KEY_UP] = false;
-		return (GLFW_KEY_UP);
+		return (CURRENT_KEY_UP);
 	}
 
-	if (keys[GLFW_KEY_DOWN])
+	if (keys[CURRENT_KEY_DOWN])
 	{
 //		keys[GLFW_KEY_DOWN] = false;
-		return (GLFW_KEY_DOWN);
+		return (CURRENT_KEY_DOWN);
 	}
 
-	if (keys[GLFW_KEY_LEFT])
+	if (keys[CURRENT_KEY_LEFT])
 	{
 //		keys[GLFW_KEY_LEFT] = false;
-		return (GLFW_KEY_LEFT);
+		return (CURRENT_KEY_LEFT);
 	}
 
-	if (keys[GLFW_KEY_RIGHT])
+	if (keys[CURRENT_KEY_RIGHT])
 	{
 //		keys[GLFW_KEY_RIGHT] = false;
-		return (GLFW_KEY_RIGHT);
+		return (CURRENT_KEY_RIGHT);
 	}
 
-	if (keys[32])
+	if (keys[CURRENT_KEY_BOMB])
 	{
 //		keys[32] = false;
-		return (32);
+		return (CURRENT_KEY_BOMB);
 	}
 
-	if (keys[GLFW_KEY_P])
+	if (keys[CURRENT_KEY_P])
 	{
-		return (GLFW_KEY_P);
+		return (CURRENT_KEY_P);
 	}
 
 	int key = keyPressed;
@@ -349,7 +414,6 @@ bool Lib::createWindow(int height, int width)
 	// OpenGL options
 	glEnable(GL_DEPTH_TEST);
 
-	std::cout << "created window" << std::endl;
 	return 1;
 }
 
@@ -1112,10 +1176,10 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 {
 	(void)scancode;
 	(void)mode;
-	if (GLFW_KEY_ESCAPE == key && GLFW_PRESS == action)
-	{
-		glfwSetWindowShouldClose(window, GL_TRUE);
-	}
+	//if (GLFW_KEY_ESCAPE == key && GLFW_PRESS == action)
+	//{
+	//	glfwSetWindowShouldClose(window, GL_TRUE);
+	//}
 
 	if (key >= 0 && key < 1024)
 	{

@@ -5,7 +5,7 @@ int		y;
 
 int		main()
 {
-	std::cout << "0.0.0" << std::endl;	
+	//std::cout << "0.0.0" << std::endl;	
 	srand((unsigned)time(0));
 
 	// Sound musicloop;

@@ -32,11 +32,33 @@ Game::~Game()
 
 void Game::init()
 {
-	std::cout << "0.0" << std::endl;
+	//std::cout << "0.0" << std::endl;
 	this->level = new Level();
 	this->handle = new Handle(level);
 	this->library = new Lib();
 	this->load_handle = new Load();
+
+	//std::cout << "this is where i will do my keybindings" << std::endl;
+	std::cout << this->library->getUpKey() << std::endl;
+	std::cout << this->library->getDownKey() << std::endl;
+	std::cout << this->library->getLeftKey() << std::endl;
+	std::cout << this->library->getRightKey() << std::endl;
+	std::cout << this->library->getPauseKey() << std::endl;
+	std::cout << this->library->getBombKey() << std::endl;
+
+	this->library->setUpKey();
+	this->library->setDownKey();
+	this->library->setLeftKey();
+	this->library->setRightKey();
+	this->library->setPauseKey();
+	this->library->setBombKey();
+	//CURRENT_KEY_UP << std::endl;
+	std::cout << std::endl << this->library->getUpKey() << std::endl;
+	std::cout << this->library->getDownKey() << std::endl;
+	std::cout << this->library->getLeftKey() << std::endl;
+	std::cout << this->library->getRightKey() << std::endl;
+	std::cout << this->library->getPauseKey() << std::endl;
+	std::cout << this->library->getBombKey() << std::endl;
 }
 
 int logicKey = -1;
@@ -187,7 +209,7 @@ void Game::end()
 	sleep(2);
 	gameOver.initialize("res/sound/gameover.wav");
 	gameOver.play(false);
-	std::cout << "Game over! Score: " << handle->score << std::endl;
+	//std::cout << "Game over! Score: " << handle->score << std::endl;
 }
 
 /* Saving and Loading */

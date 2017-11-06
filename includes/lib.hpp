@@ -89,6 +89,20 @@ class Lib
 	static void drawBorders();
 
 	void	resetCallback();
+	
+	int		getUpKey();
+	int		getDownKey();
+	int		getLeftKey();
+	int		getRightKey();
+	int		getPauseKey();
+	int		getBombKey();	
+
+	void		setUpKey();
+	void		setDownKey();
+	void		setLeftKey();
+	void		setRightKey();
+	void		setPauseKey();
+	void		setBombKey();
 };
 
 #endif
