@@ -131,6 +131,8 @@ GameState	Menu::gameHandler()
 	{
 		_gameState = GameState::STOP;
 		pausedMenu();
+		if (_gameState == GameState::EXIT)
+			return (GameState::EXIT);
 		game->library->resetCallback();
 	}
 	
@@ -371,6 +373,7 @@ void	Menu::pausedMenu()
 
 	exit_button->setCallback([&]
 	{
+		std::cout << "EXITING GAME !!!\n";
 		_gameState = GameState::EXIT;
 		_menuState = MenuState::EXIT;
 	});

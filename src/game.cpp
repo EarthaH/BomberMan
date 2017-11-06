@@ -60,7 +60,6 @@ int	Game::start()
 			draw();
 		else if (change == LEVEL_UP)
 		{
-			save();
 			levelUp();
 			library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
 		}
