@@ -26,6 +26,14 @@ class   Handle
 		~Handle();
 
 		int						score;
+
+		static int				_left;
+		static int				_right;
+		static int				_up;
+		static int				_down;
+		static int				_drop_bomb;
+		static int				_pause;
+
 		Map					 	*map;
 		Bomber				  	*bomberman;
 		std::vector<Enemy *>	*enemies;

@@ -71,11 +71,11 @@ void	Handle::createEnemy(int num, t_position pos)
 
 int 	Handle::checkKey(int key)
 {
-	if (key == 264 || key == 265 || key == 262 || key == 263)
+	if (key == _left || key == _right || key == _up || key == _down)
 		return (moveBomber(key));
-	if (key == 80)
+	if (key == _pause)
 		Game::setGameState(2);
-	else if (key == SPACE)
+	else if (key == _drop_bomb)
 		dropBomb(bomberman->getX(), bomberman->getY());
     return (0);
 }
@@ -84,13 +84,13 @@ int     Handle::moveBomber(int key)
 {
 	int     res;
 
-	if (key == 264)
+	if (key == _down)
 		bomberman->moveDown(map);
-	else if (key == 265)
+	else if (key == _up)
 		bomberman->moveUp(map);
-	else if (key == 263)
+	else if (key == _left)
 		bomberman->moveLeft(map);
-	else if (key == 262)
+	else if (key == _right)
 		bomberman->moveRight(map);
 	
 	res = checkUpgrades();

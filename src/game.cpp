@@ -1,5 +1,13 @@
 #include "../includes/game.hpp"
 
+//int		Game::gameState = 0;
+int			Handle::_left = 0;
+int			Handle::_right = 0;
+int			Handle::_up = 0;
+int			Handle::_down = 0;
+int			Handle::_drop_bomb = 0;
+int			Handle::_pause = 0;
+
 Game::Game() : speed(1000), enemy_movement(0), complete(false)
 {
 	init();
@@ -39,26 +47,35 @@ void Game::init()
 	this->load_handle = new Load();
 
 	//std::cout << "this is where i will do my keybindings" << std::endl;
-	std::cout << this->library->getUpKey() << std::endl;
-	std::cout << this->library->getDownKey() << std::endl;
-	std::cout << this->library->getLeftKey() << std::endl;
-	std::cout << this->library->getRightKey() << std::endl;
-	std::cout << this->library->getPauseKey() << std::endl;
-	std::cout << this->library->getBombKey() << std::endl;
+//	std::cout << this->library->getUpKey() << std::endl;
+//	std::cout << this->library->getDownKey() << std::endl;
+//	std::cout << this->library->getLeftKey() << std::endl;
+//	std::cout << this->library->getRightKey() << std::endl;
+//	std::cout << this->library->getPauseKey() << std::endl;
+//	std::cout << this->library->getBombKey() << std::endl;
+//
+//	this->library->setUpKey();
+//	this->library->setDownKey();
+//	this->library->setLeftKey();
+//	this->library->setRightKey();
+//	this->library->setPauseKey();
+//	this->library->setBombKey();
+//	CURRENT_KEY_UP << std::endl;
+//
+//
+	Handle::_down = this->library->getDownKey();
+	Handle::_up = this->library->getUpKey();
+	Handle::_left = this->library->getLeftKey();
+	Handle::_right = this->library->getRightKey();
+	Handle::_pause = this->library->getPauseKey();
+	Handle::_drop_bomb = this->library->getBombKey();
 
-	this->library->setUpKey();
-	this->library->setDownKey();
-	this->library->setLeftKey();
-	this->library->setRightKey();
-	this->library->setPauseKey();
-	this->library->setBombKey();
-	//CURRENT_KEY_UP << std::endl;
-	std::cout << std::endl << this->library->getUpKey() << std::endl;
-	std::cout << this->library->getDownKey() << std::endl;
-	std::cout << this->library->getLeftKey() << std::endl;
-	std::cout << this->library->getRightKey() << std::endl;
-	std::cout << this->library->getPauseKey() << std::endl;
-	std::cout << this->library->getBombKey() << std::endl;
+//	std::cout << std::endl << this->library->getUpKey() << std::endl;
+//	std::cout << this->library->getDownKey() << std::endl;
+//	std::cout << this->library->getLeftKey() << std::endl;
+//	std::cout << this->library->getRightKey() << std::endl;
+//	std::cout << this->library->getPauseKey() << std::endl;
+//	std::cout << this->library->getBombKey() << std::endl;
 }
 
 int logicKey = -1;
