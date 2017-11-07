@@ -114,6 +114,9 @@ GameState	Menu::menuHandler()
 				loadMenu();
 				delete files;
 				break;
+			case MenuState::KEYS :
+				keyMenu();
+				break;
 			case MenuState::END :
 				gameOverMenu();
 				break;
@@ -234,8 +237,7 @@ void	Menu::settingsMenu()
 
 	key_bindings_button->setCallback([&]
 	{
-		std::cout << "Key Bindings!\n";
-		//nanogui::ComboBox *list = new nanogui::ComboBox(nanoguiWindow, {"Movement = A, D, W, S", "Movement = LEFT, RIGHT, UP, DOWN"});
+		_menuState = MenuState::KEYS;
 	});
 
 	sound_button->setCallback([&]
@@ -383,6 +385,78 @@ void	Menu::pausedMenu()
 	nanoguiWindow->center();
 
 	while (!glfwWindowShouldClose(_win) && _gameState == GameState::STOP)
+	{
+		glfwPollEvents();
+		renderMenu();
+	}
+
+	if (glfwWindowShouldClose(_win))
+		_menuState = MenuState::EXIT;
+
+	nanoguiWindow->dispose();
+}
+
+void	Menu::keyMenu()
+{
+	setCallbacks();
+	nanogui::FormHelper	*gui = new nanogui::FormHelper(screen);
+	nanogui::ref<nanogui::Window> nanoguiWindow = gui->addWindow(Eigen::Vector2i(10, 10), "Key Bindings");
+	nanoguiWindow->setLayout(new nanogui::GroupLayout);
+
+	nanogui::Button	*up_button = new nanogui::Button(nanoguiWindow, "Up");
+	nanogui::Button	*down_button = new nanogui::Button(nanoguiWindow, "Down");
+	nanogui::Button	*left_button = new nanogui::Button(nanoguiWindow, "Left");
+	nanogui::Button	*right_button = new nanogui::Button(nanoguiWindow, "Right");
+	nanogui::Button	*drop_bomb_button = new nanogui::Button(nanoguiWindow, "Drop Bomb");
+	nanogui::Button	*pause_button = new nanogui::Button(nanoguiWindow, "Pause");
+	nanogui::Button	*back_button = new nanogui::Button(nanoguiWindow, "Back");
+
+	up_button->setCallback([&]
+	{
+		game->library->setUpKey();
+		game->setUp();
+	});
+
+	down_button->setCallback([&]
+	{
+		game->library->setDownKey();
+		game->setDown();
+	});
+
+	left_button->setCallback([&]
+	{
+		game->library->setLeftKey();
+		game->setLeft();
+	});
+
+	right_button->setCallback([&]
+	{
+		game->library->setRightKey();
+		game->setRight();
+	});
+
+	drop_bomb_button->setCallback([&]
+	{
+		game->library->setBombKey();
+		game->setDropBomb();
+	});
+
+	pause_button->setCallback([&]
+	{
+		game->library->setPauseKey();
+		game->setPause();
+	});
+
+	back_button->setCallback([&]
+	{
+		_menuState = MenuState::SETTINGS;
+	});
+
+	screen->setVisible(1);
+	screen->performLayout();
+	nanoguiWindow->center();
+
+	while (!glfwWindowShouldClose(_win) && _menuState == MenuState::KEYS)
 	{
 		glfwPollEvents();
 		renderMenu();

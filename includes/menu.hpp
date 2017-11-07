@@ -22,6 +22,7 @@ enum class	MenuState
 	SETTINGS,
 	LOAD,
 	END,
+	KEYS,
 	EXIT
 };
 
@@ -55,6 +56,7 @@ class Menu
 		void		loadMenu();
 		void		gameOverMenu();
 		void		pausedMenu();
+		void		keyMenu();
 
 		void		run();
 		void		renderMenu();

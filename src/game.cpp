@@ -282,3 +282,33 @@ void Game::setGameState(int state)
 {
 	gameState = state;
 }
+
+void Game::setUp()
+{
+	Handle::_up = library->getUpKey();
+}
+
+void Game::setDown()
+{
+	Handle::_down = library->getDownKey();
+}
+
+void Game::setLeft()
+{
+	Handle::_left = library->getLeftKey();
+}
+
+void Game::setRight()
+{
+	Handle::_right = library->getRightKey();
+}
+
+void Game::setDropBomb()
+{
+	Handle::_drop_bomb = library->getBombKey();
+}
+
+void Game::setPause()
+{
+	Handle::_pause = library->getPauseKey();
+}

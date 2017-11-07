@@ -56,6 +56,14 @@ class   Game
 		void	save();
 		void	save(std::string);
 		void	load(std::string);
+
+		void	setLeft();
+		void	setRight();
+		void	setUp();
+		void	setDown();
+		void	setDropBomb();
+		void	setPause();
+	
 		static void	setGameState(int);
 		
 		bool	blockClear();
