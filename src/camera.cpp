@@ -147,5 +147,7 @@ glm::vec3 Camera::bombermanLevelBegin(glm::vec3 coordinates)//!!!@@@
     this->position.y = coordinates.y;
     this->position.z = coordinates.z;
 
+    std::cout << "this is to check where the camera is x = " << coordinates.x << "; y = " << coordinates.y << "; z = " << coordinates.z << ":" << std::endl;
+
     return coordinates;
 }

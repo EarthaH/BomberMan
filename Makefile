@@ -7,16 +7,12 @@ OBJ_NAME = bomberman
 
 CC = g++
 
-CFLAGS = -Wall -Werror -Wextra -std=c++11
-
 COMPILER_FLAGS = -g -Wall -Werror -Wextra -Wno-unused-parameter -std=c++11
 
 #CFLAGS1 =	-std=c++11 -Wno-deprecated-declarations -O3
 
 #CFLAGS2 = 	-framework OpenGL -framework GLUT -O3 -ltermcap \
 			-Wno-deprecated-declarations
-
-LIBRARY = -framework OpenGL -framework AppKit
 
 #INCLUDE_PATHS = -I ~/.brew/Cellar/glfw/3.2.1/include \
 #				-I ~/.brew/Cellar/glew/2.1.0/include \

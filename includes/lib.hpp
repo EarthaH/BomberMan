@@ -73,8 +73,11 @@ class Lib
 	GLint projLoc;
 	glm::mat4 model;
 	glm::mat4 bomberModel;
-	Shader *lightingShader; //ask eartah if this is ok
-	Shader *lampShader;
+	//Shader *lightingShader; //ask eartah if this is ok
+	//Shader *lampShader;
+	Shader *shader;
+	Model *zombieModelwalk00;
+	Model *bombermanModelWalk00;
 
 	Shader *bomberShaderRun1;
 	Model *bomberModelRun1;
