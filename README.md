@@ -19,4 +19,4 @@ Kill enemies and destroy obstacles by strategically placing down timed bombs.
 - $>exit
 - Open new terminal
 - $>./build.sh
-- $>./bomberman
+- $>./bomberman# quick
