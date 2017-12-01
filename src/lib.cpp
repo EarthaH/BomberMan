@@ -4,7 +4,6 @@
 void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode);
 void MouseCallback(GLFWwindow *window, double xPos, double yPos);
 void DoMovement();
-void DrawBlock(glm::mat4 model, glm::vec3 cubePositions, GLint modelLoc);
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
 int SCREEN_WIDTH, SCREEN_HEIGHT;
@@ -64,6 +63,52 @@ Lib::Lib()
 	_number = 1;
 	shader = new Shader("res/graphics/shaders/modelLoading.vs", "res/graphics/shaders/modelLoading.frag");
 
+
+
+	GLchar zombieWalkStr00[] = "res/graphics/models/3enemy/walk/walk00.obj";
+	zombieModelwalk00 = new Model(zombieWalkStr00);
+
+	GLchar bombermanWalkStr00[] = "res/graphics/models/1bomberman/walk/walk00.obj";
+	bombermanModelWalk00 = new Model(bombermanWalkStr00);
+
+	GLchar bombStr[] = "res/graphics/models/2bomb/Models and Textures/bomb.obj";
+	bomb = new Model(bombStr);
+
+	GLchar indestructableWallStr[] = "res/graphics/models/4indestructableWall/cube.obj";
+	indestructableWall = new Model(indestructableWallStr);
+	
+	GLchar destructableWallStr[] = "res/graphics/models/5destructableWall/cube.obj"; 
+	destructableWall = new Model(destructableWallStr);
+	
+	GLchar explosionModelStr[] = "res/graphics/models/6explosion/cube.obj"; 
+	explosionModel = new Model(explosionModelStr);
+	
+	GLchar levelUpModelStr[] = "res/graphics/models/7levelUp/cube.obj"; 
+	levelUpModel = new Model(levelUpModelStr);
+	
+	GLchar levelDownModelStr[] = "res/graphics/models/8levelDown/cube.obj"; 
+	levelDownModel = new Model(levelDownModelStr);
+	
+	GLchar lifeUpgradeModelStr[] = "res/graphics/models/9lifeUpgrade/cube.obj"; 
+	lifeUpgradeModel = new Model(lifeUpgradeModelStr);
+	
+	GLchar bombUpgradeModelStr[] = "res/graphics/models/10bombUpgrade/cube.obj"; 
+	bombUpgradeModel = new Model(bombUpgradeModelStr);
+	
+	GLchar fireUpgradeModelStr[] = "res/graphics/models/11fireUpgrade/cube.obj"; 
+	fireUpgradeModel = new Model(fireUpgradeModelStr);
+	
+	GLchar groundModelStr[] = "res/graphics/models/0open/ground/cube.obj"; 
+	groundModel = new Model(groundModelStr);
+	
+	GLchar groundEnemyModelStr[] = "res/graphics/models/0open/groundEnemy/cube.obj"; 
+	groundEnemyModel = new Model(groundEnemyModelStr);
+
+	GLchar groundBomberModelStr[] = "res/graphics/models/0open/groundBomber/cube.obj"; 
+	groundBomberModel = new Model(groundBomberModelStr);
+
+	GLchar groundGrassModelStr[] = "res/graphics/models/0open/ground Copy/cube.obj"; 
+	groundGrassModel = new Model(groundGrassModelStr);
 	//lightingShader = new Shader("res/graphics/shaders/lighting.vs", "res/graphics/shaders/lighting.frag"); //ask eartah if this is ok
 	//lampShader = new Shader("res/graphics/shaders/lamp.vs", "res/graphics/shaders/lamp.frag");
 }
@@ -246,12 +291,10 @@ bool Lib::createWindow(int height, int width)
 
 void Lib::buildShaders()
 {
-	GLchar zombieWalkStr00[] = "res/graphics/models/enemyZombie00/walk00.obj";
-	zombieModelwalk00 = new Model(zombieWalkStr00);
 
-	GLchar bombermanWalkStr00[] = "res/graphics/models/Bomberman00/walk00.obj";
-	bombermanModelWalk00 = new Model(bombermanWalkStr00);
 
+
+		
 	this->projection = glm::perspective(camera.GetZoom(), (GLfloat)SCREEN_WIDTH / (GLfloat)SCREEN_HEIGHT, 0.1f, 100.0f);
 }
 
@@ -282,7 +325,7 @@ void Lib::preDraw()
 	velocity = movementSpeed * deltaTime; //this is how fast the camera moves or minions move
 
 	glfwPollEvents();
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	glClearColor(0.48627f, 0.98823f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	shader->Use();
@@ -302,15 +345,28 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
 	(void)nwidth;
 	(void)nheight;
 
+
+
+	if (ch == 0)
+	{
+		float a = x;
+		float b = y;
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(a, -1.0f, b));
+		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		groundModel->Draw(*shader);
+	}
+
 	if (ch == 5 || ch > 11)
 	{
-		float a = 1.0f;
-		float b = 1.0f;
+		float a = x;
+		float b = y;
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(a, 0.0f, b));
-		model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
 		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		zombieModelwalk00->Draw(*shader);
+		destructableWall->Draw(*shader);
 	}
 
 	else if (ch == 4)
@@ -319,9 +375,10 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
 		float b = y;
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(a, 0.0f, b));
- 		model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+ 		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
 		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		zombieModelwalk00->Draw(*shader);
+		indestructableWall->Draw(*shader);
+		
 	}
 	else if (ch == 6)
 	{
@@ -329,9 +386,15 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
 		float b = y;
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(a, 0.0f, b));
- 		model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+ 		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
 		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		zombieModelwalk00->Draw(*shader);
+		explosionModel->Draw(*shader);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(a, -1.0f, b));
+		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		groundModel->Draw(*shader);
 	}
 	else if (ch == 9)
 	{
@@ -339,9 +402,15 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
 		float b = y;
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(a, 0.0f, b));
- 		model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+ 		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
 		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		zombieModelwalk00->Draw(*shader);
+		lifeUpgradeModel->Draw(*shader);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(a, -1.0f, b));
+		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		groundModel->Draw(*shader);
 	}
 	else if (ch == 10)
 	{
@@ -349,9 +418,15 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
 		float b = y;
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(a, 0.0f, b));
- 		model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+ 		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
 		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		zombieModelwalk00->Draw(*shader);
+		bombUpgradeModel->Draw(*shader);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(a, -1.0f, b));
+		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		groundModel->Draw(*shader);
 	}
 	else if (ch == 11)
 	{
@@ -359,24 +434,34 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
 		float b = y;
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(a, 0.0f, b));
- 		model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+ 		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
 		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		zombieModelwalk00->Draw(*shader);
+		fireUpgradeModel->Draw(*shader);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(a, -1.0f, b));
+		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		groundModel->Draw(*shader);
 	}
 	else if (ch == 1) //bomber
 	{
-		float a = x;
+		/*float a = x;
 		float b = y;
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(a, 0.0f, b));
  		model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
 		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		zombieModelwalk00->Draw(*shader); /*
+		bombermanModelWalk00->Draw(*shader); 
 
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(a, -1.0f, b));
+		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		groundBomberModel->Draw(*shader);*/
+		model = glm::mat4();
 		float hasBlockBeenDrawn = 0.0f;
-		glBindVertexArray(containerTallVAO);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, mapBlue);
 		
 		float a = x;
 		float b = y;
@@ -392,14 +477,14 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
 				{
 					
 					hasBlockBeenDrawn = 1.0f;
-					calculateNewFrame(prevBomberX, currentBomberX, prevBomberY, currentBomberY, index, model, modelLoc, true);
+					calculateNewFrame(prevBomberX, currentBomberX, prevBomberY, currentBomberY, index, model, bombermanModelWalk00, true);
 					//bomberModelRun1->Draw( *bomberShaderRun1 );
 				}
 			}
 			if (((movementTime ) <= gameSpeed / framesPerChar * framesPerChar) && hasBlockBeenDrawn != 1.0f )
 			{
 				hasBlockBeenDrawn = 1.0f;
-				calculateNewFrame(prevBomberX, currentBomberX, prevBomberY, currentBomberY, framesPerChar, model, modelLoc, true);
+				calculateNewFrame(prevBomberX, currentBomberX, prevBomberY, currentBomberY, framesPerChar, model, bombermanModelWalk00, true);
 				//bomberModelRun1->Draw( *bomberShaderRun1 );
 				prevBomberX = currentBomberX;
 				prevBomberY = currentBomberY;
@@ -407,7 +492,7 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
 		}
 		if (hasBlockBeenDrawn == 0.0f)
 		{
-			DrawBlock(model, glm::vec3(a, 0.0f, b), modelLoc);
+			DrawBlock(model, glm::vec3(a, 0.0f, b), bombermanModelWalk00);
 
 			//bomberShaderRun1->Use( );
 			//
@@ -427,27 +512,96 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
 			prevBomberX = currentBomberX;
 			prevBomberY = currentBomberY;
 
-		}*/
+		}
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(a, -1.0f, b));
+		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		groundBomberModel->Draw(*shader);
 	}
 	else if (ch == 2)
 	{
 		float a = x;
 		float b = y;
 		model = glm::mat4();
-		model = glm::translate(model, glm::vec3(a, 0.0f, b));
+		model = glm::translate(model, glm::vec3(a + 1.335f, 0.0f, b + 0.15f));
  		model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
 		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		zombieModelwalk00->Draw(*shader);
+		bomb->Draw(*shader);
+
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(a, -1.0f, b));
+		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		groundModel->Draw(*shader);
 	}
 	else if (ch == 3) //enemy
 	{
-		float a = x;
+		/*float a = x;
 		float b = y;
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(a, 0.0f, b));
  		model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
 		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		zombieModelwalk00->Draw(*shader); /*
+		zombieModelwalk00->Draw(*shader);
+		
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(a, -1.0f, b));
+		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		groundEnemyModel->Draw(*shader);*/
+		
+
+		model = glm::mat4();
+		float hasBlockBeenDrawn = 0.0f;
+		float a = x;
+		float b = y;
+		currentEnemyX = x;
+		currentEnemyY = y;
+		
+		if (prevEnemyX != 0.0f && (prevEnemyX != currentEnemyX || prevEnemyY != currentEnemyY))
+		{
+			for(float index = 0.0f; index != framesPerChar; index = index + 1.0f)
+			{
+				if ((movementTime < gameSpeed / framesPerChar * index) && (movementTime > gameSpeed / framesPerChar * (index - 1.0f)))
+				{
+					
+					hasBlockBeenDrawn = 1.0f;
+					calculateNewFrame(prevEnemyX, currentEnemyX, prevEnemyY, currentEnemyY, index, model, zombieModelwalk00, false);
+				}
+			}
+			if (((movementTime ) <= gameSpeed / framesPerChar * framesPerChar) && hasBlockBeenDrawn != 1.0f )
+			{
+				
+				hasBlockBeenDrawn = 1.0f;
+				calculateNewFrame(prevEnemyX, currentEnemyX, prevEnemyY, currentEnemyY, framesPerChar, model, zombieModelwalk00, false);
+				prevEnemyX = currentEnemyX;
+				prevEnemyY = currentEnemyY;
+			}
+		}
+		if (hasBlockBeenDrawn == 0.0f)
+		{
+			DrawBlock(model, glm::vec3(a, 0.0f, b), zombieModelwalk00);
+			/*model = glm::mat4();
+			model = glm::translate(model, glm::vec3(a, 0.0f, b));
+			model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+			glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			zombieModelwalk00->Draw(*shader);*/
+		}
+		if (prevEnemyX == 0.0f)
+		{
+			prevEnemyX = currentEnemyX;
+			prevEnemyY = currentEnemyY;
+
+		}
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(a, -1.0f, b));
+		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		groundEnemyModel->Draw(*shader);
+
+		/*
 		float hasBlockBeenDrawn = 0.0f;
 		glBindVertexArray(containerTallVAO);
 		glActiveTexture(GL_TEXTURE0);
@@ -495,9 +649,15 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
 		float b = y;
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(a, 0.0f, b));
- 		model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+ 		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
 		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		zombieModelwalk00->Draw(*shader);
+		levelUpModel->Draw(*shader);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(a, -1.0f, b));
+		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		groundModel->Draw(*shader);
 	}
 	else if (ch == 8)
 	{
@@ -505,9 +665,15 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
 		float b = y;
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(a, 0.0f, b));
- 		model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+ 		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
 		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		zombieModelwalk00->Draw(*shader);
+		levelDownModel->Draw(*shader);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(a, -1.0f, b));
+		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		groundModel->Draw(*shader);
 	}
 }
 
@@ -620,7 +786,7 @@ void DoMovement()
 	}
 }
 
-void DrawBlock(glm::mat4 model, glm::vec3 cubePositions, GLint modelLoc)
+void Lib::DrawBlock(glm::mat4 model, glm::vec3 cubePositions, Model *modelToDraw)
 {
 	/*model = glm::mat4();
  		model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));();
@@ -630,7 +796,22 @@ void DrawBlock(glm::mat4 model, glm::vec3 cubePositions, GLint modelLoc)
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
 	glDrawArrays(GL_TRIANGLES, 0, 36);*/
-	std::cout << "this needs to change " << std::endl;
+	//model = glm::mat4();
+ 	//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));();
+	//model = glm::translate(model, cubePositions);
+	//GLfloat angle = 20.0f * i;
+	//model = glm::rotate( model, angle, glm::vec3( 1.0f, 0.3f, 0.5f ) );
+	
+
+
+	//model = glm::mat4();
+	model = glm::translate(model, cubePositions);
+	model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+	modelToDraw->Draw(*shader);
+	
+
+	//std::cout << "this needs to change " << std::endl;
 }
 
 void Lib::changeEnemyPos(int prevEnX, int prevEnY, int currentEnX, int currentEnY)
@@ -639,32 +820,43 @@ void Lib::changeEnemyPos(int prevEnX, int prevEnY, int currentEnX, int currentEn
 	prevEnemyY = prevEnY;
 }
 
-void Lib::calculateNewFrame(float prevX, float currentX, float prevY, float currentY, float i, glm::mat4 model, GLint modelLoc, bool cam)
+void Lib::calculateNewFrame(float prevX, float currentX, float prevY, float currentY, float i, glm::mat4 model, Model *modelToDraw, bool cam)
 {
-	//this needs to be redone so as not to show the edges
 	if (prevX < currentX)
 	{
 		if (cam)
-			bombermanLevelBeginLib(glm::vec3((prevX + (1.0f / framesPerChar * i)), 11.0f, currentY));
-		//DrawBlock(model, glm::vec3((prevX + (1.0f / framesPerChar * i)), 0.0f, currentY), modelLoc);
+		{
+			//bombermanLevelBeginLib(glm::vec3((prevX + (1.0f / framesPerChar * i)), 11.0f, currentY));
+		
+		}
+		model = glm::rotate(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+		DrawBlock(model, glm::vec3((prevX + (1.0f / framesPerChar * i)), 0.0f, currentY), modelToDraw);
+
+		//model = glm::rotate(-90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	}
 	else if (prevX > currentX)
 	{
 		if (cam)
-			bombermanLevelBeginLib(glm::vec3((prevX - (1.0f / framesPerChar * i)), 11.0f, currentY));
-		//DrawBlock(model, glm::vec3((prevX - (1.0f / framesPerChar * i)), 0.0f, currentY), modelLoc);
+		{
+			//bombermanLevelBeginLib(glm::vec3((prevX - (1.0f / framesPerChar * i)), 11.0f, currentY));
+		}
+		DrawBlock(model, glm::vec3((prevX - (1.0f / framesPerChar * i)), 0.0f, currentY), modelToDraw);
 	}
 	if (prevY < currentY)
 	{
 		if (cam)
-			bombermanLevelBeginLib(glm::vec3(currentX, 11.0f, (prevY + (1.0f / framesPerChar * i))));
-		//DrawBlock(model, glm::vec3(currentX, 0.0f, (prevY + (1.0f / framesPerChar * i))), modelLoc);
+		{
+			//bombermanLevelBeginLib(glm::vec3(currentX, 11.0f, (prevY + (1.0f / framesPerChar * i))));
+		}
+		DrawBlock(model, glm::vec3(currentX, 0.0f, (prevY + (1.0f / framesPerChar * i))), modelToDraw);
 	}
 	else if (prevY > currentY)
 	{
 		if (cam)
-			bombermanLevelBeginLib(glm::vec3(currentX, 11.0f, (prevY - (1.0f / framesPerChar * i))));
-		//DrawBlock(model, glm::vec3(currentX, 0.0f, (prevY - (1.0f / framesPerChar * i))), modelLoc);
+		{
+			//bombermanLevelBeginLib(glm::vec3(currentX, 11.0f, (prevY - (1.0f / framesPerChar * i))));
+		}
+		DrawBlock(model, glm::vec3(currentX, 0.0f, (prevY - (1.0f / framesPerChar * i))), modelToDraw);
 	}
 }
 
