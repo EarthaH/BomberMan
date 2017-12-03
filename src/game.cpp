@@ -86,6 +86,7 @@ int	Game::start()
 	int change;
 
 	library->buildShaders();
+	std::cout << "unpause" << std::endl;
 	library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
 	gameState = 1;
 

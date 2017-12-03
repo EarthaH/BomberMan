@@ -76,8 +76,10 @@ class Lib
 	Shader *lightingShader; //ask eartah if this is ok
 	Shader *lampShader;
 	Shader *shader;
-	Model *zombieModelwalk00;
-	Model *bombermanModelWalk00;
+	Model *zombieModelwalk[51];
+	Model *bombermanModelWalk[18];
+	
+	//Model *bombermanModelWalkEG[15];
 	Model *bomb;
 	Model *indestructableWall;
 	Model *destructableWall;
@@ -94,10 +96,14 @@ class Lib
 
 	Shader *bomberShaderRun1;
 	Model *bomberModelRun1;
+	int countModel;
+	//float direction;
+	//void changeDirection();
 	void bombermanLevelBeginLib(glm::vec3 coordintates);
 	void bombermanLevelBeginLibOnCamera(glm::vec3 coordintates);
-	void calculateNewFrame(float prevEnemyX, float currentEnemyX, float prevEnemyY, float currentEnemyY, float i, glm::mat4 model, GLint modelLoc, bool cam);
+	void calculateNewFrame(float prevEnemyX, float currentEnemyX, float prevEnemyY, float currentEnemyY, float i, glm::mat4 model, Model **modelToDraw, bool cam);
 	void changeEnemyPos(int prevEnemyX, int prevEnemyY, int currentEnemyX, int currentEnemyY);
+	void DrawBlock(glm::mat4 model, glm::vec3 cubePositions, Model *modelToDraw);
 	
 	float getMovementTime();
 
