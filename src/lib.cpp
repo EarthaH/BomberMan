@@ -5,7 +5,8 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 void MouseCallback(GLFWwindow *window, double xPos, double yPos);
 void DoMovement();
 // Window dimensions
-const GLuint WIDTH = 800, HEIGHT = 600;
+const GLuint WIDTH = 480, HEIGHT = 270;
+//const GLuint WIDTH = 1024, HEIGHT = 576;
 int SCREEN_WIDTH, SCREEN_HEIGHT;
 
 // Camera
@@ -1173,7 +1174,8 @@ void Lib::calculateNewFrame(float prevX, float currentX, float prevY, float curr
 		if (cam)
 		{
 			//bombermanLevelBeginLib(glm::vec3(currentX, 11.0f, (prevY + (1.0f / framesPerChar * i))));
-		
+			//glfwSetWindowSize(window, 1280, 720);
+			setFullscreenMode();
 		}
 		//DrawBlock(model, glm::vec3(currentX, 0.0f, (prevY + (1.0f / framesPerChar * i))), modelLoc);
 		//model = glm::mat4();
@@ -1188,6 +1190,7 @@ void Lib::calculateNewFrame(float prevX, float currentX, float prevY, float curr
 	{
 		if (cam)
 		{
+			setWindowedMode();
 			//bombermanLevelBeginLib(glm::vec3(currentX, 11.0f, (prevY - (1.0f / framesPerChar * i))));
 		}//DrawBlock(model, glm::vec3(currentX, 0.0f, (prevY - (1.0f / framesPerChar * i))), modelLoc);
 		//model = glm::mat4();
@@ -1251,3 +1254,58 @@ void	Lib::resetKeyCallback()
 {
 	glfwSetKeyCallback(this->window, KeyCallback);
 }
+
+void		Lib::setScreen480x270()
+{
+	glfwSetWindowSize(window, 480, 270);
+}
+
+void		Lib::setScreen1024x576()
+{
+	glfwSetWindowSize(window, 1024, 576);
+}
+
+void		Lib::setScreen1152x648()
+{
+	glfwSetWindowSize(window, 1152, 648);
+}
+
+void		Lib::setScreen1280x720()
+{
+	glfwSetWindowSize(window, 1280, 720);
+}
+
+void		Lib::setScreen1366x768()
+{
+	glfwSetWindowSize(window, 1366, 768);
+}
+
+void		Lib::setScreen1600x900()
+{
+	glfwSetWindowSize(window, 1600, 900);
+}
+
+void		Lib::setScreen1920x1080()
+{
+	glfwSetWindowSize(window, 1920, 1080);
+}
+
+void		Lib::setScreen2560x1440()
+{
+	glfwSetWindowSize(window, 2560, 1440);
+}
+
+void		Lib::setFullscreenMode()
+{
+	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+	glfwSetWindowMonitor(window, glfwGetPrimaryMonitor(), 0, 0, mode->width, mode->height, mode->refreshRate);
+}
+
+void		Lib::setWindowedMode()
+{
+	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+	//glfwSetWindowMonitor(window, NULL, xpos, ypos, width, height, 0);
+	glfwSetWindowMonitor(window, NULL, 0, 0, mode->width, mode->height, 0);
+}
+
+	

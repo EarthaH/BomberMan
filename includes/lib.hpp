@@ -126,6 +126,20 @@ class Lib
 	void		setRightKey(int k);
 	void		setPauseKey(int k);
 	void		setBombKey(int k);
+
+	void		setScreen480x270();
+	void		setScreen1024x576();
+	void		setScreen1152x648();
+	void		setScreen1280x720();
+	void		setScreen1366x768();
+	void		setScreen1600x900();
+	void		setScreen1920x1080();
+	void		setScreen2560x1440();
+	void		setFullscreenMode();
+	void		setWindowedMode();
 };
 
 #endif
+
+
+//480 x 270 , 1024x576, 1152x648, 1280x720, 1366x768, 1600x900, 1920x1080, 2560x1440 and 3840x2160.
