@@ -120,12 +120,12 @@ class Lib
 	int		getPauseKey();
 	int		getBombKey();	
 
-	void		setUpKey();
-	void		setDownKey();
-	void		setLeftKey();
-	void		setRightKey();
-	void		setPauseKey();
-	void		setBombKey();
+	void		setUpKey(int k);
+	void		setDownKey(int k);
+	void		setLeftKey(int k);
+	void		setRightKey(int k);
+	void		setPauseKey(int k);
+	void		setBombKey(int k);
 };
 
 #endif

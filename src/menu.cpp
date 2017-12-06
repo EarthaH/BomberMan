@@ -416,37 +416,37 @@ void	Menu::keyMenu()
 
 	up_button->setCallback([&]
 	{
-		game->library->setUpKey();
+		game->library->setUpKey(87); //this needs to be a key read from keybinging
 		game->setUp();
 	});
 
 	down_button->setCallback([&]
 	{
-		game->library->setDownKey();
+		game->library->setDownKey(83);
 		game->setDown();
 	});
 
 	left_button->setCallback([&]
 	{
-		game->library->setLeftKey();
+		game->library->setLeftKey(65);
 		game->setLeft();
 	});
 
 	right_button->setCallback([&]
 	{
-		game->library->setRightKey();
+		game->library->setRightKey(68);
 		game->setRight();
 	});
 
 	drop_bomb_button->setCallback([&]
 	{
-		game->library->setBombKey();
+		game->library->setBombKey(66);
 		game->setDropBomb();
 	});
 
 	pause_button->setCallback([&]
 	{
-		game->library->setPauseKey();
+		game->library->setPauseKey(256);
 		game->setPause();
 	});
 

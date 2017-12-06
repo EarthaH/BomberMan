@@ -380,34 +380,34 @@ int Lib::getBombKey()
 	return CURRENT_KEY_BOMB;
 }
 
-void Lib::setUpKey()
+void Lib::setUpKey(int k)
 {
-	CURRENT_KEY_UP = GLFW_KEY_W;
+	CURRENT_KEY_UP = k;
 }
 
-void Lib::setDownKey()
+void Lib::setDownKey(int k)
 {
-	CURRENT_KEY_DOWN = GLFW_KEY_S;
+	CURRENT_KEY_DOWN = k;
 }
 
-void Lib::setLeftKey()
+void Lib::setLeftKey(int k)
 {
-	CURRENT_KEY_LEFT = GLFW_KEY_A;
+	CURRENT_KEY_LEFT = k;
 }
 
-void Lib::setRightKey()
+void Lib::setRightKey(int k)
 {
-	CURRENT_KEY_RIGHT = GLFW_KEY_D;
+	CURRENT_KEY_RIGHT = k;
 }
 
-void Lib::setPauseKey()
+void Lib::setPauseKey(int k)
 {
-	CURRENT_KEY_P = GLFW_KEY_ESCAPE;
+	CURRENT_KEY_P = k;
 }
 
-void Lib::setBombKey()
+void Lib::setBombKey(int k)
 {
-	CURRENT_KEY_BOMB = GLFW_KEY_B;
+	CURRENT_KEY_BOMB = k;
 }
 
 int Lib::getKey()
