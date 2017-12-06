@@ -552,12 +552,12 @@ void Lib::preDraw()
 	// Draw the container (using container's vertex attributes)
 }
 
-void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
+void Lib::draw(int nheight, int nwidth, int x, int y, int ch, int dir)
 {
 	(void)nwidth;
 	(void)nheight;
 
-
+	//std::cout << "dir " << dir << std::endl;
 
 	if (ch == 0)
 	{
@@ -705,8 +705,8 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
 		if (hasBlockBeenDrawn == 0.0f)
 		{
 			//changeDirection();
-			DrawBlock(model, glm::vec3(a, 0.0f, b), bombermanModelWalk[0]);
-
+			DrawBlock(model, glm::vec3(a, 0.0f, b), bombermanModelWalk[0], dir);
+			
 			//bomberShaderRun1->Use( );
 			//
 			//glm::mat4 view = camera.GetViewMatrix( );
@@ -729,6 +729,7 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(a, -1.0f, b));
 		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+		
 		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		groundBomberModel->Draw(*shader);
 	}
@@ -797,7 +798,7 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
 		}
 		if (hasBlockBeenDrawn == 0.0f)
 		{
-			DrawBlock(model, glm::vec3(a, 0.0f, b), zombieModelwalk[0]);
+			DrawBlock(model, glm::vec3(a, 0.0f, b), zombieModelwalk[0], dir);
 			/*model = glm::mat4();
 			model = glm::translate(model, glm::vec3(a, 0.0f, b));
 			model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
@@ -813,6 +814,18 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch)
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(a, -1.0f, b));
 		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
+		/*if (dir == 1)
+		{
+			model = glm::rotate(model, 1.5708f, glm::vec3(0.0f, 1.0f, 0.0f));
+		}
+		else if (dir == 2)
+		{
+			model = glm::rotate(model, 4.71239f, glm::vec3(0.0f, 1.0f, 0.0f));
+		}
+		else if (dir == 4)
+		{
+			model = glm::rotate(model, 3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
+		}*/
 		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		groundEnemyModel->Draw(*shader);
 
@@ -963,7 +976,7 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 	//{
 	//	glfwSetWindowShouldClose(window, GL_TRUE);
 	//}
-
+	std::cout << key << " fgffffffffffffffffffffffffffffffffffff" << std::endl;
 	if (key >= 0 && key < 1024)
 	{
 		if (action == GLFW_PRESS)
@@ -1001,7 +1014,7 @@ void DoMovement()
 	}
 }
 
-void Lib::DrawBlock(glm::mat4 model, glm::vec3 cubePositions, Model *modelToDraw)
+void Lib::DrawBlock(glm::mat4 model, glm::vec3 cubePositions, Model *modelToDraw, int dir)
 {
 	/*model = glm::mat4();
  		model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));();
@@ -1042,6 +1055,18 @@ void Lib::DrawBlock(glm::mat4 model, glm::vec3 cubePositions, Model *modelToDraw
 		std::cout << "44444" << std::endl;
 		model = glm::rotate(model, 4.71239f, glm::vec3(0.0f, 1.0f, 0.0f));
 	}*/
+	if (dir == 1)
+		{
+			model = glm::rotate(model, 1.5708f, glm::vec3(0.0f, 1.0f, 0.0f));
+		}
+		else if (dir == 2)
+		{
+			model = glm::rotate(model, 4.71239f, glm::vec3(0.0f, 1.0f, 0.0f));
+		}
+		else if (dir == 3)
+		{
+			model = glm::rotate(model, 3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
+		}
 	model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
 
 	//model = glm::rotate(89.0f, glm::vec3(0.0f, 1.0f, 0.0f));
@@ -1093,7 +1118,7 @@ void Lib::calculateNewFrame(float prevX, float currentX, float prevY, float curr
 	
 	int modelIndex = round((1.0f / framesPerChar * i ) / (1.0f / countModel));
 	//std::cout<<  countModel << "  dfgfdhgfsdhfghfhfsdhfdh" << std::endl;
-	std::cout<<  modelIndex << "  dfgfdhgfsdhfghfhfsdhfdh" << std::endl;
+	//std::cout<<  modelIndex << "  dfgfdhgfsdhfghfhfsdhfdh" << std::endl;
 	if (prevX < currentX)
 	{
 		if (cam)
@@ -1220,4 +1245,9 @@ void Lib::resetCallback()
 	glfwSetCursorPosCallback(this->window, MouseCallback);
 
 	glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+}
+
+void	Lib::resetKeyCallback()
+{
+	glfwSetKeyCallback(this->window, KeyCallback);
 }

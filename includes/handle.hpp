@@ -43,6 +43,7 @@ class   Handle
 		int		 	checkKey(int);
 		int			moveBomber(int);
 		int			checkUpgrades();
+		int			findEnemy(int x, int y);
 		void		initMap(Level *);
 		void		checkBombs();
 		void		createBomb();

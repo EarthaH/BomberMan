@@ -216,6 +216,8 @@ void	Menu::settingsMenu()
 
 	nanoguiWindow->setLayout(new nanogui::GroupLayout);
 
+
+
 	nanogui::Button	*screen_res_button = new nanogui::Button(nanoguiWindow, "Screen Resolution");
 	nanogui::Button	*full_screen_button = new nanogui::Button(nanoguiWindow, "Full Screen");
 	nanogui::Button	*key_bindings_button = new nanogui::Button(nanoguiWindow, "Key Bindings");
@@ -399,6 +401,7 @@ void	Menu::pausedMenu()
 void	Menu::keyMenu()
 {
 	setCallbacks();
+	game->library->resetKeyCallback();
 	nanogui::FormHelper	*gui = new nanogui::FormHelper(screen);
 	nanogui::ref<nanogui::Window> nanoguiWindow = gui->addWindow(Eigen::Vector2i(10, 10), "Key Bindings");
 	nanoguiWindow->setLayout(new nanogui::GroupLayout);

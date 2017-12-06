@@ -210,7 +210,22 @@ void Game::draw()
 				t_position	pos = handle->enemyOldPosition(i, j);
 				library->changeEnemyPos(pos.oldX, pos.oldY, pos.x, pos.y);
 			}
-			library->draw(level->getHeight(), level->getWidth(), i, j, handle->map->map[j][i]);
+			//std::cout << "test " << handle->bomberman->getDirection() << std::endl;
+			int libDir = 0;
+			if (handle->map->map[j][i] == 1)
+			{
+				std::cout << "test bomberman change ";
+				libDir = handle->bomberman->getDirection();
+				std::cout << libDir << std::endl;
+			}
+			else if ( handle->map->map[j][i] == 3)
+			{
+
+				std::cout << "test enemy change " ;
+				libDir = handle->findEnemy(i, j);
+				std::cout << libDir << std::endl;
+			}
+			library->draw(level->getHeight(), level->getWidth(), i, j, handle->map->map[j][i], libDir);
 		}
 	}
 	library->postDraw();

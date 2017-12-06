@@ -64,24 +64,28 @@ void	Man::setLife(int life)
 void	Man::moveUp(Map *map)
 {
 	isStaticEnemy(map, getX(), getY(), getX(), getY() - 1);
-	moveToBlock(map, getX(), getY() - 1);
+	changeDirection(3);
+	moveToBlock(map, getX(), getY() - 1);	
 }
 
 void	Man::moveDown(Map *map)
 {
 	isStaticEnemy(map, getX(), getY(), getX(), getY() + 1);
+	changeDirection(4);
 	moveToBlock(map, getX(), getY() + 1);
 }
 
 void	Man::moveLeft(Map *map)
 {
 	isStaticEnemy(map, getX(), getY(), getX() - 1, getY());
+	changeDirection(2);
 	moveToBlock(map, getX() - 1, getY());
 }
 
 void	Man::moveRight(Map *map)
 {
 	isStaticEnemy(map, getX(), getY(), getX() + 1, getY());
+	changeDirection(1);
 	moveToBlock(map, getX() + 1, getY());
 }
 

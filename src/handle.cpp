@@ -146,6 +146,19 @@ void	Handle::killEnemy(int x, int y)
     killedEnemySound.play(false);
 }
 
+int	Handle::findEnemy(int x, int y)
+{
+	size_t  num;
+
+	if (enemies->size() == 0)
+		return 0;
+	for (num = 0; num < enemies->size(); num++)
+		if (enemies->at(num)->getX() == x && enemies->at(num)->getY() == y)
+			break;
+
+	return (enemies->at(num)->getDirection());
+}
+
 void	Handle::checkBombs()
 {	
 	map->clear();
