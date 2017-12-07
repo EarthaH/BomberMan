@@ -16,6 +16,7 @@
 
 #define DROP_BOMB_KEY	5
 #define PAUSE_KEY		6
+#define MAP_KEY			7
 
 class	Game;
 

@@ -429,6 +429,7 @@ void	Menu::keyMenu()
 	nanogui::Button	*right_button = new nanogui::Button(nanoguiWindow, "Right");
 	nanogui::Button	*drop_bomb_button = new nanogui::Button(nanoguiWindow, "Drop Bomb");
 	nanogui::Button	*pause_button = new nanogui::Button(nanoguiWindow, "Pause");
+	nanogui::Button	*map_button = new nanogui::Button(nanoguiWindow, "Map Zoom");
 	nanogui::Button	*back_button = new nanogui::Button(nanoguiWindow, "Back");
 
 	up_button->setCallback([&]
@@ -459,6 +460,11 @@ void	Menu::keyMenu()
 	pause_button->setCallback([&]
 	{
 		popUpKeyMenu("Set 'PAUSE' Key", "Press any key to change 'PAUSE' key.", PAUSE_KEY);
+	});
+
+	map_button->setCallback([&]
+	{
+		popUpKeyMenu("Set 'MAP ZOOM' Key", "Press any key to change 'MAP ZOOM' key.", MAP_KEY);
 	});
 
 	back_button->setCallback([&]
@@ -793,6 +799,12 @@ void	Menu::changeKey(int key, int value)
 	{
 		game->library->setPauseKey(value);
 		game->setPause();
+	}
+	else if (key == MAP_KEY)
+	{
+		std::cout << "<<<<<<<<<< CHANGING MAP ZOOM KEY !!! >>>>>>>>>>\n";
+		//Add library functions to change the key for map zoom in and out
+		//STACEY!!!
 	}
 	game->library->resetMenuKey();
 }
