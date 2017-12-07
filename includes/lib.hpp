@@ -141,6 +141,7 @@ class Lib
 	void		setWindowedMode();
 
 	bool		isKeySet(int);
+	bool		isFullSceenMode();
 };
 
 #endif

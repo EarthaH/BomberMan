@@ -219,10 +219,10 @@ void	Menu::settingsMenu()
 
 	nanoguiWindow->setLayout(new nanogui::GroupLayout);
 
-
+	std::string fullScreen = game->library->isFullSceenMode() ? "Exit Full Screen" : "Full Screen";
 
 	nanogui::Button	*screen_res_button = new nanogui::Button(nanoguiWindow, "Screen Resolution");
-	nanogui::Button	*full_screen_button = new nanogui::Button(nanoguiWindow, "Full Screen");
+	nanogui::Button	*full_screen_button = new nanogui::Button(nanoguiWindow, fullScreen);
 	nanogui::Button	*key_bindings_button = new nanogui::Button(nanoguiWindow, "Key Bindings");
 	nanogui::Button	*sound_button = new nanogui::Button(nanoguiWindow, "Music and Sound");
 	nanogui::Button	*back_button = new nanogui::Button(nanoguiWindow, "Back");
@@ -234,10 +234,11 @@ void	Menu::settingsMenu()
 
 	full_screen_button->setCallback([&]
 	{
-		nanoguiWindow->setVisible(false);
-		popUpErrorMenu("WARNING", "FILE NOT FOUND", "RETURN");
-		nanoguiWindow->setVisible(true);
-		std::cout << "Full Screen!\n";
+		if (game->library->isFullSceenMode())
+			game->library->setWindowedMode();
+		else
+			game->library->setFullscreenMode();
+		_menuState = MenuState::MAIN_MENU;
 	});
 
 	key_bindings_button->setCallback([&]

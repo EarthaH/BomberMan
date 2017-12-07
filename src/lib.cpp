@@ -55,9 +55,9 @@ typedef struct s_objectsToDraw
 int keyPressed = -1;
 int	menuKeyPressed = 0;
 
-std::vector<s_objectsToDraw> objectsToDraw;
+bool	fullScreenMode = false;
 
-bool fullScreenMode = false;
+std::vector<s_objectsToDraw> objectsToDraw;
 
 Lib::Lib()
 {
@@ -1309,12 +1309,14 @@ void		Lib::setScreen2560x1440()
 
 void		Lib::setFullscreenMode()
 {
+	fullScreenMode = true;
 	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 	glfwSetWindowMonitor(window, glfwGetPrimaryMonitor(), 0, 0, mode->width, mode->height, mode->refreshRate);
 }
 
 void		Lib::setWindowedMode()
 {
+	fullScreenMode = false;
 	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 	//glfwSetWindowMonitor(window, NULL, xpos, ypos, width, height, 0);
 	glfwSetWindowMonitor(window, NULL, 0, 0, mode->width, mode->height, 0);
@@ -1326,4 +1328,9 @@ bool		Lib::isKeySet(int value)
 		|| getRightKey() == value || getPauseKey() == value || getBombKey() == value)
 		return true;
 	return false;
+}
+
+bool		Lib::isFullSceenMode()
+{
+	return (fullScreenMode);
 }
