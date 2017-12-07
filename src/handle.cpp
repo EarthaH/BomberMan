@@ -266,6 +266,13 @@ void	Handle::initEnemy()
 		
 }
 
+void	Handle::initSound(float value)
+{
+	explosion.setVolume(value);
+	powerUp.setVolume(value);
+	killedEnemySound.setVolume(value);
+}
+
 bool	Handle::checkMapFire(int x, int y)
 {
 	if (map->isOpen(x, y))

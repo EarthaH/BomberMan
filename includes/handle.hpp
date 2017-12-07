@@ -48,6 +48,7 @@ class   Handle
 		void		checkBombs();
 		void		createBomb();
 		void		initEnemy();
+		void		initSound(float);
 		
 		void		dropBomb(int, int);
 		void		activeBomb(Bomb *);

@@ -8,27 +8,31 @@
 #include <al.h>
 #include <alc.h>
 
-class Sound {
-public:
+class Sound
+{
+	public:
+		Sound();
+		Sound(float);
+		Sound(const char *);
+		Sound(Sound const &);
+		~Sound();
 
+		Sound const &operator=(Sound const &);
 
-    Sound();
-    Sound(const char *File);
-    ~Sound();
+		void	initialize(const char*);
+		char*	loadWAV(const char*, int&, int&, int&, int&);
+		void	play(bool);
+		void	stop();
+		void	start();
+		void	setVolume(float);
 
-    void initialize(const char* File);
-    char* loadWAV(const char* fn,int& chan,int& samplerate,int& bps,int& size);
-    void play(bool loop);
+	private:
+		unsigned int	_buffer;
+		unsigned int	_source;
+		bool			_loop = true;
+		pthread_t		_thread[5];
 
-private:
-    unsigned int    _buffer;
-    unsigned int    _source;
-    bool        _loop = true;
-    pthread_t   _thread[5];
-
-    int         _rc;
-    void        *_status;
+		int				_rc;
+		void			*_status;
+		float			_volume;
 };
-
-
-
