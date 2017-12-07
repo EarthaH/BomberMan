@@ -14,6 +14,9 @@
 
 #define CURRENT_GAME "current_game"
 
+#define DROP_BOMB_KEY	5
+#define PAUSE_KEY		6
+
 class	Game;
 
 enum class	MenuState
@@ -61,7 +64,10 @@ class Menu
 		void		run();
 		void		renderMenu();
 		void		popUpErrorMenu(std::string title, std::string message, std::string buttonText);
+		void		popUpVolume();
+		void		popUpKeyMenu(std::string, std::string, int);
 		void		changeCallback();
+		void		changeKey(int, int);
 
 		GameState	menuHandler();
 		GameState	gameHandler();

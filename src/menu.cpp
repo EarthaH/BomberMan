@@ -416,38 +416,32 @@ void	Menu::keyMenu()
 
 	up_button->setCallback([&]
 	{
-		game->library->setUpKey(87); //this needs to be a key read from keybinging
-		game->setUp();
+		popUpKeyMenu("Set 'UP' Key", "Press any key to change 'UP' key.", UP);
 	});
 
 	down_button->setCallback([&]
 	{
-		game->library->setDownKey(83);
-		game->setDown();
+		popUpKeyMenu("Set 'DOWN' Key", "Press any key to change 'DOWN' key.", DOWN);
 	});
 
 	left_button->setCallback([&]
 	{
-		game->library->setLeftKey(65);
-		game->setLeft();
+		popUpKeyMenu("Set 'LEFT' Key", "Press any key to change 'LEFT' key.", LEFT);
 	});
 
 	right_button->setCallback([&]
 	{
-		game->library->setRightKey(68);
-		game->setRight();
+		popUpKeyMenu("Set 'RIGHT' Key", "Press any key to change 'RIGHT' key.", RIGHT);
 	});
 
 	drop_bomb_button->setCallback([&]
 	{
-		game->library->setBombKey(66);
-		game->setDropBomb();
+		popUpKeyMenu("Set 'DROP BOMB' Key", "Press any key to change 'DROP BOMB' key.", DROP_BOMB_KEY);
 	});
 
 	pause_button->setCallback([&]
 	{
-		game->library->setPauseKey(256);
-		game->setPause();
+		popUpKeyMenu("Set 'PAUSE' Key", "Press any key to change 'PAUSE' key.", PAUSE_KEY);
 	});
 
 	back_button->setCallback([&]
@@ -514,6 +508,101 @@ std::vector<std::string>	*getFiles(std::vector<std::string> *files)
 	return (files);
 }
 
+void	Menu::popUpVolume()
+{
+	bool						breaker = false;
+	nanogui::FormHelper	*gui = new nanogui::FormHelper(screen);
+	nanogui::ref<nanogui::Window> nanoguiWindow = gui->addWindow(Eigen::Vector2i(10, 10), "Volume");
+	nanoguiWindow->setLayout(new nanogui::GroupLayout);
+	nanogui::Widget *tools = new nanogui::Widget(nanoguiWindow);
+
+	tools->setLayout(new nanogui::GroupLayout);
+
+	nanogui::Slider	*slider = new nanogui::Slider(tools);
+	slider->setValue(0.5f);
+	slider->setFixedWidth(80);
+
+	nanogui::TextBox	*textBox = new nanogui::TextBox(tools);
+	textBox->setFixedSize(Eigen::Vector2i(60, 25));
+	textBox->setValue("50");
+	textBox->setUnits("%");
+
+	nanogui::Button	*infobutton = new nanogui::Button(tools, "OK");
+	
+	slider->setCallback([textBox](float value)
+	{
+		textBox->setValue(std::to_string((int)(value * 100)));
+	});
+	
+	infobutton->setCallback([&]
+	{
+		breaker = true;
+	});
+
+	screen->setVisible(1);
+	screen->performLayout();
+	nanoguiWindow->center();
+
+	while (!glfwWindowShouldClose(_win) && !breaker)
+	{
+		if (glfwGetKey(_win, GLFW_KEY_ENTER) == GLFW_PRESS || glfwGetKey(_win, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+			breaker = true;
+		glfwPollEvents();
+		renderMenu();
+	}
+
+	if (glfwWindowShouldClose(_win))
+		_menuState = MenuState::EXIT;
+	nanoguiWindow->dispose();
+	delete gui;
+}
+
+void	Menu::popUpKeyMenu(std::string title, std::string message, int dir)
+{
+	bool	breaker = false;
+	int		key;
+		
+	nanogui::FormHelper	*gui = new nanogui::FormHelper(screen);
+	nanogui::ref<nanogui::Window> nanoguiWindow = gui->addWindow(Eigen::Vector2i(10, 10), title);
+	nanoguiWindow->setLayout(new nanogui::GroupLayout);
+	nanogui::Widget *tools = new nanogui::Widget(nanoguiWindow);
+
+	tools->setLayout(new nanogui::GroupLayout);
+	new nanogui::Label(tools, message);
+	nanogui::Button	*infobutton = new nanogui::Button(tools, "Cancel");
+	infobutton->setCallback([&]
+	{
+		breaker = true;
+	});
+
+	screen->setVisible(1);
+	screen->performLayout();
+	nanoguiWindow->center();
+
+	while (!glfwWindowShouldClose(_win) && !breaker)
+	{
+		if (glfwGetKey(_win, GLFW_KEY_ENTER) == GLFW_PRESS || glfwGetKey(_win, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+			breaker = true;
+		if ((key = game->library->getMenuKeyPressed()) != 0 && !game->library->isKeySet(key))
+		{
+			changeKey(dir, key);
+			breaker = true;
+		}
+		else if (game->library->isKeySet(key))
+			popUpErrorMenu("ERROR", "Key already set. Please try another key.", "OK");
+		key = 0;
+		glfwPollEvents();
+		renderMenu();
+	}
+
+	game->setUp();
+
+	if (glfwWindowShouldClose(_win))
+		_menuState = MenuState::EXIT;
+	nanoguiWindow->dispose();
+	delete gui;
+}
+
 void	Menu::popUpErrorMenu(std::string title, std::string message, std::string buttonText)
 {
 	bool						breaker = false;
@@ -566,4 +655,39 @@ void	Menu::changeCallback()
 	);
 
 	glfwSetInputMode(_win, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+}
+
+void	Menu::changeKey(int key, int value)
+{
+	if (key == UP)
+	{
+		game->library->setUpKey(value);
+		game->setUp();
+	}
+	else if (key == DOWN)
+	{
+		game->library->setDownKey(value);
+		game->setDown();
+	}
+	else if (key == LEFT)
+	{
+		game->library->setLeftKey(value);
+		game->setLeft();
+	}
+	else if (key == RIGHT)
+	{
+		game->library->setRightKey(value);
+		game->setRight();
+	}
+	else if (key == DROP_BOMB_KEY)
+	{
+		game->library->setBombKey(value);
+		game->setDropBomb();
+	}
+	else if (key == PAUSE_KEY)
+	{
+		game->library->setPauseKey(value);
+		game->setPause();
+	}
+	game->library->resetMenuKey();
 }

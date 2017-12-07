@@ -118,7 +118,8 @@ class Lib
 	int		getLeftKey();
 	int		getRightKey();
 	int		getPauseKey();
-	int		getBombKey();	
+	int		getBombKey();
+	int		getMenuKeyPressed();	
 
 	void		setUpKey(int k);
 	void		setDownKey(int k);
@@ -126,6 +127,7 @@ class Lib
 	void		setRightKey(int k);
 	void		setPauseKey(int k);
 	void		setBombKey(int k);
+	void		resetMenuKey();
 
 	void		setScreen480x270();
 	void		setScreen1024x576();
@@ -137,6 +139,8 @@ class Lib
 	void		setScreen2560x1440();
 	void		setFullscreenMode();
 	void		setWindowedMode();
+
+	bool		isKeySet(int);
 };
 
 #endif

@@ -53,6 +53,7 @@ typedef struct s_objectsToDraw
 } t_objectsToDraw;
 
 int keyPressed = -1;
+int	menuKeyPressed = 0;
 
 std::vector<s_objectsToDraw> objectsToDraw;
 
@@ -379,6 +380,16 @@ int Lib::getPauseKey()
 int Lib::getBombKey()
 {
 	return CURRENT_KEY_BOMB;
+}
+
+int	Lib::getMenuKeyPressed()
+{
+	return (menuKeyPressed);
+}
+
+void Lib::resetMenuKey()
+{
+	menuKeyPressed = 0;
 }
 
 void Lib::setUpKey(int k)
@@ -977,15 +988,16 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 	//{
 	//	glfwSetWindowShouldClose(window, GL_TRUE);
 	//}
-	std::cout << key << " fgffffffffffffffffffffffffffffffffffff" << std::endl;
 	if (key >= 0 && key < 1024)
 	{
 		if (action == GLFW_PRESS)
 		{
+			menuKeyPressed = key;
 			keys[key] = true;
 		}
 		else if (action == GLFW_RELEASE)
 		{
+			menuKeyPressed = 0;
 			keys[key] = false;
 		}
 	}
@@ -1308,4 +1320,10 @@ void		Lib::setWindowedMode()
 	glfwSetWindowMonitor(window, NULL, 0, 0, mode->width, mode->height, 0);
 }
 
-	
+bool		Lib::isKeySet(int value)
+{
+	if (getUpKey() == value || getDownKey() == value || getLeftKey() == value 
+		|| getRightKey() == value || getPauseKey() == value || getBombKey() == value)
+		return true;
+	return false;
+}
