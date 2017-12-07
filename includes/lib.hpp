@@ -120,6 +120,7 @@ class Lib
 	int		getRightKey();
 	int		getPauseKey();
 	int		getBombKey();
+	int		getMapKey();
 	int		getMenuKeyPressed();	
 
 	void		setUpKey(int k);
@@ -128,6 +129,7 @@ class Lib
 	void		setRightKey(int k);
 	void		setPauseKey(int k);
 	void		setBombKey(int k);
+	void		setMapKey(int k);
 	void		resetMenuKey();
 
 	void		setScreen480x270();

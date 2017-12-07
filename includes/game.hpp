@@ -63,6 +63,7 @@ class   Game
 		void	setDown();
 		void	setDropBomb();
 		void	setPause();
+		void	setMapView();
 		void	setVolume(float);
 	
 		static void	setGameState(int);

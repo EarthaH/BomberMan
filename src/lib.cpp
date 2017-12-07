@@ -20,6 +20,7 @@ int CURRENT_KEY_LEFT = GLFW_KEY_LEFT;
 int CURRENT_KEY_RIGHT = GLFW_KEY_RIGHT;
 int CURRENT_KEY_BOMB = 32;
 int CURRENT_KEY_P = GLFW_KEY_P;
+int CURRENT_KEY_MAP = 77;
 bool firstMouse = true;
 
 // Light attributes
@@ -44,6 +45,7 @@ float currentBomberY = 0.0f;
 
 float framesPerChar = 10;
 float gameSpeed = 00.35f;
+bool mapOn = true;
 
 typedef struct s_objectsToDraw
 {
@@ -395,6 +397,12 @@ int	Lib::getMenuKeyPressed()
 	return (menuKeyPressed);
 }
 
+int	Lib::getMapKey()
+{
+	std::cout << CURRENT_KEY_MAP << " this is too see the map key" <<std::endl;
+	return CURRENT_KEY_MAP;
+}
+
 void Lib::resetMenuKey()
 {
 	menuKeyPressed = 0;
@@ -408,6 +416,11 @@ void Lib::setUpKey(int k)
 void Lib::setDownKey(int k)
 {
 	CURRENT_KEY_DOWN = k;
+}
+
+void Lib::setMapKey(int k)
+{
+	CURRENT_KEY_MAP = k;
 }
 
 void Lib::setLeftKey(int k)
@@ -434,8 +447,18 @@ int Lib::getKey()
 {
 	if (keys[CURRENT_KEY_UP])
 	{
+
+		std::cout << "the up in lib is true" << std::endl;
 		//		keys[GLFW_KEY_UP] = false;
 		return (CURRENT_KEY_UP);
+	}
+
+	if (keys[CURRENT_KEY_MAP])
+	{
+		//		keys[CURRENT_KEY_MAP] = false;
+
+		std::cout << "the mapview in lib is true" << std::endl;
+		return (CURRENT_KEY_MAP);
 	}
 
 	if (keys[CURRENT_KEY_DOWN])
@@ -577,7 +600,7 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch, int dir)
 	(void)nwidth;
 	(void)nheight;
 
-	//std::cout << "dir " << dir << std::endl;
+	//std::cout << nwidth << " width and height " << nheight << std::endl;
 
 	if (ch == 0)
 	{
@@ -692,6 +715,18 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch, int dir)
 		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
 		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		groundBomberModel->Draw(*shader);*/
+		
+		
+		//mapOn = keys[CURRENT_KEY_MAP];
+		if (mapOn)
+		{
+			//std::cout << "true " << std::endl;
+		}
+		else
+		{//nheight, int nwidth
+			//std::cout << "false " << std::endl;
+			bombermanLevelBeginLib(glm::vec3(((nheight - 1) / 2), nwidth, ((nwidth - 1) / 2)));
+		}
 		model = glm::mat4();
 		float hasBlockBeenDrawn = 0.0f;
 		
@@ -709,36 +744,20 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch, int dir)
 				if ((movementTime <= gameSpeed / framesPerChar * index) && (movementTime > gameSpeed / framesPerChar * (index - 1.0f)))
 				{
 					hasBlockBeenDrawn = 1.0f;
-					calculateNewFrame(prevBomberX, currentBomberX, prevBomberY, currentBomberY, index, model, bombermanModelWalk, true);
-					//bomberModelRun1->Draw( *bomberShaderRun1 );
+					calculateNewFrame(prevBomberX, currentBomberX, prevBomberY, currentBomberY, index, model, bombermanModelWalk, mapOn);
 				}
 			}
 			if (((movementTime ) <= gameSpeed / framesPerChar * framesPerChar) && hasBlockBeenDrawn != 1.0f )
 			{
 				hasBlockBeenDrawn = 1.0f;
-				calculateNewFrame(prevBomberX, currentBomberX, prevBomberY, currentBomberY, framesPerChar, model, bombermanModelWalk, true);
-				//bomberModelRun1->Draw( *bomberShaderRun1 );
+				calculateNewFrame(prevBomberX, currentBomberX, prevBomberY, currentBomberY, framesPerChar, model, bombermanModelWalk, mapOn);
 				prevBomberX = currentBomberX;
 				prevBomberY = currentBomberY;
 			}
 		}
 		if (hasBlockBeenDrawn == 0.0f)
 		{
-			//changeDirection();
 			DrawBlock(model, glm::vec3(a, 0.0f, b), bombermanModelWalk[0], dir);
-			
-			//bomberShaderRun1->Use( );
-			//
-			//glm::mat4 view = camera.GetViewMatrix( );
-			//glUniformMatrix4fv( glGetUniformLocation( bomberShaderRun1->Program, "projection" ), 1, GL_FALSE, glm::value_ptr( projection ) );
-			//glUniformMatrix4fv( glGetUniformLocation( bomberShaderRun1->Program, "view" ), 1, GL_FALSE, glm::value_ptr( view ) );
-			//
-			//// Draw the loaded model
-			////glm::mat4 model;
-			//bomberModel = glm::translate( bomberModel, glm::vec3( a, 0.0f, b) ); // Translate it down a bit so it's at the center of the scene
-			//bomberModel = glm::scale( bomberModel, glm::vec3( 0.2f, 0.2f, 0.2f ) );	// It's a bit too big for our scene, so scale it down
-			//glUniformMatrix4fv( glGetUniformLocation( bomberShaderRun1->Program, "model" ), 1, GL_FALSE, glm::value_ptr( bomberModel ) );
-			//bomberModelRun1->Draw( *bomberShaderRun1 );
 		}
 		if (prevBomberX == 0.0f)
 		{
@@ -748,7 +767,6 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch, int dir)
 		}
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(a, -1.0f, b));
-		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
 		
 		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		groundBomberModel->Draw(*shader);
@@ -762,31 +780,13 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch, int dir)
  		model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
 		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		bomb->Draw(*shader);
-
-
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(a, -1.0f, b));
-		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
 		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		groundModel->Draw(*shader);
 	}
 	else if (ch == 3) //enemy
 	{
-		/*float a = x;
-		float b = y;
-		model = glm::mat4();
-		model = glm::translate(model, glm::vec3(a, 0.0f, b));
- 		model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
-		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		zombieModelwalk00->Draw(*shader);
-		
-		model = glm::mat4();
-		model = glm::translate(model, glm::vec3(a, -1.0f, b));
-		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
-		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		groundEnemyModel->Draw(*shader);*/
-		
-
 		model = glm::mat4();
 		float hasBlockBeenDrawn = 0.0f;
 		float a = x;
@@ -802,7 +802,6 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch, int dir)
 			{
 				if ((movementTime < gameSpeed / framesPerChar * index) && (movementTime > gameSpeed / framesPerChar * (index - 1.0f)))
 				{
-					
 					hasBlockBeenDrawn = 1.0f;
 					calculateNewFrame(prevEnemyX, currentEnemyX, prevEnemyY, currentEnemyY, index, model, zombieModelwalk, false);
 				}
@@ -819,11 +818,6 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch, int dir)
 		if (hasBlockBeenDrawn == 0.0f)
 		{
 			DrawBlock(model, glm::vec3(a, 0.0f, b), zombieModelwalk[0], dir);
-			/*model = glm::mat4();
-			model = glm::translate(model, glm::vec3(a, 0.0f, b));
-			model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
-			glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-			zombieModelwalk00->Draw(*shader);*/
 		}
 		if (prevEnemyX == 0.0f)
 		{
@@ -833,63 +827,8 @@ void Lib::draw(int nheight, int nwidth, int x, int y, int ch, int dir)
 		}
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(a, -1.0f, b));
-		//model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
-		/*if (dir == 1)
-		{
-			model = glm::rotate(model, 1.5708f, glm::vec3(0.0f, 1.0f, 0.0f));
-		}
-		else if (dir == 2)
-		{
-			model = glm::rotate(model, 4.71239f, glm::vec3(0.0f, 1.0f, 0.0f));
-		}
-		else if (dir == 4)
-		{
-			model = glm::rotate(model, 3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
-		}*/
 		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		groundEnemyModel->Draw(*shader);
-
-		/*
-		float hasBlockBeenDrawn = 0.0f;
-		glBindVertexArray(containerTallVAO);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, mapRed);
-		float a = x;
-		float b = y;
-		currentEnemyX = x;
-		currentEnemyY = y;
-		//std::cout << "needs to be drawn" << std::endl;
-		if (prevEnemyX != 0.0f && (prevEnemyX != currentEnemyX || prevEnemyY != currentEnemyY))
-		{
-			for(float index = 0.0f; index != framesPerChar; index = index + 1.0f)
-			{
-				if ((movementTime < gameSpeed / framesPerChar * index) && (movementTime > gameSpeed / framesPerChar * (index - 1.0f)))
-				{
-					//std::cout << "1 drawn" << std::endl;
-					hasBlockBeenDrawn = 1.0f;
-					calculateNewFrame(prevEnemyX, currentEnemyX, prevEnemyY, currentEnemyY, index, model, modelLoc, false);
-				}
-			}
-			if (((movementTime ) <= gameSpeed / framesPerChar * framesPerChar) && hasBlockBeenDrawn != 1.0f )
-			{
-				//std::cout << "2 drawn 000000000000000000000000000000000000000" << std::endl;
-				hasBlockBeenDrawn = 1.0f;
-				calculateNewFrame(prevEnemyX, currentEnemyX, prevEnemyY, currentEnemyY, framesPerChar, model, modelLoc, false);
-				prevEnemyX = currentEnemyX;
-				prevEnemyY = currentEnemyY;
-			}
-		}
-		if (hasBlockBeenDrawn == 0.0f)
-		{
-			//std::cout << "0 drawn" << std::endl;
-			DrawBlock(model, glm::vec3(a, 0.0f, b), modelLoc);
-		}
-		if (prevEnemyX == 0.0f)
-		{
-			prevEnemyX = currentEnemyX;
-			prevEnemyY = currentEnemyY;
-
-		}*/
 	}
 	else if (ch == 7)
 	{
@@ -1001,6 +940,16 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 		if (action == GLFW_PRESS)
 		{
 			menuKeyPressed = key;
+			if (key == CURRENT_KEY_MAP)
+			{
+				mapOn = !mapOn;
+			}
+			//mapOn = keys[CURRENT_KEY_MAP]
+			//std::cout << key <<std::endl;
+			//if (key == 77)
+			//	std::cout << "the fuck is going on???" <<std::endl;
+			//if (key == GLFW_KEY_UP)
+			//	std::cout << "the fuck is going on??? 2" <<std::endl;
 			keys[key] = true;
 		}
 		else if (action == GLFW_RELEASE)
@@ -1014,7 +963,7 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 void DoMovement()
 {
 	// Camera controls
-	if (keys[GLFW_KEY_W])
+	if (keys[77])
 	{
 		camera.ProcessKeyboard(FORWARD, deltaTime);
 	}
@@ -1144,7 +1093,7 @@ void Lib::calculateNewFrame(float prevX, float currentX, float prevY, float curr
 	{
 		if (cam)
 		{
-			//bombermanLevelBeginLib(glm::vec3((prevX + (1.0f / framesPerChar * i)), 11.0f, currentY));
+			bombermanLevelBeginLib(glm::vec3((prevX + (1.0f / framesPerChar * i)), 11.0f, currentY));
 		}
 		//DrawBlock(model, glm::vec3((prevX + (1.0f / framesPerChar * i)), 0.0f, currentY), modelLoc);
 
@@ -1177,7 +1126,7 @@ void Lib::calculateNewFrame(float prevX, float currentX, float prevY, float curr
 	{
 		if (cam)
 		{
-			//bombermanLevelBeginLib(glm::vec3((prevX - (1.0f / framesPerChar * i)), 11.0f, currentY));
+			bombermanLevelBeginLib(glm::vec3((prevX - (1.0f / framesPerChar * i)), 11.0f, currentY));
 		}
 		//DrawBlock(model, glm::vec3((prevX - (1.0f / framesPerChar * i)), 0.0f, currentY), modelLoc);
 		//model = glm::mat4();
@@ -1193,7 +1142,7 @@ void Lib::calculateNewFrame(float prevX, float currentX, float prevY, float curr
 	{
 		if (cam)
 		{
-			//bombermanLevelBeginLib(glm::vec3(currentX, 11.0f, (prevY + (1.0f / framesPerChar * i))));
+			bombermanLevelBeginLib(glm::vec3(currentX, 11.0f, (prevY + (1.0f / framesPerChar * i))));
 			//glfwSetWindowSize(window, 1280, 720);
 			//setFullscreenMode();
 		}
@@ -1211,7 +1160,7 @@ void Lib::calculateNewFrame(float prevX, float currentX, float prevY, float curr
 		if (cam)
 		{
 			//setWindowedMode();
-			//bombermanLevelBeginLib(glm::vec3(currentX, 11.0f, (prevY - (1.0f / framesPerChar * i))));
+			bombermanLevelBeginLib(glm::vec3(currentX, 11.0f, (prevY - (1.0f / framesPerChar * i))));
 		}//DrawBlock(model, glm::vec3(currentX, 0.0f, (prevY - (1.0f / framesPerChar * i))), modelLoc);
 		//model = glm::mat4();
 		model = glm::translate(model, glm::vec3(currentX, 0.0f, (prevY - (1.0f / framesPerChar * i))));

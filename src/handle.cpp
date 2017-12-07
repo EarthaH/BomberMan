@@ -71,6 +71,8 @@ void	Handle::createEnemy(int num, t_position pos)
 
 int 	Handle::checkKey(int key)
 {
+	if (key == _mapView)
+		std::cout << "the mapview was pressed" << std::endl;
 	if (key == _left || key == _right || key == _up || key == _down)
 		return (moveBomber(key));
 	if (key == _pause)

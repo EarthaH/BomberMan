@@ -805,6 +805,9 @@ void	Menu::changeKey(int key, int value)
 		std::cout << "<<<<<<<<<< CHANGING MAP ZOOM KEY !!! >>>>>>>>>>\n";
 		//Add library functions to change the key for map zoom in and out
 		//STACEY!!!
+
+		game->library->setMapKey(value);
+		game->setMapView();
 	}
 	game->library->resetMenuKey();
 }

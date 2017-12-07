@@ -33,6 +33,7 @@ class   Handle
 		static int				_down;
 		static int				_drop_bomb;
 		static int				_pause;
+		static int				_mapView;
 
 		Map					 	*map;
 		Bomber				  	*bomberman;

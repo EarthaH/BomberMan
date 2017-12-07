@@ -7,6 +7,7 @@ int			Handle::_up = 0;
 int			Handle::_down = 0;
 int			Handle::_drop_bomb = 0;
 int			Handle::_pause = 0;
+int			Handle::_mapView = 0;
 
 Game::Game() : speed(1000), enemy_movement(0), complete(false)
 {
@@ -69,6 +70,7 @@ void Game::init()
 	Handle::_right = this->library->getRightKey();
 	Handle::_pause = this->library->getPauseKey();
 	Handle::_drop_bomb = this->library->getBombKey();
+	Handle::_mapView = this->library->getMapKey();
 
 //	std::cout << std::endl << this->library->getUpKey() << std::endl;
 //	std::cout << this->library->getDownKey() << std::endl;
@@ -324,6 +326,11 @@ void Game::setDropBomb()
 void Game::setPause()
 {
 	Handle::_pause = library->getPauseKey();
+}
+
+void Game::setMapView()
+{
+	Handle::_mapView = library->getMapKey();
 }
 
 void Game::setVolume(float value)
