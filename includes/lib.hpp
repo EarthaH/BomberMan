@@ -104,7 +104,8 @@ class Lib
 	void calculateNewFrame(float prevEnemyX, float currentEnemyX, float prevEnemyY, float currentEnemyY, float i, glm::mat4 model, Model **modelToDraw, bool cam);
 	void changeEnemyPos(int prevEnemyX, int prevEnemyY, int currentEnemyX, int currentEnemyY);
 	void DrawBlock(glm::mat4 model, glm::vec3 cubePositions, Model *modelToDraw, int dir);
-	
+	void resetKeys();
+
 	float getMovementTime();
 
 	void destroy_window();

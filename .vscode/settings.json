@@ -23,6 +23,23 @@
         "sstream": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "__bit_reference": "cpp",
+        "__functional_base": "cpp",
+        "algorithm": "cpp",
+        "atomic": "cpp",
+        "bitset": "cpp",
+        "chrono": "cpp",
+        "optional": "cpp",
+        "functional": "cpp",
+        "iterator": "cpp",
+        "locale": "cpp",
+        "random": "cpp",
+        "ratio": "cpp",
+        "regex": "cpp",
+        "system_error": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "vector": "cpp"
     }
 }

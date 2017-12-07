@@ -89,6 +89,7 @@ int	Game::start()
 	std::cout << "unpause" << std::endl;
 	library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
 	gameState = 1;
+	library->resetKeys();
 
 	while (!glfwWindowShouldClose(this->library->window))
 	{
@@ -99,12 +100,14 @@ int	Game::start()
 		if ((change = loop()) == 100)
 			draw();
 		else if (change == LEVEL_UP)
-		{
+		{//!!!!!!!!!!!!!!!!
+			library->resetKeys();
 			levelUp();
 			library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
 		}
 		else if (change == LEVEL_DOWN)
-		{
+		{//!!!!!!!!!!!!!!!!
+			library->resetKeys();
 			levelDown();
 			library->bombermanLevelBeginLib(glm::vec3(((level->getHeight() - 1) / 2), level->getWidth(), ((level->getWidth() - 1) / 2)));
 		}

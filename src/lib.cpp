@@ -5,7 +5,7 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 void MouseCallback(GLFWwindow *window, double xPos, double yPos);
 void DoMovement();
 // Window dimensions
-const GLuint WIDTH = 480, HEIGHT = 270;
+GLuint WIDTH = 1152, HEIGHT = 648;
 //const GLuint WIDTH = 1024, HEIGHT = 576;
 int SCREEN_WIDTH, SCREEN_HEIGHT;
 
@@ -345,6 +345,14 @@ Lib::~Lib()
 void Lib::bombermanLevelBeginLib(glm::vec3 coordintates)
 {
 	camera.bombermanLevelBegin(coordintates);
+}
+
+void Lib::resetKeys()
+{
+	for (int i = 0; i <= 1023; i++)
+	{
+		keys[i] = false;
+	}
 }
 
 int Lib::getNumber()
@@ -1187,7 +1195,7 @@ void Lib::calculateNewFrame(float prevX, float currentX, float prevY, float curr
 		{
 			//bombermanLevelBeginLib(glm::vec3(currentX, 11.0f, (prevY + (1.0f / framesPerChar * i))));
 			//glfwSetWindowSize(window, 1280, 720);
-			setFullscreenMode();
+			//setFullscreenMode();
 		}
 		//DrawBlock(model, glm::vec3(currentX, 0.0f, (prevY + (1.0f / framesPerChar * i))), modelLoc);
 		//model = glm::mat4();
@@ -1202,7 +1210,7 @@ void Lib::calculateNewFrame(float prevX, float currentX, float prevY, float curr
 	{
 		if (cam)
 		{
-			setWindowedMode();
+			//setWindowedMode();
 			//bombermanLevelBeginLib(glm::vec3(currentX, 11.0f, (prevY - (1.0f / framesPerChar * i))));
 		}//DrawBlock(model, glm::vec3(currentX, 0.0f, (prevY - (1.0f / framesPerChar * i))), modelLoc);
 		//model = glm::mat4();
@@ -1270,56 +1278,72 @@ void	Lib::resetKeyCallback()
 void		Lib::setScreen480x270()
 {
 	glfwSetWindowSize(window, 480, 270);
+	WIDTH = 480;
+	HEIGHT = 270;
 }
 
 void		Lib::setScreen1024x576()
 {
 	glfwSetWindowSize(window, 1024, 576);
+	WIDTH = 1024;
+	HEIGHT = 576;
 }
 
 void		Lib::setScreen1152x648()
 {
 	glfwSetWindowSize(window, 1152, 648);
+	WIDTH = 1152;
+	HEIGHT = 648;
 }
 
 void		Lib::setScreen1280x720()
 {
 	glfwSetWindowSize(window, 1280, 720);
+	WIDTH = 1280;
+	HEIGHT = 720;
 }
 
 void		Lib::setScreen1366x768()
 {
 	glfwSetWindowSize(window, 1366, 768);
+	WIDTH = 1366;
+	HEIGHT = 768;
 }
 
 void		Lib::setScreen1600x900()
 {
 	glfwSetWindowSize(window, 1600, 900);
+	WIDTH = 1600;
+	HEIGHT = 900;
 }
 
 void		Lib::setScreen1920x1080()
 {
 	glfwSetWindowSize(window, 1920, 1080);
+	WIDTH = 1920;
+	HEIGHT = 1080;
 }
 
 void		Lib::setScreen2560x1440()
 {
 	glfwSetWindowSize(window, 2560, 1440);
+	WIDTH = 2560;
+	HEIGHT = 1440;
 }
 
 void		Lib::setFullscreenMode()
 {
 	fullScreenMode = true;
 	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-	glfwSetWindowMonitor(window, glfwGetPrimaryMonitor(), 0, 0, mode->width, mode->height, mode->refreshRate);
+	glfwSetWindowMonitor(window, glfwGetPrimaryMonitor(), 0, 0, WIDTH, HEIGHT, mode->refreshRate);
 }
 
 void		Lib::setWindowedMode()
 {
 	fullScreenMode = false;
-	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+	//const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 	//glfwSetWindowMonitor(window, NULL, xpos, ypos, width, height, 0);
-	glfwSetWindowMonitor(window, NULL, 0, 0, mode->width, mode->height, 0);
+	glfwSetWindowMonitor(window, NULL, 0, 0, WIDTH, HEIGHT, 0);
 }
 
 bool		Lib::isKeySet(int value)
