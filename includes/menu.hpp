@@ -16,6 +16,7 @@
 
 #define DROP_BOMB_KEY	5
 #define PAUSE_KEY		6
+#define MAP_KEY			7
 
 class	Game;
 
@@ -44,7 +45,10 @@ class Menu
 		GLFWwindow  *_win;
 		MenuState   _menuState;
 		GameState	_gameState;
+		Sound		_musicloop;
+
 		int			_game_complete;
+		float		_volume;
 
 	public:
 
@@ -70,9 +74,10 @@ class Menu
 		void		popUpKeyMenu(std::string, std::string, int);
 		void		changeCallback();
 		void		changeKey(int, int);
+		void		changeVolume(float);
 
 		GameState	menuHandler();
 		GameState	gameHandler();
-
+		
 		Game	*game;
 };

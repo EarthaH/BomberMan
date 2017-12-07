@@ -17,11 +17,14 @@ std::vector<std::string>	*files;
 
 int		Game::gameState = 0;
 
-Menu::Menu() : _menuState(MenuState::MAIN_MENU), _gameState(GameState::MENU)
+Menu::Menu() : _menuState(MenuState::MAIN_MENU), _gameState(GameState::MENU), _volume(1)
 {
 	game = new Game();
 	Game::gameState = 0;
 	_win = game->library->window;
+	_musicloop.setVolume(_volume);
+	_musicloop.initialize("res/sound/loop.wav");
+	_musicloop.play(true);
 }
 
 Menu::~Menu()
@@ -132,6 +135,8 @@ GameState	Menu::menuHandler()
 
 GameState	Menu::gameHandler()
 {
+	_musicloop.stop();
+	game->setVolume(_volume);
 	game->library->resetCallback();
 	while ((_game_complete = game->start()) == 2)
 	{
@@ -248,7 +253,7 @@ void	Menu::settingsMenu()
 
 	sound_button->setCallback([&]
 	{
-		std::cout << "Music!!!\n";
+		popUpVolume();
 	});
 
 	back_button->setCallback([&]
@@ -359,6 +364,7 @@ void	Menu::gameOverMenu()
 
 void	Menu::pausedMenu()
 {
+	_musicloop.start();
 	setCallbacks();
 	nanogui::FormHelper	*gui = new nanogui::FormHelper(screen);
 	nanogui::ref<nanogui::Window> nanoguiWindow = gui->addWindow(Eigen::Vector2i(10, 10), "Game Paused");
@@ -366,6 +372,7 @@ void	Menu::pausedMenu()
 
 	nanogui::Button	*play_button = new nanogui::Button(nanoguiWindow, "Play");
 	nanogui::Button	*save_button = new nanogui::Button(nanoguiWindow, "Save");
+	nanogui::Button	*sound_button = new nanogui::Button(nanoguiWindow, "Sound");
 	nanogui::Button	*exit_button = new nanogui::Button(nanoguiWindow, "Exit");
 
 	play_button->setCallback([&]
@@ -377,6 +384,11 @@ void	Menu::pausedMenu()
 	{
 		game->save();
 		popUpErrorMenu("SAVED", "Access saved games from Main Menu 'Load Game'\n", "OK");
+	});
+
+	sound_button->setCallback([&]
+	{
+		popUpVolume();
 	});
 
 	exit_button->setCallback([&]
@@ -400,6 +412,7 @@ void	Menu::pausedMenu()
 		_menuState = MenuState::EXIT;
 
 	nanoguiWindow->dispose();
+	_musicloop.stop();
 }
 
 void	Menu::keyMenu()
@@ -416,6 +429,7 @@ void	Menu::keyMenu()
 	nanogui::Button	*right_button = new nanogui::Button(nanoguiWindow, "Right");
 	nanogui::Button	*drop_bomb_button = new nanogui::Button(nanoguiWindow, "Drop Bomb");
 	nanogui::Button	*pause_button = new nanogui::Button(nanoguiWindow, "Pause");
+	nanogui::Button	*map_button = new nanogui::Button(nanoguiWindow, "Map Zoom");
 	nanogui::Button	*back_button = new nanogui::Button(nanoguiWindow, "Back");
 
 	up_button->setCallback([&]
@@ -446,6 +460,11 @@ void	Menu::keyMenu()
 	pause_button->setCallback([&]
 	{
 		popUpKeyMenu("Set 'PAUSE' Key", "Press any key to change 'PAUSE' key.", PAUSE_KEY);
+	});
+
+	map_button->setCallback([&]
+	{
+		popUpKeyMenu("Set 'MAP ZOOM' Key", "Press any key to change 'MAP ZOOM' key.", MAP_KEY);
 	});
 
 	back_button->setCallback([&]
@@ -610,18 +629,19 @@ void	Menu::popUpVolume()
 	tools->setLayout(new nanogui::GroupLayout);
 
 	nanogui::Slider	*slider = new nanogui::Slider(tools);
-	slider->setValue(0.5f);
+	slider->setValue(_volume);
 	slider->setFixedWidth(80);
 
 	nanogui::TextBox	*textBox = new nanogui::TextBox(tools);
 	textBox->setFixedSize(Eigen::Vector2i(60, 25));
-	textBox->setValue("50");
+	textBox->setValue(std::to_string((int)(_volume * 100)));
 	textBox->setUnits("%");
 
 	nanogui::Button	*infobutton = new nanogui::Button(tools, "OK");
 	
-	slider->setCallback([textBox](float value)
+	slider->setCallback([textBox, this](float value)
 	{
+		this->changeVolume(value);
 		textBox->setValue(std::to_string((int)(value * 100)));
 	});
 	
@@ -780,5 +800,17 @@ void	Menu::changeKey(int key, int value)
 		game->library->setPauseKey(value);
 		game->setPause();
 	}
+	else if (key == MAP_KEY)
+	{
+		std::cout << "<<<<<<<<<< CHANGING MAP ZOOM KEY !!! >>>>>>>>>>\n";
+		//Add library functions to change the key for map zoom in and out
+		//STACEY!!!
+	}
 	game->library->resetMenuKey();
+}
+
+void	Menu::changeVolume(float percent)
+{
+	_volume = percent;
+	_musicloop.setVolume(_volume);
 }

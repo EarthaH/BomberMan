@@ -325,3 +325,9 @@ void Game::setPause()
 {
 	Handle::_pause = library->getPauseKey();
 }
+
+void Game::setVolume(float value)
+{
+	handle->initSound(value);
+	gameOver.setVolume(value);
+}
