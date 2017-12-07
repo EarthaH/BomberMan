@@ -117,6 +117,9 @@ GameState	Menu::menuHandler()
 			case MenuState::KEYS :
 				keyMenu();
 				break;
+			case MenuState::RES :
+				resMenu();
+				break;
 			case MenuState::END :
 				gameOverMenu();
 				break;
@@ -226,7 +229,7 @@ void	Menu::settingsMenu()
 	
 	screen_res_button->setCallback([&]
 	{
-		std::cout << "Screen Res!!!\n";
+		_menuState = MenuState::RES;
 	});
 
 	full_screen_button->setCallback([&]
@@ -454,6 +457,93 @@ void	Menu::keyMenu()
 	nanoguiWindow->center();
 
 	while (!glfwWindowShouldClose(_win) && _menuState == MenuState::KEYS)
+	{
+		glfwPollEvents();
+		renderMenu();
+	}
+
+	if (glfwWindowShouldClose(_win))
+		_menuState = MenuState::EXIT;
+
+	nanoguiWindow->dispose();
+}
+
+void	Menu::resMenu()
+{
+	setCallbacks();
+	game->library->resetKeyCallback();
+	nanogui::FormHelper	*gui = new nanogui::FormHelper(screen);
+	nanogui::ref<nanogui::Window> nanoguiWindow = gui->addWindow(Eigen::Vector2i(10, 10), "Key Bindings");
+	nanoguiWindow->setLayout(new nanogui::GroupLayout);
+
+	nanogui::Button	*r480x270_button = new nanogui::Button(nanoguiWindow, "480 x 270");
+	nanogui::Button	*r1024x576_button = new nanogui::Button(nanoguiWindow, "1024x576");
+	nanogui::Button	*r1152x648_button = new nanogui::Button(nanoguiWindow, "1152x648");
+	nanogui::Button	*r1280x720_button = new nanogui::Button(nanoguiWindow, "1280x720");
+	nanogui::Button	*r1366x768_bomb_button = new nanogui::Button(nanoguiWindow, "1366x768");
+	nanogui::Button	*r1600x900_button = new nanogui::Button(nanoguiWindow, "1600x900");
+	nanogui::Button	*r1920x1080_button = new nanogui::Button(nanoguiWindow, "1920x1080");
+	nanogui::Button	*r2560x1440_button = new nanogui::Button(nanoguiWindow, "2560x1440");
+	nanogui::Button	*back_button = new nanogui::Button(nanoguiWindow, "Back");
+
+	r480x270_button->setCallback([&]
+	{
+		game->library->setScreen480x270();
+		_menuState = MenuState::SETTINGS;
+	});
+
+	r1024x576_button->setCallback([&]
+	{
+		game->library->setScreen1024x576();
+		_menuState = MenuState::SETTINGS;
+	});
+
+	r1152x648_button->setCallback([&]
+	{
+		game->library->setScreen1152x648();
+		_menuState = MenuState::SETTINGS;
+	});
+
+	r1280x720_button->setCallback([&]
+	{
+		game->library->setScreen1280x720();
+		_menuState = MenuState::SETTINGS;
+	});
+
+	r1366x768_bomb_button->setCallback([&]
+	{
+		game->library->setScreen1366x768();
+		_menuState = MenuState::SETTINGS;
+	});
+
+	r1600x900_button->setCallback([&]
+	{
+		game->library->setScreen1600x900();
+		_menuState = MenuState::SETTINGS;
+	});
+
+	r1920x1080_button->setCallback([&]
+	{
+		game->library->setScreen1920x1080();
+		_menuState = MenuState::SETTINGS;
+	});
+
+	r2560x1440_button->setCallback([&]
+	{
+		game->library->setScreen2560x1440();
+		_menuState = MenuState::SETTINGS;
+	});
+
+	back_button->setCallback([&]
+	{
+		_menuState = MenuState::SETTINGS;
+	});
+
+	screen->setVisible(1);
+	screen->performLayout();
+	nanoguiWindow->center();
+
+	while (!glfwWindowShouldClose(_win) && _menuState == MenuState::RES)
 	{
 		glfwPollEvents();
 		renderMenu();
